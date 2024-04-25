@@ -83,3 +83,8 @@ export default {
 };
 </script>
 
+<style scoped>
+input{
+  margin-bottom: 8px;
+}
+</style>
