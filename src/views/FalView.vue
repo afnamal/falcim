@@ -11,7 +11,7 @@
 
       <button @click="sendMessage" :disabled="!buttonActive" :class="{'disable': !buttonActive}" class="button">Falına Bak</button>
     </div>
-    <div v-if="loading">
+    <div v-if="loading" class="loading-c">
       <LoadingSpinner />
     </div>
     <div class="container" v-if="messages.length > 0">
@@ -128,5 +128,8 @@ img {
 }
 .file-upload-label{
   cursor: pointer;
+}
+.loading-c{
+  margin-top: -80px;
 }
 </style>
