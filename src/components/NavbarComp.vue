@@ -2,11 +2,11 @@
   <nav v-if="user">
     <!-- Değiştirilmiş input alanı -->
     <label for="file-upload">
-      <img :src=user.photoURL alt="Profil Fotoğrafı" class="profil" @click="triggerFileInput" v-if="user.photoURL">
-      <img src="../assets/defaultpp1.jpg" alt="Profil Fotoğrafı" class="profil" @click="triggerFileInput" v-else>
+  <img :src="user.photoURL" alt="Profil Fotoğrafı" class="profil" v-if="user.photoURL">
+  <img src="../assets/fal-logo4.png" alt="Profil Fotoğrafı" class="profil" v-else>
+</label>
+<input id="file-upload" type="file" accept="image/*" style="display: none" @change="handleFileChange">
 
-    </label>
-    <input id="file-upload" type="file" accept="image/*" style="display: none" @change="handleFileChange" >
 
     <div class="hiuser">
       <p>Merhaba {{ user.displayName }}</p>
@@ -62,9 +62,10 @@ export default {
     }
 
     // Dosya seçme işlemini tetiklemek için
-    const triggerFileInput = () => {
-      document.getElementById('file-upload').click();
-    }
+    const triggerFileInput = (event) => {
+  event.stopPropagation(); // Olay yayılmasını durdur
+  document.getElementById('file-upload').click();
+}
 
     return { error, handleClick, user, handleFileChange, triggerFileInput };
   }
