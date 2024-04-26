@@ -48,6 +48,7 @@ nav {
 }
 span{
   cursor: pointer;
+  text-decoration: none;
 }
 .navbar-menu ul {
   list-style: none;
