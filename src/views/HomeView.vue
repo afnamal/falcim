@@ -40,37 +40,7 @@ export default {
 
 <style>
 /* Your styles here */
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative; /* Needed to position the menu absolutely with respect to the navbar */
-}
-span{
-  cursor: pointer;
-  text-decoration: none;
-}
-.navbar-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0; /* Remove default margin */
-}
 
-.navbar-menu li {
-  margin-right: 20px; /* Adjust spacing between links */
-  padding: 10px 20px; /* Padding for clickable area */
-  cursor: pointer;
-}
-li::marker {
-  color: black;
-}
-.navbar-menu li:last-child {
-  margin-right: 0; /* Remove margin for the last item */
-}
-
-.logo {
-  max-width: 45px;
-}
 
 header img {
   width: 105%;
@@ -96,10 +66,7 @@ header img {
   margin: 20px;
   text-align: center;
 }
-a{
-  text-decoration: none;
-  color: black;
-}
+
 
 
 </style>
