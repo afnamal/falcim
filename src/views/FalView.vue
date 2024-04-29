@@ -7,8 +7,8 @@
         <img src="../assets/den.png" alt="Fincan Fotoğrafı Yükle"/>
       </label>
       <input id="file-upload2" type="file" @change="handleFileUpload($event)" style="display: none;" />
+      <p v-if="photoLoading">Fotoğraf analiz ediliyor...</p>
       <p v-if="messages.length < 1">{{ photoUploadedText }}</p>
-
       <button @click="sendMessage" :disabled="!buttonActive" :class="{'disable': !buttonActive}" class="button">Falına Bak</button>
     </div>
     <div v-if="loading" class="loading-c">
@@ -22,6 +22,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';
@@ -44,13 +45,14 @@ export default {
     const photoUploadedText = ref('');
     const loading = ref(false); // Add a new data property for loading state
     const modelUrl = ref("https://teachablemachine.withgoogle.com/models/9F8M8zkGa/");
+    const photoLoading = ref(false); // New loading state for photo analysis
     let model;
 
     async function loadModel() {
       loading.value = true;
       try {
         model = await tmImage.load(modelUrl.value + "model.json", modelUrl.value + "metadata.json");
-        console.log("Model yüklendi!", model);
+        console.log("Model loaded!", model);
       } catch (error) {
         console.error("Failed to load the model:", error);
         photoUploadedText.value = 'Model yüklenirken bir hata oluştu.';
@@ -58,20 +60,20 @@ export default {
         loading.value = false;
       }
     }
-
     const handleFileUpload = async (event) => {
       const file = event.target.files[0];
       if (file) {
+        photoLoading.value = true; // Start photo loading
         newUrl.value = URL.createObjectURL(file);
         photoUploadedText.value = 'Fotoğraf yükleniyor...';
         const imageUrl = URL.createObjectURL(file);
         const imageElement = new Image();
         imageElement.src = imageUrl;
         imageElement.onload = async () => {
-          // Check if the model is loaded
           if (!model) {
             console.error('Model is not loaded yet.');
             photoUploadedText.value = 'Model henüz yüklenmedi. Lütfen tekrar deneyin.';
+            photoLoading.value = false; // End photo loading
             return;
           }
 
@@ -84,9 +86,13 @@ export default {
             photoUploadedText.value = 'Fal okunamıyor. Lütfen daha net fotoğraf çekin.';
             buttonActive.value = false;
           }
+          photoLoading.value = false; // End photo loading
         };
       }
     };
+    onMounted(async () => {
+      await loadModel();
+    });
 
     const sendMessage = async () => {
       loading.value = true; // Set loading to true before making the API call
@@ -118,9 +124,7 @@ export default {
         loading.value = false; // Set loading back to false after receiving the response
       }
     };
-    onMounted(async () => {
-      await loadModel();
-    });
+    
     onMounted(() => {
       const auth = getAuth();
       const db = getFirestore();
