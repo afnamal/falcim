@@ -2,8 +2,8 @@
   <div>
     <NavbarComp />
     <div class="container">
-      <img v-if="newUrl &&buttonActive" :src="newUrl" alt="">
-      <label v-if="!buttonActive " for="file-upload2" class="file-upload-label">
+      <img v-if="newUrl && buttonActive" :src="newUrl" alt="">
+      <label v-if="!buttonActive" for="file-upload2" class="file-upload-label">
         <img src="../assets/den.png" alt="Fincan Fotoğrafı Yükle"/>
       </label>
       <input id="file-upload2" type="file" @change="handleFileUpload($event)" style="display: none;" />
@@ -13,13 +13,13 @@
     </div>
     <div v-if="loading" class="loading-c">
       <LoadingSpinner />
+      <p>Loading...</p>
     </div>
     <div class="container" v-if="messages.length > 0">
       <div v-for="(msg, index) in messages" :key="index">
         <p>{{ msg.text }}</p>
       </div>
     </div>
-   
   </div>
 </template>
 
@@ -32,9 +32,8 @@ import NavbarComp from '@/components/NavbarComp.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue'; // Import the loading spinner component
 import * as tmImage from '@teachablemachine/image';
 
-
 export default {
-  components: { NavbarComp,LoadingSpinner },
+  components: { NavbarComp, LoadingSpinner },
   setup() {
     const userName = ref('');
     const userLocation = ref('');
@@ -48,38 +47,46 @@ export default {
     let model;
 
     async function loadModel() {
-    model = await tmImage.load(modelUrl.value + "model.json", modelUrl.value + "metadata.json");
-    console.log("Model yüklendi!", model);
-  }
-
-  const handleFileUpload = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      newUrl.value = URL.createObjectURL(file);
-      photoUploadedText.value = 'Fotoğraf yükleniyor...';
-      const imageUrl = URL.createObjectURL(file);
-      const imageElement = new Image();
-      imageElement.src = imageUrl;
-      imageElement.onload = async () => {
-        // Check if the model is loaded
-        if (!model) {
-          console.error('Model is not loaded yet.');
-          photoUploadedText.value = 'Model henüz yüklenmedi. Lütfen tekrar deneyin.';
-          return;
-        }
-
-        const predictions = await model.predict(imageElement);
-        const cupProbability = predictions.find(p => p.className === 'fincan').probability;
-        if (cupProbability > 0.5) {
-          photoUploadedText.value = 'Falınıza bakabilirsiniz!';
-          buttonActive.value = true;
-        } else {
-          photoUploadedText.value = 'Fal okunamıyor. Lütfen daha net fotoğraf çekin.';
-          buttonActive.value = false;
-        }
-      };
+      loading.value = true;
+      try {
+        model = await tmImage.load(modelUrl.value + "model.json", modelUrl.value + "metadata.json");
+        console.log("Model yüklendi!", model);
+      } catch (error) {
+        console.error("Failed to load the model:", error);
+        photoUploadedText.value = 'Model yüklenirken bir hata oluştu.';
+      } finally {
+        loading.value = false;
+      }
     }
-  };
+
+    const handleFileUpload = async (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        newUrl.value = URL.createObjectURL(file);
+        photoUploadedText.value = 'Fotoğraf yükleniyor...';
+        const imageUrl = URL.createObjectURL(file);
+        const imageElement = new Image();
+        imageElement.src = imageUrl;
+        imageElement.onload = async () => {
+          // Check if the model is loaded
+          if (!model) {
+            console.error('Model is not loaded yet.');
+            photoUploadedText.value = 'Model henüz yüklenmedi. Lütfen tekrar deneyin.';
+            return;
+          }
+
+          const predictions = await model.predict(imageElement);
+          const cupProbability = predictions.find(p => p.className === 'fincan').probability;
+          if (cupProbability > 0.5) {
+            photoUploadedText.value = 'Falınıza bakabilirsiniz!';
+            buttonActive.value = true;
+          } else {
+            photoUploadedText.value = 'Fal okunamıyor. Lütfen daha net fotoğraf çekin.';
+            buttonActive.value = false;
+          }
+        };
+      }
+    };
 
     const sendMessage = async () => {
       loading.value = true; // Set loading to true before making the API call
@@ -112,9 +119,8 @@ export default {
       }
     };
     onMounted(async () => {
-    const model = await loadModel();
-    console.log("Model yüklendi!", model);
-  });
+      await loadModel();
+    });
     onMounted(() => {
       const auth = getAuth();
       const db = getFirestore();
