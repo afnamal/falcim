@@ -40,4 +40,5 @@ export default {
 .kosullar{
   padding: 20px;
 }
+
 </style>

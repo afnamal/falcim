@@ -43,7 +43,7 @@ export default {
 
 
 header img {
-  width: 105%;
+  width: 101%;
   height: 300px;
   object-fit: cover;
   display: block;

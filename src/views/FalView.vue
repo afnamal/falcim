@@ -2,8 +2,8 @@
   <div>
     <NavbarComp />
     <div class="container">
-      <img v-if="newUrl" :src="newUrl" alt="">
-      <label v-if="!buttonActive &&!newUrl" for="file-upload2" class="file-upload-label">
+      <img v-if="newUrl &&buttonActive" :src="newUrl" alt="">
+      <label v-if="!buttonActive " for="file-upload2" class="file-upload-label">
         <img src="../assets/den.png" alt="Fincan Fotoğrafı Yükle"/>
       </label>
       <input id="file-upload2" type="file" @change="handleFileUpload($event)" style="display: none;" />
@@ -30,6 +30,8 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { ref, onMounted } from 'vue';
 import NavbarComp from '@/components/NavbarComp.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue'; // Import the loading spinner component
+import * as tmImage from '@teachablemachine/image';
+
 
 export default {
   components: { NavbarComp,LoadingSpinner },
@@ -42,15 +44,42 @@ export default {
     const newUrl = ref(null);
     const photoUploadedText = ref('');
     const loading = ref(false); // Add a new data property for loading state
+    const modelUrl = ref("https://teachablemachine.withgoogle.com/models/9F8M8zkGa/");
+    let model;
 
-    const handleFileUpload = (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        photoUploadedText.value = 'Fotoğraf yüklendi, falınıza baktırabilirsiniz.';
-        buttonActive.value = true;
-        newUrl.value = URL.createObjectURL(file);
-      }
-    };
+    async function loadModel() {
+    model = await tmImage.load(modelUrl.value + "model.json", modelUrl.value + "metadata.json");
+    console.log("Model yüklendi!", model);
+  }
+
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      newUrl.value = URL.createObjectURL(file);
+      photoUploadedText.value = 'Fotoğraf yükleniyor...';
+      const imageUrl = URL.createObjectURL(file);
+      const imageElement = new Image();
+      imageElement.src = imageUrl;
+      imageElement.onload = async () => {
+        // Check if the model is loaded
+        if (!model) {
+          console.error('Model is not loaded yet.');
+          photoUploadedText.value = 'Model henüz yüklenmedi. Lütfen tekrar deneyin.';
+          return;
+        }
+
+        const predictions = await model.predict(imageElement);
+        const cupProbability = predictions.find(p => p.className === 'fincan').probability;
+        if (cupProbability > 0.5) {
+          photoUploadedText.value = 'Falınıza bakabilirsiniz!';
+          buttonActive.value = true;
+        } else {
+          photoUploadedText.value = 'Fal okunamıyor. Lütfen daha net fotoğraf çekin.';
+          buttonActive.value = false;
+        }
+      };
+    }
+  };
 
     const sendMessage = async () => {
       loading.value = true; // Set loading to true before making the API call
@@ -82,7 +111,10 @@ export default {
         loading.value = false; // Set loading back to false after receiving the response
       }
     };
-
+    onMounted(async () => {
+    const model = await loadModel();
+    console.log("Model yüklendi!", model);
+  });
     onMounted(() => {
       const auth = getAuth();
       const db = getFirestore();
