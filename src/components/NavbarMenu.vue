@@ -52,9 +52,16 @@ export default {
 </script>
 
 <style>
-.navbar-menu{
-  background-color: white; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: absolute; right: 0; top: 60px;
+.navbar-menu {
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  position: absolute;
+  right: 0;
+  top: 60px;
+  z-index: 1000; /* Z-index değeri eklendi */
 }
+
 .logo{
     cursor: pointer;
     border-radius: 30%;

@@ -10,17 +10,17 @@
 
     <!-- Features Section -->
     <section class="features">
-      <div class="feature-item">
+      <div class="feature-item" @click="pushLogin">
         <img src="https://www.kaavefali.com/bs/img/step_01.png" alt="Feature 1" />
         <p>Fincanının
 fotoğraflarını çek</p>
       </div>
-      <div class="feature-item">
+      <div class="feature-item" @click="pushLogin">
         <img src="https://www.kaavefali.com/bs/img/step_02.png" alt="Feature 2" />
         <p>Bilgilerini
 kolayca gir</p>
       </div>
-      <div class="feature-item">
+      <div class="feature-item" @click="pushLogin">
         <img src="https://www.kaavefali.com/bs/img/step_03.png" alt="Feature 3" />
         <p>Yorumcun anında yorumlasın</p>
       </div>
@@ -31,9 +31,20 @@ kolayca gir</p>
 <script>
 import navbarMenu from '../components/NavbarMenu.vue'
 import carousel from '../components/CarouselComp.vue'
+import { useRouter } from 'vue-router';
+
 export default {
   name: 'HomeView',
   components: {navbarMenu,carousel},
+  setup() {
+    const router = useRouter()
+
+    const pushLogin =()=>{
+      router.push('/login')
+    };
+
+    return {pushLogin}
+  }
   
 };
 </script>
