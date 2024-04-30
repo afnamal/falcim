@@ -12,9 +12,9 @@
       <!-- Navbar links/tabs -->
       <div class="navbar-menu" v-if="menuVisible" >
   <ul>
-    <li @click="pushLogin">Fal Bak</li>
-    <li @click="pushKullanim">Kullanım Şartları</li>
-    <li>Yardım</li>
+    <li @click="pushLogin">  <span class="material-icons">local_cafe</span>Fal Bak</li>
+    <li @click="pushKullanim"> <span class="material-icons">description</span>Kullanım Şartları </li>
+    <li> <span class="material-icons">help</span>Yardım </li>
   </ul>
 </div>
 
@@ -77,6 +77,10 @@ nav {
 span{
   cursor: pointer;
   text-decoration: none;
+  
+}
+ul span {
+  margin-right: 15px;
 }
 .navbar-menu ul {
   list-style: none;
@@ -85,9 +89,12 @@ span{
 }
 
 .navbar-menu li {
-  margin-right: 20px; /* Adjust spacing between links */
-  padding: 10px 20px; /* Padding for clickable area */
+  display: flex;
+  align-items: center; /* Dikey hizalamayı ortala */
+  margin-right: 20px; /* Sağdaki boşluk */
+  padding: 10px 20px; /* Tıklanabilir alan */
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Animasyon */
 }
 li::marker {
   color: black;
@@ -114,7 +121,7 @@ li::marker {
 
 .navbar-menu li:hover {
   background-color: #F0F0F0; /* Hover durumunda arka plan rengi */
-  color: #333333; /* Hover durumunda yazı rengi */
+  color: #463434; /* Hover durumunda yazı rengi */
 }
 
 .menu-icon {
