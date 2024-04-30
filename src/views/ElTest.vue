@@ -5,7 +5,7 @@
     <div class="container">
       <img v-if="buttonActive" :src="newUrl" alt="">
       <label v-if="!buttonActive " for="file-upload2" class="file-upload-label">
-        <img src="../assets/den.png" alt="Fincan Fotoğrafı Yükle"/>
+        <img src="../assets/elinizi.png" alt="Fincan Fotoğrafı Yükle"/>
       </label>
       <input id="file-upload2" type="file" @change="handleFileUpload($event)" style="display: none;" />
       <p v-if="messages.length < 1">{{ photoUploadedText }}</p>
@@ -35,9 +35,8 @@ import * as tmImage from '@teachablemachine/image';
 import NavbarOrg from '../components/NavbarOrg.vue'
 
 
-
 export default {
-  components: { NavbarComp,LoadingSpinner, NavbarOrg},
+  components: { NavbarComp,LoadingSpinner,NavbarOrg },
   setup() {
     const userName = ref('');
     const userLocation = ref('');
@@ -47,7 +46,7 @@ export default {
     const newUrl = ref(null);
     const photoUploadedText = ref('');
     const loading = ref(false); // Add a new data property for loading state
-    const modelUrl = ref("https://teachablemachine.withgoogle.com/models/9F8M8zkGa/");
+    const modelUrl = ref("https://teachablemachine.withgoogle.com/models/sZdvGcSjR/");
     let model;
 
     async function loadModel() {
@@ -72,12 +71,12 @@ export default {
         }
 
         const predictions = await model.predict(imageElement);
-        const cupProbability = predictions.find(p => p.className === 'fincan').probability;
+        const cupProbability = predictions.find(p => p.className === 'el').probability;
         if (cupProbability > 0.5) {
           photoUploadedText.value = 'Falınıza bakabilirsiniz!';
           buttonActive.value = true;
         } else {
-          photoUploadedText.value = 'Fal okunamıyor. Lütfen daha net fotoğraf çekin.';
+          photoUploadedText.value = 'El algılanamadı. Lütfen daha net fotoğraf çekin.';
           buttonActive.value = false;
         }
       };
@@ -90,10 +89,10 @@ export default {
       const postData = {
         model: 'gpt-3.5-turbo',
         messages: [
-          { role: 'system', content: 'sen falcı ablasın sadece kahve falı bakarsın soru sormazsın.' },
+          { role: 'system', content: 'sen falcı ablasın sadece el falı bakarsın soru sormazsın.' },
           {
             role: 'user',
-            content: `Adım ${userName.value}, ${userLocation.value} şehrindenim ve doğum tarihim ${userBirthDate.value}. kahve falıma bakmanı istiyorum. önünde bir fincan varmış gibi yorumla. gerçek bir falcı gibi cümleler kur. yaşadığım yere yaşıma göre tahminlerde bulun.`,
+            content: `Adım ${userName.value}, ${userLocation.value} şehrindenim ve doğum tarihim ${userBirthDate.value}. el falıma bakmanı istiyorum. önünde benim elim varmış gibi yorumla. gerçek bir falcı gibi cümleler kur. yaşadığım yere yaşıma göre tahminlerde bulun.`,
           },
         ],
       };
@@ -141,38 +140,37 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
-  input {
-    margin-bottom: 8px;
-    display: block;
-  }
-  button {
-    margin-top: 8px;
-  }
-  label {
-    cursor: pointer;
-  }
-  .disable {
-    opacity: 35%;
-    cursor: not-allowed;
-  }
-  img {
-    max-width: 250px;
-    border-radius: 20%;
-  }
-  .file-upload-label{
-    cursor: pointer;
-  }
-  .loading-c{
-    margin-top: -80px;
-  }
-  .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Yatay olarak ortala */
-  justify-content: center; /* Dikey olarak ortala */
-  min-height: 100vh; /* Ekranın tam ortasına gelmesi için */
-}
 
-  </style> 
+<style scoped>
+input {
+  margin-bottom: 8px;
+  display: block;
+}
+button {
+  margin-top: 8px;
+}
+label {
+  cursor: pointer;
+}
+.disable {
+  opacity: 35%;
+  cursor: not-allowed;
+}
+img {
+  max-width: 250px;
+  border-radius: 20%;
+}
+.file-upload-label{
+  cursor: pointer;
+}
+.loading-c{
+  margin-top: -80px;
+}
+.container {
+display: flex;
+flex-direction: column;
+align-items: center; /* Yatay olarak ortala */
+justify-content: center; /* Dikey olarak ortala */
+min-height: 100vh; /* Ekranın tam ortasına gelmesi için */
+}
+</style> 
