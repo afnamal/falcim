@@ -164,4 +164,4 @@ img {
 .loading-c{
   margin-top: -80px;
 }
-</style>
+</style> 
