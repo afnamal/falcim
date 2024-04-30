@@ -5,7 +5,7 @@
 
     <!-- Main Header Image -->
     <header>
-      <img src="https://www.kaavefali.com/bs/img/top_back_01.jpg" alt="Header Background" />
+      <carousel/>
     </header>
 
     <!-- Features Section -->
@@ -30,9 +30,10 @@ kolayca gir</p>
 
 <script>
 import navbarMenu from '../components/NavbarMenu.vue'
+import carousel from '../components/CarouselComp.vue'
 export default {
   name: 'HomeView',
-  components: {navbarMenu},
+  components: {navbarMenu,carousel},
   
 };
 </script>
@@ -65,6 +66,24 @@ header img {
   min-width: 250px;
   margin: 20px;
   text-align: center;
+}
+/* Hover Efekti için */
+.feature-item:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Paralaks Efekti için */
+header {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Tipografi için */
+body {
+  font-family: 'Arial', sans-serif;
 }
 
 
