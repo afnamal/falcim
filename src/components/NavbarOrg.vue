@@ -1,7 +1,7 @@
 <template>
   <div>
   <nav class="main-nav">
-    <router-link :to="{ name: 'FalView' }">Kahve Falu</router-link>
+    <router-link :to="{ name: 'FalView' }">Kahve Falı</router-link>
     <router-link :to="{ name: 'eltest' }">El Falı</router-link>
   </nav>
 </div>

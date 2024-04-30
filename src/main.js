@@ -11,6 +11,18 @@ const app = createApp(App);
 app.config.globalProperties.$tf = tf;
 app.config.globalProperties.$tmImage = tmImage;
 
-projectAuth.onAuthStateChanged(() => {
-    app.use(router).mount('#app');
+// Router ve App monte işlemlerini her durumda yap
+app.use(router);
+
+projectAuth.onAuthStateChanged(user => {
+  if (user) {
+    // Kullanıcı giriş yapmışsa, uygulama içindeki kullanıcıya özel içerikler güncellenebilir.
+    console.log('Kullanıcı giriş yaptı:', user);
+  } else {
+    // Kullanıcı çıkış yapmışsa veya giriş yapmamışsa, uygulama genel içerikle devam eder.
+    console.log('Kullanıcı girişi yok veya çıkış yapıldı.');
+  }
 });
+
+// Uygulamayı her durumda monte et
+app.mount('#app');

@@ -104,7 +104,7 @@ export default {
       };
       try {
         const response = await axios.post('https://api.openai.com/v1/chat/completions', postData, config);
-        const botReply = 'Kahve Falı: ' + response.data.choices[0].message.content;
+        const botReply = 'El Falı: ' + response.data.choices[0].message.content;
         messages.value.push({ text: botReply, type: 'bot' });
       } catch (error) {
         console.error('Error sending message:', error);
