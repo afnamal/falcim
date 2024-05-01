@@ -5,6 +5,8 @@ import './assets/main.css';
 import { projectAuth } from './firebase';
 import * as tf from '@tensorflow/tfjs';
 import * as tmImage from '@teachablemachine/image';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 // Make TensorFlow.js and Teachable Machine libraries available globally
 const app = createApp(App);
