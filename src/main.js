@@ -6,8 +6,7 @@ import { projectAuth } from './firebase';
 import * as tf from '@tensorflow/tfjs';
 import * as tmImage from '@teachablemachine/image';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+
 
 
 
