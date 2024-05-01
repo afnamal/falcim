@@ -9,7 +9,7 @@
           <img src="../assets/den.png" alt="Fincan Fotoğrafı Yükle"/>
         </label>
         <input id="file-upload2" type="file" @change="handleFileUpload($event)" style="display: none;" />
-        <p v-if="messages.length < 1">{{ photoUploadedText }}</p>
+        <p >{{ photoUploadedText }}</p>
         <button @click="sendMessage" :disabled="!buttonActive" :class="{'disable': !buttonActive}" class="button">Falına Bak</button>
       </div>
       <div class="chat-container">
@@ -175,7 +175,16 @@ body {
   color: #333;
   background-color: #f5f5f7;
 }
-
+.upload-container {
+  flex: 1;
+  min-width: 300px; /* Her konteyner için minimum genişlik */
+  padding: 20px;
+  max-width: 50%; /* Upload container maksimum genişliği */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* İçeriği yatay olarak ortalar */
+  justify-content: center; /* İçeriği dikey olarak ortalar */
+}
 .main-container {
   display: flex;
 

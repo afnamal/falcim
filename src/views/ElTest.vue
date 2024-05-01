@@ -1,34 +1,37 @@
 <template>
   <div>
     <NavbarComp />
-    <NavbarOrg/>
-    <div class="container">
-      <img v-if="buttonActive" :src="newUrl" alt="">
-      <label v-if="!buttonActive " for="file-upload2" class="file-upload-label">
-        <img src="../assets/elinizi.png" alt="Fincan Fotoğrafı Yükle"/>
-      </label>
-      <input id="file-upload2" type="file" @change="handleFileUpload($event)" style="display: none;" />
-      <p v-if="messages.length < 1">{{ photoUploadedText }}</p>
-
-      <button @click="sendMessage" :disabled="!buttonActive" :class="{'disable': !buttonActive}" class="button">Falına Bak</button>
-    </div>
-    <div v-if="loading" class="loading-c">
-      <LoadingSpinner />
-    </div>
-    <div class="container" v-if="messages.length > 0">
-      <div v-for="(msg, index) in messages" :key="index">
-        <p>{{ msg.text }}</p>
+    <NavbarOrg />
+    <div class="main-container">
+      <div class="upload-container">
+        <img v-if="buttonActive" :src="newUrl" alt="Uploaded Hand Image">
+        <label v-if="!buttonActive" for="file-upload2" class="file-upload-label">
+          <img src="../assets/elinizi.png" alt="Hand Image Upload"/>
+        </label>
+        <input id="file-upload2" type="file" @change="handleFileUpload($event)" style="display: none;" />
+        <p>{{ photoUploadedText }}</p>
+        <button @click="sendMessage" :disabled="!buttonActive" :class="{'disable': !buttonActive}" class="button">El Falına Bak</button>
+      </div>
+      <div class="chat-container">
+        <div v-if="loading" class="loading-c">
+          <LoadingSpinner />
+        </div>
+        <div v-if="messages.length > 0">
+          <div v-for="(msg, index) in messages" :key="index">
+            <p>{{ msg.text }}</p>
+          </div>
+        </div>
       </div>
     </div>
-   
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,watch } from 'vue';
 import NavbarComp from '@/components/NavbarComp.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue'; // Import the loading spinner component
 import * as tmImage from '@teachablemachine/image';
@@ -53,6 +56,30 @@ export default {
     model = await tmImage.load(modelUrl.value + "model.json", modelUrl.value + "metadata.json");
     console.log("Model yüklendi!", model);
   }
+  function typeMessage(newMessage) {
+    if (!buttonActive.value) {  // Sadece buton aktif değilse mesajı yazdır
+        let fullText = newMessage.content;
+        let currentChar = 0;
+        messages.value.push({ text: '', type: newMessage.type });
+        const interval = setInterval(() => {
+          if (currentChar < fullText.length) {
+            messages.value[messages.value.length - 1].text += fullText[currentChar++];
+          } else {
+            clearInterval(interval);
+          }
+        }, 50);
+      }
+    }
+    watch(buttonActive, (newVal) => {
+      if (newVal) {
+        // Buton aktif olduğunda, başlangıç mesajını kaldır
+        messages.value = messages.value.filter(msg => msg.type !== 'bot');
+      }
+    });
+    onMounted(() => {
+      typeMessage({ type: 'bot', content: 'Merhaba, falınıza bakmam için lütfen fotoğraf yükleyin?' });
+    });
+
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
@@ -142,35 +169,99 @@ export default {
 </script>
 
 <style scoped>
-input {
-  margin-bottom: 8px;
-  display: block;
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  background-color: #f5f5f7;
 }
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.upload-container, .chat-container {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  width: 90%;
+  max-width: 600px;
+}
+
 button {
-  margin-top: 8px;
-}
-label {
+  background-color: #007BFF;
+  color: #ffffff;
+  border: none;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
-.disable {
-  opacity: 35%;
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button.disable {
+  opacity: 0.5;
   cursor: not-allowed;
 }
+
 img {
-  max-width: 250px;
-  border-radius: 20%;
+  max-width: 100%;
+  max-height: 300px;
+  height: auto;
+  border-radius: 5px;
+  object-fit: contain;
 }
-.file-upload-label{
+
+.file-upload-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
-.loading-c{
-  margin-top: -80px;
+
+.file-upload-label:hover {
+  background-color: #0056b3;
 }
-.container {
-display: flex;
-flex-direction: column;
-align-items: center; /* Yatay olarak ortala */
-justify-content: center; /* Dikey olarak ortala */
-min-height: 100vh; /* Ekranın tam ortasına gelmesi için */
+
+.loading-c {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-</style> 
+
+input, label {
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+input[type="file"] {
+  display: none;
+}
+</style>
