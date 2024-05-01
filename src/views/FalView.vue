@@ -9,7 +9,7 @@
           <img src="../assets/den.png" alt="Fincan Fotoğrafı Yükle"/>
         </label>
         <input id="file-upload2" type="file" @change="handleFileUpload($event)" style="display: none;" />
-        <p >{{ photoUploadedText }}</p>
+        <p>{{ photoUploadedText }}</p>
         <button @click="sendMessage" :disabled="!buttonActive" :class="{'disable': !buttonActive}" class="button">Falına Bak</button>
       </div>
       <div class="chat-container">
@@ -31,12 +31,11 @@
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,watch } from 'vue';
 import NavbarComp from '@/components/NavbarComp.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue'; // Import the loading spinner component
 import * as tmImage from '@teachablemachine/image';
 import NavbarOrg from '../components/NavbarOrg.vue'
-import { watch } from 'vue';
 
 
 
@@ -53,6 +52,7 @@ export default {
     const loading = ref(false); // Add a new data property for loading state
     const modelUrl = ref("https://teachablemachine.withgoogle.com/models/9F8M8zkGa/");
     let model;
+    const typingDelay = 50; // 50 milisaniye bekletme süresi
 
     async function loadModel() {
     model = await tmImage.load(modelUrl.value + "model.json", modelUrl.value + "metadata.json");
@@ -79,7 +79,7 @@ export default {
       }
     });
     onMounted(() => {
-      typeMessage({ type: 'bot', content: 'Merhaba, falınıza bakmam için lütfen fotoğraf yükleyin?' });
+      typeMessage({ type: 'bot', content: 'Merhaba, falınıza bakmam için lütfen fotoğraf yükleyin' });
     });
 
   const handleFileUpload = async (event) => {
@@ -175,35 +175,23 @@ body {
   color: #333;
   background-color: #f5f5f7;
 }
-.upload-container {
-  flex: 1;
-  min-width: 300px; /* Her konteyner için minimum genişlik */
-  padding: 20px;
-  max-width: 50%; /* Upload container maksimum genişliği */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* İçeriği yatay olarak ortalar */
-  justify-content: center; /* İçeriği dikey olarak ortalar */
-}
+
 .main-container {
   display: flex;
-
   justify-content: center;
   align-items: start;
   padding: 20px;
-  flex-wrap: wrap; /* İçerik fazla büyüdüğünde alt alta geçmesini sağlar */
+  flex-wrap: wrap;
 }
 
 .upload-container, .chat-container {
   flex: 1;
-  min-width: 300px; /* Her konteyner için minimum genişlik */
+  min-width: 300px;
   padding: 20px;
-}
-.chat-container {
-  flex: 1;
-  min-width: 300px; /* Her konteyner için minimum genişlik */
-  padding: 20px;
-  max-width: 50%; /* Chat container maksimum genişliği */
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .container {
@@ -214,45 +202,39 @@ body {
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  width: 100%;
+  padding: 20px;
+  margin: 20px;
+  width: 90%;
   max-width: 600px;
 }
 
 button {
-  background-color: #007BFF; /* Parlak mavi renk */
-  color: #ffffff; /* Beyaz yazı rengi */
-  border: none; /* Kenarlık kaldırıldı */
-  padding: 12px 25px; /* Daha geniş padding */
-  font-size: 18px; /* Daha büyük yazı tipi boyutu */
-  font-weight: 600; /* Yazı kalınlığı */
-  border-radius: 8px; /* Daha yuvarlak köşeler */
+  background-color: #007BFF;
+  color: #ffffff;
+  border: none;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s; /* Geçiş efektlerini yumuşatır */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hafif bir gölge ekler */
-  outline: none; /* Focus durumunda dış çizgiyi kaldırır */
+  transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #0056b3; /* Mouse üzerine gelince koyu mavi */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Gölgeleri artırarak daha derin bir efekt */
-}
-
-button:active {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Aktifken basılmış efekt */
-  transform: translateY(2px); /* Hafif aşağı itme efekti */
+  background-color: #0056b3;
 }
 
 button.disable {
-  opacity: 0.5; /* Pasif durumda daha soluk */
-  cursor: not-allowed; /* Pasif durumda farklı imleç */
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 img {
-  max-width: 100%; /* İmajın container'a göre %100 genişlikte olması */
-  max-height: 300px; /* İmajın maksimum yüksekliğini sınırla */
-  height: auto; /* Yükseklik otomatik ayarlanacak */
-  border-radius: 5px; /* Köşeleri yuvarlak */
-  object-fit: contain; /* Fotoğrafın orantılı bir şekilde sığdırılması */
+  max-width: 100%;
+  max-height: 300px;
+  height: auto;
+  border-radius: 5px;
+  object-fit: contain;
 }
 
 .file-upload-label {

@@ -28,9 +28,9 @@ export default {
   font-size: 18px;
 }
 a.router-link-active {
-  border-bottom: 2px solid #76dd78; /* Aktif bağlantıyı vurgular */
+  border-bottom: 2px solid #696ef7; /* Aktif bağlantıyı vurgular */
   padding-bottom: 4px;
-  color: #76dd78; /* Aktif bağlantı rengini değiştirir */
+  color: #7183d4; /* Aktif bağlantı rengini değiştirir */
 }
 div{
 justify-content: space-between;
