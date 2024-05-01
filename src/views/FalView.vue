@@ -52,7 +52,6 @@ export default {
     const loading = ref(false); // Add a new data property for loading state
     const modelUrl = ref("https://teachablemachine.withgoogle.com/models/9F8M8zkGa/");
     let model;
-    const typingDelay = 50; // 50 milisaniye bekletme süresi
 
     async function loadModel() {
     model = await tmImage.load(modelUrl.value + "model.json", modelUrl.value + "metadata.json");
@@ -206,6 +205,11 @@ body {
   margin: 20px;
   width: 90%;
   max-width: 600px;
+}
+a.router-link-active {
+  border-bottom: 2px solid #696ef7; /* Aktif bağlantıyı vurgular */
+  padding-bottom: 4px;
+  color: #7183d4; /* Aktif bağlantı rengini değiştirir */
 }
 
 button {
