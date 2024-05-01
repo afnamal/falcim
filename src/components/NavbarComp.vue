@@ -1,20 +1,18 @@
 <template>
   <nav v-if="user">
-    <!-- Değiştirilmiş input alanı -->
-    <label for="file-upload">
-  <img :src="user.photoURL" alt="Profil Fotoğrafı" class="profil" v-if="user.photoURL">
-  <img src="../assets/fal-logo4.png" alt="Profil Fotoğrafı" class="profil" v-else>
-</label>
-<input id="file-upload" type="file" accept="image/*" style="display: none" @change="handleFileChange">
+    <div class="profile-container" @click="triggerFileInput">
+      <img :src="user.photoURL || '../assets/defaultpp.png'" alt="Profil Fotoğrafı" class="profile-image">
+    </div>
 
+    <div class="user-info">
+      <p>Merhaba, {{ user.displayName }}</p>
+      <p class="email">{{ user.email }}</p>
+    </div>
 
-    <div class="hiuser">
-      <p>Merhaba {{ user.displayName }}</p>
-      <p class="email">{{ user.email }} ile giriş yapıldı</p>
-    </div>   
-    <button class="pointer" @click="handleClick">Çıkış Yap</button>
-    <p v-if="error">{{ error }}</p>
+    <button class="logout-button" @click="handleClick">Çıkış Yap</button>
+    <p v-if="error" class="error-message">{{ error }}</p>
   </nav>
+  <input id="file-upload" type="file" accept="image/*" style="display: none" @change="handleFileChange">
 </template>
 
 <script>
@@ -40,32 +38,20 @@ export default {
 
     const handleFileChange = async (event) => {
       const file = event.target.files[0];
-      
       const storage = getStorage();
       const storageRef = ref(storage, 'profile_photos/' + file.name);
-      
       try {
-        // Dosyayı yükle
         await uploadBytes(storageRef, file);
-        
-        // Dosyanın URL'sini al
         const photoURL = await getDownloadURL(storageRef);
-        
-        // Firebase Authentication'daki kullanıcı profilini güncelle
         const auth = getAuth();
         await updateProfile(auth.currentUser, { photoURL });
-        
         console.log('Profil fotoğrafı başarıyla güncellendi');
       } catch (error) {
         console.error('Profil fotoğrafı güncellenirken bir hata oluştu:', error);
       }
     }
 
-    // Dosya seçme işlemini tetiklemek için
-    const triggerFileInput = (event) => {
-  event.stopPropagation(); // Olay yayılmasını durdur
-  document.getElementById('file-upload').click();
-}
+    const triggerFileInput = () => document.getElementById('file-upload').click();
 
     return { error, handleClick, user, handleFileChange, triggerFileInput };
   }
@@ -74,38 +60,48 @@ export default {
 
 <style scoped>
 nav {
-  width: 90%;
-  padding: 20px;
-  padding-left: 40px;
-  padding-right: 40px;
-  border-bottom: 1px solid #ddd;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #e1e1e1;
 }
-nav p {
-  margin: 2px auto;
-  font-size: 16px;
-  color: #444;
-  text-align: left;
+.profile-container {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
 }
-nav p.email {
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.user-info p {
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+}
+.email {
+  color: #666;
   font-size: 14px;
-  color: #888;
 }
-.pointer {
+.logout-button {
+  padding: 10px 20px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-.profil {
-  max-width: 50px;
-  cursor: pointer;
-  border-radius: 40%;
-  margin-left: -30px;
+.logout-button:hover {
+  background-color: #c9302c;
 }
-.pointer {
-  background-color: rgb(215, 0, 0);
-}
-.hiuser{
-  margin-left: 20px;
+.error-message {
+  color: #d9534f;
+  font-size: 14px;
 }
 </style>
