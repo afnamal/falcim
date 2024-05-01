@@ -4,11 +4,11 @@
     <form @submit.prevent="handleSubmit" class="needs-validation" novalidate>
       <div class="mb-3">
         <input type="email" class="form-control" id="email" v-model="email" placeholder="Email giriniz" required :class="{'is-invalid': submitted && !email.value}">
-        <div class="invalid-feedback" v-if="noemail && submitted">Lütfen email adresinizi giriniz.</div>
+        <div class="invalid-feedback" v-if="submitted && !email.value">Lütfen email adresinizi giriniz.</div>
       </div>
       <div class="mb-3">
         <input type="password" class="form-control" id="password" v-model="password" placeholder="Şifre giriniz" :class="{'is-invalid': submitted && !password.value}">
-        <div class="invalid-feedback" v-if="nopassword && submitted">Lütfen şifrenizi giriniz.</div>
+        <div class="invalid-feedback" v-if="submitted && !password.value">Lütfen şifrenizi giriniz.</div>
       </div>
       <div v-if="error" class="alert alert-danger">{{ error }}</div>
       <div v-if="dogrulanmamis" class="alert alert-warning">{{ dogrulanmamis }}</div>
@@ -31,17 +31,15 @@ export default {
     const { OnayMaili } = SignupComposable();
     const { error, login } = LoginComposable();
     const router = useRouter();
-    const email = ref(null);
-    const password = ref(null);
+    const email = ref('');
+    const password = ref('');
     const dogrulanmamis = ref(null);
-    const noemail = ref(false);
-    const nopassword = ref(false);
-    const submitted=ref(false)
-
+    const submitted = ref(false);
 
     const handleSubmit = async () => {
+      submitted.value = true;
       
-      submitted.value=true
+
       try {
         await login(email.value, password.value);
         await nextTick();
@@ -55,16 +53,11 @@ export default {
         if (!error.value && user.emailVerified) {
           router.push('/fal');
         }
-        if (!email.value ) noemail.value = true;
-        if (!password.value ) nopassword.value = true;
-
-
       } catch (e) {
         console.error('Giriş hatası:', e.message);
-
       }
     };
-    return { email, password, handleSubmit, error, dogrulanmamis, OnayMaili, submitted,noemail,nopassword };
+    return { email, password, handleSubmit, error, dogrulanmamis, OnayMaili, submitted };
   }
 }
 </script>
@@ -72,7 +65,7 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 600px; /* Konteyner genişliği */
+  max-width: 600px;
   margin: auto;
   padding: 20px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
@@ -83,16 +76,10 @@ export default {
 h2 {
   color: #495057;
 }
-input {
-  width: 100%; /* Input genişliğini tam sıra genişliğine ayarla */
-  padding: 10px; /* Daha rahat bir yazım alanı için padding artırıldı */
-  margin-bottom: 15px; /* Alt elemanlardan ayırmak için alt boşluk */
-  border: 1px solid #ced4da; /* Bootstrap varsayılan border rengi */
-  border-radius: 0.25rem; /* Hafif yuvarlatılmış köşeler */
-}
+
 input, button {
   height: 48px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .col-form-label {
@@ -102,13 +89,6 @@ input, button {
 .alert {
   font-size: 0.875em;
   margin-top: 10px; /* Uyarı mesajlarının üst boşluğunu artır */
-}
-button {
-  width: 100%; /* Buton genişliği tam sıra genişliğine ayarlandı */
-  padding: 10px; /* Buton iç dolgusunu artır */
-  border-radius: 0.25rem; /* Hafif yuvarlatılmış köşeler */
-  background-color: #007bff; /* Bootstrap primar renk */
-  color: white; /* Buton yazı rengi */
 }
 </style>
 

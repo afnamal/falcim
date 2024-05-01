@@ -4,6 +4,9 @@
       <div class="navbar-brand">
         <img src="../assets/fal-logo4.png" alt="Logo" class="logo" @click="pushHome"/>
       </div>
+      <div>
+        <img src="../assets/falcim.png" class="yazi" alt="YaziLogo"  @click="pushHome">
+      </div>
       <!-- Menu Icon -->
       <div class="menu-icon" @click="toggleMenu">
         <!-- You can replace this with any icon you prefer -->
@@ -61,12 +64,24 @@ export default {
   top: 60px;
   z-index: 1000; /* Z-index değeri eklendi */
 }
+.menu-icon span{
+  font-size: xx-large;
+  margin-right: 10px;
+}
 
 .logo{
     cursor: pointer;
     border-radius: 30%;
-    max-width: 45px;
+    max-width: 55px;
 
+}
+.yazi{
+  cursor: pointer;
+    border-radius: 30%;
+    max-width: 180px;
+}
+.yazi:hover {
+  transform: scale(1.09); /* Hover durumunda yazi imgsinin boyutunu %10 arttır */
 }
 nav {
   display: flex;

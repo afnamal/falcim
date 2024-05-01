@@ -5,7 +5,7 @@
 
     <!-- Main Header Image -->
     <header>
-      <carousel/>
+      <img src="../assets/headerPhoto2.jpg" alt="">
     </header>
 
     <!-- Features Section -->
@@ -30,12 +30,11 @@ kolayca gir</p>
 
 <script>
 import navbarMenu from '../components/NavbarMenu.vue'
-import carousel from '../components/CarouselComp.vue'
 import { useRouter } from 'vue-router';
 
 export default {
   name: 'HomeView',
-  components: {navbarMenu,carousel},
+  components: {navbarMenu},
   setup() {
     const router = useRouter()
 
