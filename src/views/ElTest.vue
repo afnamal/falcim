@@ -77,7 +77,7 @@ export default {
       }
     });
     onMounted(() => {
-      typeMessage({ type: 'bot', content: 'Merhaba, falınıza bakmam için lütfen fotoğraf yükleyin?' });
+      typeMessage({ type: 'bot', content: 'Merhaba, falınıza bakmam için lütfen fotoğraf yükleyin' });
     });
 
 

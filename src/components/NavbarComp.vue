@@ -1,7 +1,9 @@
 <template>
   <nav v-if="user">
     <div class="profile-container" @click="triggerFileInput">
-      <img :src="user.photoURL || '../assets/defaultpp.png'" alt="Profil Fotoğrafı" class="profile-image">
+      <img v-if="user.photoURL" :src="user.photoURL" alt="Profil Fotoğrafı" class="profile-image">
+      <img v-else src="../assets/defaultpp.png" alt="Profil Fotoğrafı" class="profile-image">
+
     </div>
 
     <div class="user-info">

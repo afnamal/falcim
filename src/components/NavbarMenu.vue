@@ -2,7 +2,7 @@
     <div class="navbarT">
   <nav>
       <div class="navbar-brand">
-        <img src="defaultpp.png" alt="Logo" class="logo" @click="pushHome"/>
+        <img src="../assets/fal-logo4.png" alt="Logo" class="logo" @click="pushHome"/>
       </div>
       <!-- Menu Icon -->
       <div class="menu-icon" @click="toggleMenu">
