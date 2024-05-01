@@ -6,7 +6,7 @@
       <div class="upload-container">
         <img v-if="buttonActive" :src="newUrl" alt="Uploaded Hand Image">
         <label v-if="!buttonActive" for="file-upload2" class="file-upload-label">
-          <img src="../assets/elinizi.png" alt="Hand Image Upload"/>
+          <img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/site%20photos%2Felinizi.png?alt=media&token=1fb948de-b412-4df7-a52e-70e7fa04d638" alt="Hand Image Upload"/>
         </label>
         <input id="file-upload2" type="file" @change="handleFileUpload($event)" style="display: none;" />
         <p>{{ photoUploadedText }}</p>
