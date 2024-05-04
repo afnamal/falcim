@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5">
+  <div class="containera mt-5">
     <div v-if="!forgotpass">
     <h2 class="text-center mb-4">Giriş Yap</h2>
     <form @submit.prevent="handleSubmit" class="MainForm" novalidate>
@@ -110,7 +110,7 @@ export default {
 
 
 <style scoped>
-.container {
+.containera {
   max-width: 500px;
   margin: 30px auto;
   padding: 25px;
