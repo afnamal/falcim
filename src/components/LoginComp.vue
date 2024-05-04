@@ -44,9 +44,9 @@
 
 
 <script>
-import { ref, nextTick } from "vue";
+import { ref } from "vue";
 import { useRouter } from 'vue-router';
-import { getAuth, sendEmailVerification,sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import LoginComposable from '../composables/LoginComposable';
 import SignupComposable from '../composables/SignupComposable';
 
@@ -55,59 +55,58 @@ export default {
     const { OnayMaili } = SignupComposable();
     const { error, login } = LoginComposable();
     const router = useRouter();
-    const email = ref(null);
-    const password = ref(null);
-    const dogrulanmamis = ref(null);
+    const email = ref('');
+    const password = ref('');
+    const dogrulanmamis = ref('');
     const noemail = ref(false);
     const nopassword = ref(false);
-    const submitted=ref(false)
-    const auth= getAuth()
-    const forgotpass=ref(false)
-
+    const submitted = ref(false);
+    const auth = getAuth();
+    const forgotpass = ref(false);
 
     const ForgotPassword = async () => {
-  try {
-    await sendPasswordResetEmail(auth, email.value); // Make sure to pass email.value, not just email
-    alert("Şifre sıfırlama linki mail adresinize gönderilmiştir!"); // Notify user of successful action
-  } catch (error) {
-    console.error("Error sending password reset email:", error);
-    alert("Failed to send password reset email: " + error.message); // Provide feedback in case of failure
-  }
-  
-}
-const Forgot=()=>{
-    forgotpass.value=true
-  }
+      try {
+        await sendPasswordResetEmail(auth, email.value);
+        alert("Şifre sıfırlama linki mail adresinize gönderilmiştir!");
+      } catch (error) {
+        console.error("Error sending password reset email:", error);
+        alert("Failed to send password reset email: " + error.message);
+      }
+    }
+
+    const Forgot = () => {
+      forgotpass.value = true;
+    }
 
     const handleSubmit = async () => {
-      
-      submitted.value=true
+      submitted.value = true;
       try {
         await login(email.value, password.value);
-        await nextTick();
+        await router.isReady();
 
-        const user = getAuth().currentUser;
+        const user = auth.currentUser;
         if (user && !user.emailVerified) {
           dogrulanmamis.value = 'Lütfen hesabınızı doğrulayınız';
           await sendEmailVerification(user);
         }
 
         if (!error.value && user.emailVerified) {
-          router.push('/fal');
+          const redirectRoute = window.sessionStorage.getItem('redirectAfterLogin') || '/';
+        router.push(redirectRoute);
+        window.sessionStorage.removeItem('redirectAfterLogin');
         }
-        if (!email.value ) noemail.value = true;
-        if (!password.value ) nopassword.value = true;
-
-
+        if (!email.value) noemail.value = true;
+        if (!password.value) nopassword.value = true;
       } catch (e) {
         console.error('Giriş hatası:', e.message);
-
       }
     };
-    return { email, password, handleSubmit, error, dogrulanmamis, OnayMaili, submitted,noemail,nopassword,ForgotPassword,Forgot,forgotpass };
+
+    return { email, password, handleSubmit, error, dogrulanmamis, OnayMaili, submitted, noemail, nopassword, ForgotPassword, Forgot, forgotpass };
   }
 }
 </script>
+
 
 
 <style scoped>

@@ -34,51 +34,58 @@
   }
   </script>
     <style>
-    .welcome{
-      text-align: center;
-      padding: 20px auto;
-    }
-    .welcome label{
-    }
-    .welcome form{
-      width: 300px;
-      margin: 20px 0 10px;
-    }
-    .welcome input{
-      
-      margin-bottom: 10px;
-      border-radius: 15px;
-      border: 1px solid #ddd;
-      outline: none;
-      color: #777;
-      margin: 10px auto;
-      height: 30px;
-      width: 200px;
-      
-    }
-    .welcome button {
-      display: block;
-      margin-bottom: 10px; 
-      margin: 10px auto;
-      cursor: pointer;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    span{
-      text-decoration-color: blue;
-      font-size: large;
-      font-style: bold;
-      cursor: pointer;
-    }
-    .error{
-      color: red;
-    }
-    .gec{
-      text-decoration: underline;
-    }
+    .navbar {
+  padding: 0 15px; /* Reduces padding around the navbar */
+}
+
+.logo {
+  max-width: 100px; /* Adjusts the size and makes it responsive */
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05); /* Slightly increase size on hover for better UX */
+}
+
+.navbar-toggler {
+  border: none; /* Removes border from the toggler button */
+  outline: none; /* Removes focus outline */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Ensure navbar content doesn't wrap prematurely */
+@media (max-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    display: flex;
+    flex-basis: auto;
+  }
+
+  .navbar-nav {
+    flex-direction: row; /* Keeps nav items in a row on smaller screens */
+  }
+
+  .nav-item {
+    padding: 0 10px; /* Adds padding between items */
+  }
+
+  .nav-link {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem; /* Standard padding for Bootstrap but reduced */
+  }
+}
+
+/* Custom styles for login and signup links to make them stand out */
+.gec {
+  color: #007bff; /* Bootstrap primary color */
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.gec:hover {
+  color: #0056b3; /* Darker shade for hover state */
+}
     </style>
     

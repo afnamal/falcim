@@ -29,7 +29,7 @@ const router = createRouter({
           if (user) {
             next();
           } else {
-            next({ name: 'HomeView' });
+            next({ name: 'LoginView' });
           }
         });
       }
@@ -43,7 +43,7 @@ const router = createRouter({
           if (user) {
             next();
           } else {
-            next({ name: 'HomeView' });
+            next({ name: 'LoginView' });
           }
         });
       }
@@ -57,7 +57,7 @@ const router = createRouter({
           if (user) {
             next();
           } else {
-            next({ name: 'HomeView' });
+            next({ name: 'LoginView' });
           }
         });
       }

@@ -1,32 +1,32 @@
 <template>
-    <div class="past-readings container">
-      <h2 class="mb-3">Geçmiş Fallarınız</h2>
+  <div class="past-readings container">
+      <h2 class="mb-3 text-center">Geçmiş Fallarınız</h2>
       <div v-if="loading" class="text-center">
-        <span class="spinner-border text-primary" role="status"></span>
+          <span class="spinner-border text-primary" role="status"></span>
       </div>
       <div v-if="!loading && readings.length === 0" class="alert alert-info">
-        Henüz fal kaydınız bulunmamaktadır.
+          Henüz fal kaydınız bulunmamaktadır.
       </div>
       <div v-else class="row">
-        <div class="col-md-4 mb-4" v-for="reading in readings" :key="reading.id">
-          <div class="card">
-            <img :src="reading.imageUrl ? reading.imageUrl : defaultImage" class="card-img-top" alt="Fal Resmi">
-            <div class="card-body">
-              <h5 class="card-title">{{ reading.title }}</h5>
-              <p class="card-text" v-if="reading.showDetails">{{ reading.text }}</p>
-              <button @click="toggleDetails(reading)" class="btn btn-primary">
-                {{ reading.showDetails ? 'Detayları Gizle' : 'Detayları Gör' }}
-              </button>
-            </div>
-            <div class="card-footer text-muted">
-              {{ formatDate(reading.timestamp.toDate()) }}
-            </div>
+          <div class="col-md-4 mb-4" v-for="reading in readings" :key="reading.id">
+              <div class="card h-100 shadow-sm">
+                  <img :src="reading.imageUrl ? reading.imageUrl : defaultImage" class="card-img-top" alt="Fal Resmi">
+                  <div class="card-body d-flex flex-column">
+                      <h5 class="card-title">{{ reading.title }}</h5>
+                      <p class="card-text" v-if="reading.showDetails">{{ reading.text }}</p>
+                      <button @click="toggleDetails(reading)" class="btn btn-primary mt-auto">
+                          {{ reading.showDetails ? 'Detayları Gizle' : 'Detayları Gör' }}
+                      </button>
+                  </div>
+                  <div class="card-footer text-muted">
+                      {{ formatDate(reading.timestamp.toDate()) }}
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
-  </template>
-  
+  </div>
+</template>
+
   
   <script>
 import { ref, watchEffect } from 'vue';
@@ -64,7 +64,11 @@ export default {
     };
 
     function formatDate(date) {
-      return date ? new Date(date).toLocaleDateString("tr-TR") : '';
+      // Format the date to local string with options
+      return date ? new Date(date).toLocaleString("tr-TR", {
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      }) : '';
     }
 
     const toggleDetails = (reading) => {
@@ -85,15 +89,60 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 800px;
-  margin: auto;
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.1);
 }
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+}
+
 .card-img-top {
-  height: 200px;  /* Sabit boyut veya responsive bir yapı oluşturun */
+  height: 200px;
   object-fit: cover;
 }
-.card-body p {
-  transition: all 0.3s ease-in-out;
+
+.card-body {
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.card-text {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-primary:hover {
+  background-color: #004494;
+  border-color: #003570;
+}
+
+.alert-info {
+  background-color: #e2f3ff;
+  border-color: #b8e2f2;
+  color: #31708f;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
 }
 </style>
-  
