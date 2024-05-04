@@ -3,19 +3,19 @@
     <div class="profile-container" @click="triggerFileInput">
       <img v-if="user.photoURL" :src="user.photoURL" alt="Profil Fotoğrafı" class="profile-image">
       <img v-else src="../assets/defaultpp.png" alt="Profil Fotoğrafı" class="profile-image">
-
     </div>
 
-    <div class="user-info">
+    <div class="user-info" @click.prevent="UserPage" style="cursor: pointer;">
       <p>Merhaba, {{ user.displayName }}</p>
       <p class="email">{{ user.email }}</p>
     </div>
 
-    <button class="logout-button" @click="handleClick">Çıkış Yap</button>
+    <button class="btn btn-danger logout-button" @click="handleClick">Çıkış Yap</button>
     <p v-if="error" class="error-message">{{ error }}</p>
   </nav>
   <input id="file-upload" type="file" accept="image/*" style="display: none" @change="handleFileChange">
 </template>
+
 
 <script>
 import LogoutComposable from '../composables/LogoutComposable'
@@ -37,6 +37,10 @@ export default {
         router.push('/');
       }
     }
+    const UserPage =()=>{
+      router.push('/user')
+    }
+
 
     const handleFileChange = async (event) => {
       const file = event.target.files[0];
@@ -55,7 +59,7 @@ export default {
 
     const triggerFileInput = () => document.getElementById('file-upload').click();
 
-    return { error, handleClick, user, handleFileChange, triggerFileInput };
+    return { error, handleClick, user, handleFileChange, triggerFileInput,UserPage };
   }
 }
 </script>
@@ -92,15 +96,8 @@ nav {
 }
 .logout-button {
   padding: 10px 20px;
-  background-color: #d9534f;
-  color: white;
-  border: none;
   border-radius: 5px;
-  cursor: pointer;
   transition: background-color 0.3s ease;
-}
-.logout-button:hover {
-  background-color: #c9302c;
 }
 .error-message {
   color: #d9534f;

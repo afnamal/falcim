@@ -29,8 +29,8 @@
 
 <script>
 import axios from 'axios';
-import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { getAuth,onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, doc,  addDoc, collection, serverTimestamp,getDoc } from 'firebase/firestore';
 import { ref, onMounted,watch } from 'vue';
 import NavbarComp from '@/components/NavbarComp.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue'; // Import the loading spinner component
@@ -42,6 +42,9 @@ import NavbarOrg from '../components/NavbarOrg.vue'
 export default {
   components: { NavbarComp,LoadingSpinner, NavbarOrg},
   setup() {
+    const auth = getAuth();
+    const db = getFirestore();
+    const user = ref(null);
     const userName = ref('');
     const userLocation = ref('');
     const userBirthDate = ref('');
@@ -52,6 +55,12 @@ export default {
     const loading = ref(false); // Add a new data property for loading state
     const modelUrl = ref("https://teachablemachine.withgoogle.com/models/9F8M8zkGa/");
     let model;
+
+    onAuthStateChanged(auth, (authUser) => {
+      if (authUser) {
+        user.value = authUser;
+      }
+    });
 
     async function loadModel() {
     model = await tmImage.load(modelUrl.value + "model.json", modelUrl.value + "metadata.json");
@@ -132,6 +141,14 @@ export default {
       try {
         const response = await axios.post('https://api.openai.com/v1/chat/completions', postData, config);
         const botReply = 'Kahve Falı: ' + response.data.choices[0].message.content;
+        const messageRef = collection(db, 'users', user.value.uid, 'messages');
+        await addDoc(messageRef, {
+          text: botReply,
+          timestamp: serverTimestamp(),
+          tipi:"kahvefali",
+          title:"Kahve Falı",
+          imageUrl:"https://image.cnnturk.com/i/cnnturk/75/740x416/644e0770ae0a8f1610c2a267.jpg"
+        });
         messages.value.push({ text: botReply, type: 'bot' });
       } catch (error) {
         console.error('Error sending message:', error);

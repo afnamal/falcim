@@ -35,6 +35,20 @@ const router = createRouter({
       }
     },
     {
+      path: '/user',
+      name: 'User',
+      component: () => import('../views/UserView.vue'),
+      beforeEnter: (to, from, next) => {
+        projectAuth.onAuthStateChanged(user => {
+          if (user) {
+            next();
+          } else {
+            next({ name: 'HomeView' });
+          }
+        });
+      }
+    },
+    {
       path: '/eltest',
       name: 'eltest',
       component: () => import('../views/ElTest.vue'),
