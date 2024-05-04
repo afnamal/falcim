@@ -59,7 +59,7 @@ export default {
         window.sessionStorage.setItem('redirectAfterLogin', destination);
         router.push('/login')}
       else{
-        router.push('/')}
+        router.push('/fal')}
     };
 
     
