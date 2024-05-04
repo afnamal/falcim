@@ -59,21 +59,23 @@
 
 @media (max-width: 992px) {
   .navbar-expand-lg .navbar-collapse {
-    display: flex;
-    flex-basis: auto;
+    flex-basis: auto; /* Ensures navbar items do not break layout */
   }
 
   .navbar-nav {
-    flex-direction: row;  /* Keeps nav items in a row on smaller screens */
+    flex-direction: row; /* Align navbar items in a row in collapsed mode */
   }
 
   .nav-item {
-    padding: 0 10px;  /* Adds padding between items */
+    padding: 0 10px; /* Ensures spacing between navbar items is adequate */
   }
 
   .nav-link {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;  /* Standard padding for Bootstrap but reduced */
+    padding: 0.5rem; /* Standard padding, adjusted for touch interfaces */
+  }
+
+  .welcome {
+    padding: 10px; /* Reduces padding on smaller screens for better layout */
   }
 }
 
