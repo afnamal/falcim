@@ -93,6 +93,22 @@ export default {
   max-width: 95px;
   transition: transform 0.3s ease;
 }
+.container {
+  max-width: 100%; /* Adjust this to whatever maximum width you prefer */
+  padding-right: 15px; /* Keep or adjust the padding to control space from the viewport edges */
+  padding-left: 15px; /* Keep or adjust the padding to control space from the viewport edges */
+}
+
+
+
+
+@media (max-width: 992px) { /* Adjusting for Bootstrap's breakpoint */
+  .container {
+    max-width: 100%; /* Ensure it's full width on smaller screens */
+    padding-right: 10px; /* Slightly reduce padding on smaller screens */
+    padding-left: 10px; /* Slightly reduce padding on smaller screens */
+  }
+}
 
 .logo:hover {
   transform: scale(1.1);
@@ -102,11 +118,7 @@ export default {
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><path stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
 }
 
-@media (max-width: 768px) {
-  .navbar-nav .nav-link {
-    padding: 12px 0; /* More touchable area */
-  }
-}
+
 
 .nav-link {
   color: #495057;
