@@ -184,7 +184,63 @@ button:hover {
   padding: 10px;
   margin-top: 15px;
 }
+.navbar {
+  padding: 0 0px;  /* Reduces padding around the navbar */
+}
+
+.logo {
+  max-width: 100px;  /* Adjusts the size and makes it responsive */
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);  /* Slightly increase size on hover for better UX */
+}
+
+.navbar-toggler {
+  border: none;  /* Removes border from the toggler button */
+  outline: none;  /* Removes focus outline */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    flex-basis: auto; /* Ensures navbar items do not break layout */
+  }
+
+  .navbar-nav {
+    flex-direction: row; /* Align navbar items in a row in collapsed mode */
+  }
+
+  .nav-item {
+    padding: 0 10px; /* Ensures spacing between navbar items is adequate */
+  }
+
+  .nav-link {
+    padding: 0.5rem; /* Standard padding, adjusted for touch interfaces */
+  }
+
+  .welcome {
+    padding: 10px; /* Reduces padding on smaller screens for better layout */
+  }
+}
+
+/* Custom styles for login and signup links to make them stand out */
+.gec {
+  color: #007bff;  /* Bootstrap primary color */
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.gec:hover {
+  color: #0056b3;  /* Darker shade for hover state */
+}
+
 </style>
+
 
 
 

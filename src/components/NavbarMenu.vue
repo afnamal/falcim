@@ -17,12 +17,12 @@
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto" style="cursor: pointer;">
-            <a class="nav-link" v-if="!user" @click="pushLogin('/')"><span class="material-icons align-middle">login</span> Giriş Yap</a>
+            <a class="nav-link login-link" v-if="!user" @click="pushLogin('/')"><span class="material-icons align-middle">login</span> Giriş Yap</a>
             <a class="nav-link" v-if="user" @click="pushUser"><span class="material-icons align-middle">person</span> Hesabım</a>
             <a class="nav-link" @click="pushLogin('/fal')"><span class="material-icons align-middle">local_cafe</span> Fal Bak</a>
             <a class="nav-link" @click="pushKullanim"><span class="material-icons align-middle">description</span> Kullanım Şartları</a>
             <a class="nav-link" ><span class="material-icons align-middle">help</span> Yardım</a>
-            <a class="nav-link" @click="handleLoguot" v-if="user"><span class="material-icons align-middle">help</span> Çıkış Yap</a>
+            <a class="nav-link logout-link" @click="handleLoguot" v-if="user" style=""><span class="material-icons align-middle">logout</span> Çıkış Yap</a>
 
           </div>
         </div>
@@ -93,20 +93,17 @@ export default {
   max-width: 95px;
   transition: transform 0.3s ease;
 }
+
 .container {
-  max-width: 100%; /* Adjust this to whatever maximum width you prefer */
-  padding-right: 15px; /* Keep or adjust the padding to control space from the viewport edges */
-  padding-left: 15px; /* Keep or adjust the padding to control space from the viewport edges */
+  max-width: 100%; /* Ensure it's full width */
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
-
-
-
-@media (max-width: 992px) { /* Adjusting for Bootstrap's breakpoint */
+@media (max-width: 992px) {
   .container {
-    max-width: 100%; /* Ensure it's full width on smaller screens */
-    padding-right: 10px; /* Slightly reduce padding on smaller screens */
-    padding-left: 10px; /* Slightly reduce padding on smaller screens */
+    padding-right: 10px;
+    padding-left: 10px;
   }
 }
 
@@ -118,18 +115,16 @@ export default {
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><path stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
 }
 
-
-
 .nav-link {
   color: #495057;
   transition: color 0.3s ease-in-out;
 }
 
 .nav-link:hover {
-  color: #0056b3; /* Dynamic hover color for better user interaction */
+  color: #0056b3; /* Dynamic hover color */
 }
 
-/* Adding subtle animations and effects for a modern look */
+/* Subtle animations for a modern look */
 .navbar-light .navbar-nav .nav-link {
   position: relative;
   overflow: hidden;
@@ -150,5 +145,18 @@ export default {
 
 .navbar-light .navbar-nav .nav-link:hover::after {
   transform: scaleX(1);
+}
+
+/* Specific styles for login and logout links */
+.nav-link.login-link {
+  color: green; /* Green color for login */
+}
+
+.nav-link.logout-link {
+  color: red; /* Red color for logout */
+}
+
+.nav-link.login-link:hover, .nav-link.logout-link:hover {
+  opacity: 0.8; /* Slight transparency on hover for better UX */
 }
 </style>
