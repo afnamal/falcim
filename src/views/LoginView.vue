@@ -36,7 +36,7 @@
   </script>
   <style>
 .navbar {
-  padding: 0 15px;  /* Reduces padding around the navbar */
+  padding: 0 0px;  /* Reduces padding around the navbar */
 }
 
 .logo {
