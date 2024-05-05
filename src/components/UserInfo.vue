@@ -1,36 +1,35 @@
 <template>
-    <div class="container mt-5">
-      <h2 class="text-center mb-4">Bilgilerinizi Güncelleyin</h2>
-      <form @submit.prevent="handleUpdate" class="needs-validation" novalidate>
-        <div class="mb-3">
-          <label for="name" class="form-label">İsim</label>
-          <input type="text" class="form-control" id="name" placeholder="İsim giriniz" required v-model="name">
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email (Güncellenemez)</label>
-          <input type="email" class="form-control" id="email" placeholder="Email giriniz" required v-model="email" disabled>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Yeni Şifre (Opsiyonel)</label>
-          <input type="password" class="form-control" id="password" placeholder="Yeni şifre giriniz" v-model="password">
-        </div>
-        <div class="mb-3">
-          <label for="birthDate" class="form-label">Doğum Tarihi</label>
-          <input type="date" class="form-control" id="birthDate" placeholder="Doğum tarihi giriniz" v-model="birthDate">
-        </div>
-        <div class="mb-3">
-          <label for="location" class="form-label">Yaşadığınız Yer</label>
-          <input type="text" class="form-control" id="location" placeholder="Yaşadığınız yer giriniz" v-model="location">
-        </div>
-        <div v-if="error" class="alert alert-danger">{{ error }}</div>
-        <button type="submit" class="btn btn-primary w-100">Güncelle</button>
-      </form>
-    </div>
-  </template>
-  
-  <script>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Bilgilerinizi Güncelleyin</h2>
+    <form @submit.prevent="handleUpdate" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="name" class="form-label">İsim</label>
+        <input type="text" class="form-control" id="name" placeholder="İsim giriniz" required v-model="name">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email (Güncellenemez)</label>
+        <input type="email" class="form-control" id="email" placeholder="Email giriniz" required v-model="email" disabled>
+      </div>
+      <div class="mb-3">
+        <label for="birthDate" class="form-label">Doğum Tarihi</label>
+        <input type="date" class="form-control" id="birthDate" placeholder="Doğum tarihi giriniz" v-model="birthDate">
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Yaşadığınız Yer</label>
+        <input type="text" class="form-control" id="location" placeholder="Yaşadığınız yer giriniz" v-model="location">
+      </div>
+      <div v-if="error" class="alert alert-danger">{{ error }}</div>
+      <button type="submit" class="btn btn-primary w-100">Güncelle</button>
+      <button type="button" class="btn btn-secondary w-100 mt-2" @click="sendMail">Şifre Sıfırlama E-postası Gönder</button>
+    </form>
+  </div>
+</template>
+
+
+
+<script>
 import { ref, onMounted } from 'vue';
-import { getAuth } from 'firebase/auth';
+import { getAuth, updateProfile, sendPasswordResetEmail } from 'firebase/auth';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 
 export default {
@@ -40,7 +39,6 @@ export default {
     const user = auth.currentUser;
     const name = ref('');
     const email = ref('');
-    const password = ref('');
     const birthDate = ref('');
     const location = ref('');
     const error = ref('');
@@ -60,31 +58,55 @@ export default {
     };
 
     const handleUpdate = async () => {
-  try {
-    user.displayName=name.value;
-    const userDocRef = doc(db, 'users', user.uid);
-    await updateDoc(userDocRef, {
-      name: name.value,
-      birthDate: birthDate.value,
-      location: location.value
-    });
-    if (password.value) {
-      await user.updatePassword(password.value);
-    }
-    alert('Bilgileriniz başarıyla güncellendi!');
-    // router.push('/profile'); // Opsiyonel, kullanıcıyı profil sayfasına yönlendir
-  } catch (err) {
-    console.error('Güncelleme sırasında bir hata oluştu:', err);
-    error.value = 'Güncelleme sırasında bir hata oluştu: ' + err.message;
-  }
-};
+      if (!auth.currentUser) {
+        console.error('Güncelleme işlemi başlatılamadı: Kullanıcı oturumu bulunamadı.');
+        error.value = 'Kullanıcı oturumu bulunamadı. Lütfen oturum açın.';
+        return;
+      }
+
+      try {
+        const userDocRef = doc(db, 'users', user.uid);
+        await updateDoc(userDocRef, {
+          name: name.value,
+          birthDate: birthDate.value,
+          location: location.value
+        });
+
+        await updateProfile(auth.currentUser, {
+          displayName: name.value
+        });
+
+        alert('Bilgileriniz başarıyla güncellendi!');
+      } catch (err) {
+        console.error('Güncelleme sırasında bir hata oluştu:', err);
+        error.value = 'Güncelleme sırasında bir hata oluştu: ' + err.message;
+      }
+    };
+
+    const sendMail = async () => {
+      if (!auth.currentUser) {
+        console.error('E-posta gönderimi başlatılamadı: Kullanıcı oturumu bulunamadı.');
+        error.value = 'Kullanıcı oturumu bulunamadı. Lütfen oturum açın.';
+        return;
+      }
+
+      try {
+        await sendPasswordResetEmail(auth, auth.currentUser.email);
+        alert('Şifre sıfırlama e-postası gönderildi. Lütfen e-postanızı kontrol edin.');
+      } catch (err) {
+        console.error('Şifre sıfırlama e-postası gönderilirken bir hata oluştu:', err);
+        error.value = 'E-posta gönderilirken bir hata oluştu: ' + err.message;
+      }
+    };
 
     onMounted(fetchUserData);
 
-    return { name, email, password, birthDate, location, handleUpdate, error };
+    return { name, email, birthDate, location, handleUpdate, error, sendMail };
   }
 }
 </script>
+
+
 
 <style scoped>
 .container {
