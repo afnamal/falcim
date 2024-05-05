@@ -2,29 +2,35 @@
   <div>
     <NavbarMenu />
     <NavbarOrg />
-    <div class="main-container">
-      <div class="upload-container">
-        <img v-if="buttonActive" :src="newUrl" alt="Uploaded Hand Image">
-        <label v-if="!buttonActive" for="file-upload2" class="file-upload-label">
-          <img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/site%20photos%2Felinizi.png?alt=media&token=1fb948de-b412-4df7-a52e-70e7fa04d638" alt="Hand Image Upload"/>
-        </label>
-        <input id="file-upload2" type="file" @change="handleFileUpload($event)" style="display: none;" />
-        <p>{{ photoUploadedText }}</p>
-        <button @click="sendMessage" :disabled="!buttonActive" :class="{'disable': !buttonActive}" class="button">El Falına Bak</button>
-      </div>
-      <div class="chat-container">
-        <div v-if="loading" class="loading-c">
-          <LoadingSpinner />
+    <div class="container mt-5">
+      <div class="row main-container">
+        <div class="col-md-6 upload-container">
+          <img v-if="buttonActive" :src="newUrl" alt="Uploaded Hand Image" class="img-fluid">
+          <div v-if="!buttonActive" class="text-center">
+            <label for="file-upload2" class="btn btn-primary my-2">
+              <img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/site%20photos%2Felinizi.png?alt=media&token=1fb948de-b412-4df7-a52e-70e7fa04d638" alt="Hand Image Upload" class="img-fluid">
+              El Fotoğrafı Yükle
+            </label>
+            <input id="file-upload2" type="file" @change="handleFileUpload($event)" class="d-none" />
+          </div>
+          <p class="text-muted">{{ photoUploadedText }}</p>
+          <button @click="sendMessage" :disabled="!buttonActive" class="btn btn-success mt-3" :class="{'disabled': !buttonActive}">El Falına Bak</button>
         </div>
-        <div v-if="messages.length > 0">
-          <div v-for="(msg, index) in messages" :key="index">
-            <p>{{ msg.text }}</p>
+        <div class="col-md-6 chat-container">
+          <div v-if="loading" class="loading-c d-flex justify-content-center align-items-center">
+            <LoadingSpinner />
+          </div>
+          <div v-if="messages.length > 0" class="messages">
+            <div v-for="(msg, index) in messages" :key="index" class="p-2">
+              <p class="bg-light p-2 rounded">{{ msg.text }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 
 
 <script>
@@ -90,7 +96,7 @@ export default {
     });
 
 
-  const handleFileUpload = async (event) => {
+    const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
       newUrl.value = URL.createObjectURL(file);
@@ -186,104 +192,52 @@ export default {
 </script>
 
 <style scoped>
-body {
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-  background-color: #f5f5f7;
+.container {
+  max-width: 960px;
+  margin: auto;
+  background-color: #f8f9fa;  /* Açık gri arkaplan rengi */
 }
 
 .main-container {
-  display: flex;
-  justify-content: center;
-  align-items: start;
   padding: 20px;
-  flex-wrap: wrap;
 }
 
 .upload-container, .chat-container {
-  flex: 1;
-  min-width: 300px;
-  padding: 20px;
-  max-width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;  /* Alt elemanlarla arasında boşluk */
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px;
-  width: 90%;
-  max-width: 600px;
-}
-a.router-link-active {
-  border-bottom: 2px solid #696ef7; /* Aktif bağlantıyı vurgular */
-  padding-bottom: 4px;
-  color: #7183d4; /* Aktif bağlantı rengini değiştirir */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px; /* Resim köşelerini yuvarlak yap */
 }
 
-button {
-  background-color: #007BFF;
-  color: #ffffff;
-  border: none;
-  padding: 12px 25px;
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.messages {
+  overflow-y: auto;
+  max-height: 400px;
+  width: 100%;
 }
 
-button:hover {
-  background-color: #0056b3;
+.bg-light {
+  background-color: #e9ecef; /* Bootstrap bg-light rengi ile uyumlu */
 }
 
-button.disable {
-  opacity: 0.5;
+.btn-primary, .btn-success {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #007bff; /* Mavi tema rengi */
+}
+
+.btn-primary:hover, .btn-success:hover {
+  background-color: #0056b3; /* Hover durumunda daha koyu mavi */
+}
+
+button.disabled {
+  opacity: 0.65;
   cursor: not-allowed;
 }
-
-img {
-  max-width: 100%;
-  max-height: 300px;
-  height: auto;
-  border-radius: 5px;
-  object-fit: contain;
-}
-
-.file-upload-label {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #007BFF;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.file-upload-label:hover {
-  background-color: #0056b3;
-}
-
-.loading-c {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-input, label {
-  cursor: pointer;
-  margin-bottom: 8px;
-}
-
-input[type="file"] {
-  display: none;
-}
 </style>
+
