@@ -1,6 +1,6 @@
 <template>
+  <div><navbarMenu/>
   <div class="container mt-5">
-    <navbarMenu/>
     <div class="kosullar bg-light p-4 rounded">
       <h4 class="text-center mb-4">FALCIM Web Sitesi ve Uygulaması Kullanım Koşulları ve Gizlilik Politikası</h4>
       <p>
@@ -29,6 +29,7 @@
       </p>
     </div>
   </div>
+</div>
 </template>
 
 <script>
