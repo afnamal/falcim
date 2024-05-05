@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavbarComp />
+    <NavbarMenu />
     <NavbarOrg />
     <div class="main-container">
       <div class="upload-container">
@@ -32,14 +32,14 @@ import axios from 'axios';
 import { getAuth,onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc,  addDoc, collection, serverTimestamp,getDoc } from 'firebase/firestore';
 import { ref, onMounted,watch } from 'vue';
-import NavbarComp from '@/components/NavbarComp.vue';
+import NavbarMenu from '@/components/NavbarMenu.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue'; // Import the loading spinner component
 import * as tmImage from '@teachablemachine/image';
 import NavbarOrg from '../components/NavbarOrg.vue'
 
 
 export default {
-  components: { NavbarComp,LoadingSpinner,NavbarOrg },
+  components: { NavbarMenu,LoadingSpinner,NavbarOrg },
   setup() {
     const auth = getAuth();
     const db = getFirestore();

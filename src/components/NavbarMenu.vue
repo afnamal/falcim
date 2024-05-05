@@ -21,7 +21,7 @@
             <a class="nav-link" v-if="user" @click="pushUser"><span class="material-icons align-middle">person</span> Hesabım</a>
             <a class="nav-link" @click="pushLogin('/fal')"><span class="material-icons align-middle">local_cafe</span> Fal Bak</a>
             <a class="nav-link" @click="pushKullanim"><span class="material-icons align-middle">description</span> Kullanım Şartları</a>
-            <a class="nav-link" ><span class="material-icons align-middle">help</span> Yardım</a>
+            <a class="nav-link" @click="pushHelp" ><span class="material-icons align-middle">help</span> Yardım</a>
             <a class="nav-link logout-link" @click="handleLoguot" v-if="user" style=""><span class="material-icons align-middle">logout</span> Çıkış Yap</a>
 
           </div>
@@ -62,6 +62,10 @@ export default {
         router.push('/fal')}
     };
 
+    const pushHelp=()=>{
+      router.push('/help')
+    }
+
     
 
     const pushKullanim = () => {
@@ -80,7 +84,7 @@ export default {
       router.push('/');
     };
 
-    return { menuVisible, user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome,handleLoguot };
+    return { menuVisible, user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome,handleLoguot,pushHelp };
   }
 };
 </script>
