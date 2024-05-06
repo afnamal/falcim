@@ -1,7 +1,7 @@
 <template>
  <NavbarMenuVue/>
   <router-view/>
-  <FooterCompVue/>
+  <FooterCompVue style="margin-top: 220px;"/>
 </template>
 
 
@@ -26,6 +26,7 @@ export default {components:{FooterCompVue,NavbarMenuVue}}
   max-height: 300px;
   margin-bottom: 20px;
 }
+
 .message {
   margin-bottom: 10px;
 }
