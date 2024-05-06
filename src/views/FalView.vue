@@ -8,7 +8,7 @@
         <img v-if="buttonActive" :src="newUrl" alt="Yüklenen Fotoğraf" class="img-fluid">
         <div v-if="!buttonActive" class="text-center">
           <label for="file-upload2" class="btn btn-primary my-2">
-            <img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/site%20photos%2Fden.png?alt=media&token=e73db8c1-f056-4aa9-be98-d26984b37042" alt="Fincan Fotoğrafı Yükle" class="img-fluid">
+            <img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/site%20photos%2Fdens1.2.png?alt=media&token=a7e44bb5-a603-4888-8fb4-f17bfea31f91" alt="Fincan Fotoğrafı Yükle" class="img-fluid">
             Fotoğraf Yükle
           </label>
           <input id="file-upload2" type="file" @change="handleFileUpload($event)" class="d-none" />
