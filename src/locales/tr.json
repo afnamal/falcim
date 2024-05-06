@@ -1,0 +1,134 @@
+{
+    "navbar": {
+      "login": "Giriş Yap",
+      "account": "Hesabım",
+      "fortune": "Fal Bak",
+      "terms": "Kullanım Şartları",
+      "help": "Yardım",
+      "logout": "Çıkış Yap"
+    },
+    "features": {
+      "takePhoto": "Fincanının fotoğraflarını çek",
+      "enterInfo": "Bilgilerini kolayca gir",
+      "getReading": "Yorumcun anında yorumlasın"
+    },
+    "footer": {
+        "brand": "Falcım",
+        "links": {
+          "iphone": "iPhone ile fal baktır",
+          "android": "Android ile fal baktır",
+          "huawei": "Huawei ile fal baktır",
+          "help": "Yardım",
+          "terms": "Kullanım Şartları"
+        },
+        "globalPresence": "Dünyada Falcım",
+        "socialMedia": "Sosyal Medya",
+        "rights": "Her hakkı saklıdır. 2024, afnamal"
+      },
+      "languages": {
+        "turkish": "Türkçe",
+        "english": "English",
+        "arabic": "العربية",
+        "greek": "Ελληνικά"
+      },
+      "help": {
+        "title": "Yardım ve Kullanım Kılavuzu",
+        "fortuneTypes": {
+            "title": "Fal Türleri",
+            "description": "Sitemizde iki çeşit fal hizmeti sunulmaktadır:",
+            "coffee": "Kahve Falı",
+            "coffeeDesc": "Geleneksel Türk kahve falına dayanır. Kahvenizi içtikten sonra fincanınızın fotoğrafını çekip yollayabilirsiniz.",
+            "palm": "El Falı",
+            "palmDesc": "Elinizin fotoğrafını çekerek falınıza bakılmasını sağlayabilirsiniz."
+        },
+        "membership": {
+          "title": "Üyelik ve Giriş İşlemleri",
+          "description": "Fal baktırmak için öncelikle üye olmanız gerekmektedir. Üye olduktan sonra 'Üye Girişi' yaparak sisteme giriş yapabilirsiniz."
+        },
+        "process": {
+          "title": "Fal Baktırma Süreci",
+          "description": "'Fal Bak' sekmesine tıklayarak kahve falı veya el falı seçeneklerinden birini seçebilirsiniz. Seçim yaptıktan sonra, aydınlık ve net çekilmiş bir fotoğraf yüklemeniz gerekmektedir. Fotoğrafın kalitesi falın yorumlanma kalitesini doğrudan etkiler."
+        },
+        "history": {
+          "title": "Geçmiş Fallar ve Üyelik Bilgileri",
+          "description": "'Hesabım' altında bulunan 'Geçmiş Fallarım' seçeneği ile daha önce baktırdığınız fallara ulaşabilirsiniz. Ayrıca, 'Üyelik Bilgilerim' kısmından üyelik bilgilerinizi güncelleyebilirsiniz."
+        },
+        "contact": {
+          "title": "İletişim Bilgileri",
+          "description": "Sorularınız veya daha fazla bilgi için lütfen bize e-posta yoluyla ulaşın: afnamal@hotmail.com"
+        }
+      },
+      "terms": {
+        "title": "FALCIM Web Sitesi ve Uygulaması Kullanım Koşulları ve Gizlilik Politikası",
+        "intro": "KULLANICIlar, FALCIM'da sunulan hizmetlerden (belirli bir bedel ödeyerek ya da bedelsiz olarak) yararlanarak veya herhangi bir şekilde site veya uygulamaya erişim sağlayarak 18 yaşından büyük olduklarını veya reşit olmayıp ebeveynlerinin ya da kendilerine bakmakla yükümlü bir kişinin yasal onayına sahip olduklarını; iş bu Kullanım Şartları'nın tamamını okuduklarını ve içeriğini tamamıyla anladıklarını ve tüm maddelerini kayıtsız şartsız kabul ederek onayladıklarını peşinen taahhüt ederler. Bu KULLANICIlar Falcım tarafından iş bu Site Kullanım Koşulları hükümlerinde yapılan her değişikliği önceden kabul etmiş sayılmaktadır.",
+        "disclaimer": "FALCIM sitesi ve uygulaması içeriğinde bulunan fal yorumları tamamen hayal gücü ile eğlence amaçlı üretilmiştir. Herhangi bir şekilde gelecekten haber vermez ve doğruluk içermemektedir. FALCIM'da yapılan yorumlar geleneksel fal dilinin sohbet ve eğlence amaçlı sunulmuş bir şeklidir. Yorumcuların sunduğu içerik yanlış anlamalar oluşturabileceğinden çocuklar ve zihinsel yeterliliği olmayanlar için sakıncalı olabilir.",
+        "ageRestriction": "13 yaşından küçüklerin FALCIM sitesi ve uygulamasını kullanmaması tavsiye olunur. 13 yaşından küçük KULLANICILAR hangi siteleri ve uygulamaları kullanabilecekleri konusunda ebeveynlerine danışabilirler.",
+        "contentOwnership": "FALCIM sitesi ve uygulamasında bulunan tüm içerikler Fikir ve Sanat Eserleri Kanunu'na tabidir ve içeriğine ilişkin her türlü ses, görüntü, yazı, belge ve her türlü fikri ve sınai haklar ile tüm telif hakları ve diğer fikri ve sinai mülkiyet hakları Falcım A.Ş.'ye aittir. Bu sitenin ve uygulamanın yapısı ve içeriği, sitede kullanılan her türlü görsel malzeme Fikir ve Sanat Eserleri Kanunu ve Türk Ceza Kanunu kapsamında korunmaktadır.",
+        "usageRestrictions": "FALCIM sitesinde ve uygulamasında bulunan hiçbir yazı; önceden izin alınmadan ve kaynak gösterilmeden, kod ve yazılım da dahil olmak üzere, değiştirilemez, kopyalanamaz, çoğaltılamaz, başka bir lisana çevrilemez, yeniden yayımlanamaz, başka bir bilgisayara yüklenemez, postalanamaz, iletilemez, sunulamaz ya da dağıtılamaz, bütünü veya bir kısmı kaynak gösterilmeden başka bir web sitesinde veya uygulamada izinsiz olarak kullanılamaz.",
+        "registrationRequired": "FALCIM'da KULLANICI olmak için uygulamanın indirilmesi ve kullanıcı bilgileri formuna bilgi girişi yaparken istenilen hususların eksiksiz ve açık doldurulması zorunludur. KULLANICIlar bu formla aktarılan bilgilerin doğruluğunu kayıtsız şartsız taahhüt eder.",
+        "respectPrivacy": "FALCIM tüm KULLANICIların kişilik haklarına ve gizlilik haklarına saygı duymaktadır. Maddelerde yazılı sebepler dışında ve yargı mercileri istemi haricinde, her ne sebeple olursa olsun kişisel bilgileri, hiçbir kurum veya kuruluşa vermeyeceğini kabul ve taahhüt eder.",
+        "disclaimerDataBreach": "FALCIM, veri tabanına yapılabilecek saldırılar sonucu KULLANICI bilgilerinin kötü amaçlı kişilerin eline geçmesi ve bunların kötü niyetli kullanılması halinde doğabilecek sonuçlardan dolayı sorumluluk kabul etmez."
+      },
+      "upload": {
+        "uploadingPhoto": "Fotoğraf yükleniyor...",
+    "successfulUpload": "Fotoğraf başarıyla yüklendi!",
+    "handPhoto": "El Fotoğrafı Yükle",
+    "uploadPhoto": "Fotoğraf Yükle",
+    "uploadCupPhoto": "Fincan Fotoğrafı Yükle",
+    "photoUploadedText": "Fotoğraf analiz ediliyor...",
+    "checkFortune": "Falına Bak"
+
+    },
+    "altText": {
+        "uploadedPhoto": "Yüklenen Fotoğraf",
+        "uploadCupPhoto": "Fincan Fotoğrafı Yükle"
+      },
+    "errors": {
+    "modelNotLoaded": "Model henüz yüklenmedi. Lütfen tekrar deneyin.",
+    "communicationError": "Chatbot ile iletişim kurulurken bir hata oluştu."
+    },
+    "chat": {
+    "palmReadingResult": "El Falı: {content}",
+    "coffeeReadingResult": "Kahve Falı: {content}",
+    "botReply": "El Falı: {content}",
+    "systemMessage": "Sen falcı ablasın, sadece el falı bakarsın, soru sormazsın.",
+    "userMessage": "Adım {name}, {location} şehrindenim ve doğum tarihim {birthdate}. El falıma bakmanı istiyorum. Önünde benim elim varmış gibi yorumla. Gerçek bir falcı gibi cümleler kur. Yaşadığım yere ve yaşım göre tahminlerde bulun."
+      },
+      "actions": {
+        "readPalm": "El Falına Bak"
+      },
+      "messages": {
+        "uploadPrompt": "Merhaba, falınıza bakmam için lütfen fotoğraf yükleyin.",
+        "loading": "Yükleniyor..."
+      },
+      "photoFeedback": {
+        "success": "Falınıza bakabilirsiniz!",
+        "failure": "El algılanamadı. Lütfen daha net fotoğraf çekin."
+      },
+      "systemMessages": {
+        "loadingPhoto": "Fotoğraf yükleniyor...",
+        "modelNotLoaded": "Model henüz yüklenmedi. Lütfen tekrar deneyin.",
+        "fortuneReady": "Falınız hazır!",
+        "cupNotDetected": "Fincan algılanamadı. Lütfen daha net fotoğraf çekin.",
+        "errorSendingMessage": "Kahve Falı Chatbot ile iletişimde bir hata oluştu."
+      },
+      "userPrompts": {
+        "initialPrompt": "Merhaba, falınıza bakmam için lütfen fotoğraf yükleyin.",
+        "coffeeReadingRequest": "Kahve falıma bakmanı istiyorum. Önünde bir fincan varmış gibi yorumla. Gerçek bir falcı gibi cümleler kur. Yaşadığım yere yaşıma göre tahminlerde bulun."
+      },
+      "updateInfo": {
+        "title": "Bilgilerinizi Güncelleyin",
+        "nameLabel": "İsim",
+        "namePlaceholder": "İsim giriniz",
+        "emailLabel": "Email (Güncellenemez)",
+        "emailPlaceholder": "Email giriniz",
+        "birthDateLabel": "Doğum Tarihi",
+        "birthDatePlaceholder": "Doğum tarihi giriniz",
+        "locationLabel": "Şehrimi Değiştir",
+        "updateButton": "Güncelle",
+        "passwordResetButton": "Şifre Sıfırlama E-postası Gönder",
+        "userInfoNotFound": "Kullanıcı bilgisi bulunamadı.",
+        "sessionNotFound": "Kullanıcı oturumu bulunamadı. Lütfen oturum açın."
+      }
+  }
+  

@@ -1,0 +1,135 @@
+{
+    "navbar": {
+      "login": "Login",
+      "account": "My Account",
+      "fortune": "Fortune Telling",
+      "terms": "Terms of Use",
+      "help": "Help",
+      "logout": "Logout"
+    },
+    "features": {
+      "takePhoto": "Take photos of your cup",
+      "enterInfo": "Enter your details easily",
+      "getReading": "Let your interpreter analyze it instantly"
+    },
+    "footer": {
+        "brand": "Falcım",
+        "links": {
+          "iphone": "Get a reading on iPhone",
+          "android": "Get a reading on Android",
+          "huawei": "Get a reading on Huawei",
+          "help": "Help",
+          "terms": "Terms of Use"
+        },
+        "globalPresence": "Falcım Worldwide",
+        "socialMedia": "Social Media",
+        "rights": "All rights reserved. 2024, afnamal"
+      },
+      "languages": {
+        "turkish": "Turkish",
+        "english": "English",
+        "arabic": "Arabic",
+        "greek": "Greek"
+      },
+      "help": {
+        "title": "Help and User Guide",
+        "fortuneTypes": {
+          "title": "Types of Fortune",
+          "description": "Our site offers two types of fortune-telling services:",
+          "coffee": "Coffee Fortune",
+          "coffeeDesc": "Based on traditional Turkish coffee fortune-telling. You can send us a photo of your cup after drinking your coffee.",
+          "palm": "Palm Reading",
+          "palmDesc": "You can have your fortune told by sending a photo of your palm."
+        },
+        "membership": {
+          "title": "Membership and Login Procedures",
+          "description": "You must first register to have your fortune told. After registering, you can log in to the system via 'Member Login'."
+        },
+        "process": {
+          "title": "The Fortune-Telling Process",
+          "description": "Click on the 'Read Fortune' tab to choose between coffee fortune or palm reading options. After making a selection, you need to upload a bright and clear photograph. The quality of the photograph directly affects the quality of the fortune telling."
+        },
+        "history": {
+          "title": "Past Fortunes and Membership Details",
+          "description": "You can access your previous fortunes under 'My Account' in the 'Past Fortunes' section. You can also update your membership details in the 'Membership Information' section."
+        },
+        "contact": {
+          "title": "Contact Information",
+          "description": "For questions or more information, please contact us via email: afnamal@hotmail.com"
+        }
+      },
+      "terms": {
+        "title": "Terms of Use and Privacy Policy of FALCIM Website and App",
+        "intro": "Users, by taking advantage of the services offered on FALCIM (either for a fee or free of charge) or by accessing the site or app in any way, undertake in advance that they are over 18 years old or, if not of age, they have the legal consent of their parents or guardian; and they have read, fully understood, and unconditionally accept and agree to all the terms of these Terms of Use. These users are deemed to have accepted any amendments made to the provisions of these Site Terms of Use in advance.",
+        "disclaimer": "The fortune-telling comments contained in the content of the FALCIM site and app are produced entirely for entertainment purposes with imagination. They do not predict the future and do not contain accuracy. The comments made on FALCIM are a form of traditional fortune-telling language presented for conversation and entertainment purposes. The content provided by the commentators may cause misunderstandings and can be dangerous for children and mentally incapable individuals.",
+        "ageRestriction": "It is advised that children under the age of 13 do not use the FALCIM site and app. Children under the age of 13 can consult their parents about which sites and applications they can use.",
+        "contentOwnership": "All contents on the FALCIM site and app are subject to the Law on Intellectual and Artistic Works, and all kinds of sound, images, writings, documents, and all kinds of intellectual and industrial rights including all copyrights and other intellectual and industrial property rights are owned by Falcım A.Ş. The structure and content of this site and application, including all types of visual materials used on the site, are protected under the Law on Intellectual and Artistic Works and the Turkish Penal Code.",
+        "usageRestrictions": "No text found on the FALCIM site and app can be altered, copied, reproduced, translated into another language, republished, uploaded to another computer, posted, transmitted, presented, or distributed without prior permission and without citing the source, including code and software.",
+        "registrationRequired": "To become a USER of FALCIM, downloading the app and filling out the user information form with all required details clearly is mandatory. USERS unconditionally undertake the accuracy of the information transmitted with these forms.",
+        "respectPrivacy": "FALCIM respects the personal rights and privacy rights of all USERS. Except for reasons written in the articles and except for the demands of the judicial authorities, it undertakes not to provide personal information to any institution or organization, no matter what the reason may be.",
+        "disclaimerDataBreach": "FALCIM does not accept responsibility for the consequences arising from malicious individuals obtaining USER information as a result of attacks on its database and the malicious use of this information."
+      },
+      "upload": {
+        "uploadingPhoto": "Uploading photo...",
+    "successfulUpload": "Photo uploaded successfully!",
+    "handPhoto": "Upload Hand Photo",
+    "uploadPhoto": "Upload Photo",
+    "uploadCupPhoto": "Upload Cup Photo",
+    "photoUploadedText": "Photo is being analyzed...",
+    "checkFortune": "Check Fortune"
+
+        },
+        "altText": {
+            "uploadedPhoto": "Uploaded Photo",
+            "uploadCupPhoto": "Upload Cup Photo"
+          },
+        "errors": {
+    "modelNotLoaded": "Model not loaded yet. Please try again.",
+    "communicationError": "An error occurred while communicating with the Chatbot."
+    },
+    "chat": {
+    "palmReadingResult": "Palm Reading: {content}",
+    "coffeeReadingResult": "Coffee Reading: {content}",
+    "botReply": "Palm Reading: {content}",
+    "systemMessage": "You are speaking with the palm reading expert; I do not answer questions, only read palms.",
+    "userMessage": "My name is {name}, from {location} and my birthdate is {birthdate}. I would like you to read my palm as if it were in front of you. Please formulate sentences as a real fortune teller would and make predictions based on my location and age."
+      },
+    "actions": {
+        "readPalm": "Read Palm"
+      },
+      "messages": {
+        "uploadPrompt": "Hello, please upload a photo for me to read your fortune.",
+        "loading": "Loading..."
+      },
+      "photoFeedback": {
+        "success": "You can now have your fortune told!",
+        "failure": "Hand not detected. Please take a clearer photo."
+      },
+      "systemMessages": {
+        "loadingPhoto": "Photo is being uploaded...",
+        "modelNotLoaded": "Model not loaded yet. Please try again.",
+        "fortuneReady": "Your fortune is ready!",
+        "cupNotDetected": "Cup not detected. Please take a clearer photo.",
+        "errorSendingMessage": "An error occurred while communicating with the Fortune Telling Chatbot."
+      },
+      "userPrompts": {
+        "initialPrompt": "Hello, please upload a photo for me to read your fortune.",
+        "coffeeReadingRequest": "I want you to read my coffee fortune as if there's a cup in front of you. Formulate sentences like a real fortune teller and make predictions based on my location and age."
+      },
+      "updateInfo": {
+        "title": "Update Your Information",
+        "nameLabel": "Name",
+        "namePlaceholder": "Enter your name",
+        "emailLabel": "Email (Cannot be changed)",
+        "emailPlaceholder": "Enter your email",
+        "birthDateLabel": "Birth Date",
+        "birthDatePlaceholder": "Enter your birth date",
+        "locationLabel": "Change Your City",
+        "updateButton": "Update",
+        "passwordResetButton": "Send Password Reset Email",
+        "userInfoNotFound": "User information not found.",
+        "sessionNotFound": "No user session found. Please log in."
+      }
+      
+  }
+  

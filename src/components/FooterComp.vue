@@ -5,30 +5,30 @@
         <div class="footer-content">
           <!-- Section 1: Navigation Links -->
           <div class="footer-column">
-            <h5>Falcım</h5>
+            <h5>{{ $t('footer.brand') }}</h5>
             <ul class="list-unstyled">
-              <li><a href="#" class="link-light">iPhone ile fal baktır</a></li>
-              <li><a href="#" class="link-light">Android ile fal baktır</a></li>
-              <li><a href="#" class="link-light">Huawei ile fal baktır</a></li>
-              <li><a href="#" class="link-light">Yardım</a></li>
-              <li><a href="#" class="link-light">Kullanım Şartları</a></li>
+              <li><a href="#" class="link-light">{{ $t('footer.links.iphone') }}</a></li>
+              <li><a href="#" class="link-light">{{ $t('footer.links.android') }}</a></li>
+              <li><a href="#" class="link-light">{{ $t('footer.links.huawei') }}</a></li>
+              <li><a href="#" class="link-light">{{ $t('footer.links.help') }}</a></li>
+              <li><a href="#" class="link-light">{{ $t('footer.links.terms') }}</a></li>
             </ul>
           </div>
 
           <!-- Section 2: Language Selection and Info -->
           <div class="footer-column">
-            <h5>Dünyada Falcım</h5>
+            <h5>{{ $t('footer.globalPresence') }}</h5>
             <div class="column">
-              <a href="#" class="badge badge-secondary">Türkçe</a><br>
-              <a href="#" class="badge badge-secondary">English</a><br>
-              <a href="#" class="badge badge-secondary">العربية</a><br>
-              <a href="#" class="badge badge-secondary">Ελληνικά</a><br>
+              <a href="#" class="badge badge-secondary">{{ $t('languages.turkish') }}</a><br>
+              <a href="#" class="badge badge-secondary">{{ $t('languages.english') }}</a><br>
+              <a href="#" class="badge badge-secondary">{{ $t('languages.arabic') }}</a><br>
+              <a href="#" class="badge badge-secondary">{{ $t('languages.greek') }}</a><br>
             </div>
           </div>
 
           <!-- Section 3: Social Media Links -->
           <div class="footer-column">
-            <h5>Sosyal Medya</h5>
+            <h5>{{ $t('footer.socialMedia') }}</h5>
             <a href="https://facebook.com" class="badge badge-primary mb-2"><i class="fab fa-facebook"></i> Facebook</a><br>
             <a href="https://instagram.com" class="badge badge-primary mb-2"><i class="fab fa-instagram"></i> Instagram</a><br>
             <a href="https://twitter.com" class="badge badge-primary mb-2"><i class="fab fa-twitter"></i> Twitter</a><br>
@@ -37,12 +37,13 @@
         </div>
         <div class="copyright">
           <hr style="width: 70%; margin: 0 auto;">
-          <p class="text-center mt-3">Her hakkı saklıdır. 2024, afnamal</p>
+          <p class="text-center mt-3">{{ $t('footer.rights') }}</p>
         </div>
       </div>
     </footer>
   </div>
 </template>
+
 
 <style>
 :root {

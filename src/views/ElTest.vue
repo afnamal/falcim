@@ -8,12 +8,12 @@
           <div v-if="!buttonActive" class="text-center">
             <label for="file-upload2" class="btn btn-primary my-2">
               <img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/site%20photos%2Fels1.1.png?alt=media&token=dcf41e80-4e4a-403f-993e-fb9863b077c6" alt="Hand Image Upload" class="img-fluid">
-              El Fotoğrafı Yükle
+              {{ $t('upload.handPhoto') }}
             </label>
             <input id="file-upload2" type="file" @change="handleFileUpload($event)" class="d-none" />
           </div>
           <p class="text-muted">{{ photoUploadedText }}</p>
-          <button @click="sendMessage" :disabled="!buttonActive" class="btn btn-success mt-3" :class="{'disabled': !buttonActive}">El Falına Bak</button>
+          <button @click="sendMessage" :disabled="!buttonActive" class="btn btn-success mt-3" :class="{'disabled': !buttonActive}">{{ $t('actions.readPalm') }}</button>
         </div>
         <div class="col-md-6 chat-container">
           <div v-if="loading" class="loading-c d-flex justify-content-center align-items-center">
@@ -40,6 +40,7 @@ import { ref, onMounted,watch } from 'vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue'; // Import the loading spinner component
 import * as tmImage from '@teachablemachine/image';
 import NavbarOrg from '../components/NavbarOrg.vue'
+import { useI18n } from 'vue-i18n';
 
 
 export default {
@@ -58,6 +59,8 @@ export default {
     const loading = ref(false); // Add a new data property for loading state
     const modelUrl = ref("https://teachablemachine.withgoogle.com/models/sZdvGcSjR/");
     let model;
+    const { t } = useI18n();  // Destructuring the translation function `t` from useI18n
+
 
     onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
@@ -90,15 +93,16 @@ export default {
       }
     });
     onMounted(() => {
-      typeMessage({ type: 'bot', content: 'Merhaba, falınıza bakmam için lütfen fotoğraf yükleyin' });
-    });
+      const messageContent = t('messages.uploadPrompt');  // Fetching the localized message
+      typeMessage({ type: 'bot', content: messageContent });
+      });
 
 
     const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
       newUrl.value = URL.createObjectURL(file);
-      photoUploadedText.value = 'Fotoğraf yükleniyor...';
+      photoUploadedText.value = t('upload.uploadingPhoto');
       const imageUrl = URL.createObjectURL(file);
       const imageElement = new Image();
       imageElement.src = imageUrl;
@@ -106,17 +110,17 @@ export default {
         // Check if the model is loaded
         if (!model) {
           console.error('Model is not loaded yet.');
-          photoUploadedText.value = 'Model henüz yüklenmedi. Lütfen tekrar deneyin.';
+          photoUploadedText.value = t('errors.modelNotLoaded');
           return;
         }
 
         const predictions = await model.predict(imageElement);
         const cupProbability = predictions.find(p => p.className === 'el').probability;
         if (cupProbability > 0.5) {
-          photoUploadedText.value = 'Falınıza bakabilirsiniz!';
+          photoUploadedText.value = t('photoFeedback.success');      
           buttonActive.value = true;
         } else {
-          photoUploadedText.value = 'El algılanamadı. Lütfen daha net fotoğraf çekin.';
+          photoUploadedText.value = t('photoFeedback.failure');
           buttonActive.value = false;
         }
       };
@@ -128,13 +132,17 @@ export default {
 
       const postData = {
         model: 'gpt-3.5-turbo',
-        messages: [
-          { role: 'system', content: 'sen falcı ablasın sadece el falı bakarsın soru sormazsın.' },
-          {
-            role: 'user',
-            content: `Adım ${userName.value}, ${userLocation.value} şehrindenim ve doğum tarihim ${userBirthDate.value}. el falıma bakmanı istiyorum. önünde benim elim varmış gibi yorumla. gerçek bir falcı gibi cümleler kur. yaşadığım yere yaşıma göre tahminlerde bulun.`,
-          },
-        ],
+      messages: [
+        { role: 'system', content: t('chat.systemMessage') },
+        {
+          role: 'user',
+          content: t('chat.userMessage', {
+            name: userName.value,
+            location: userLocation.value,
+            birthdate: userBirthDate.value
+          })
+        }
+      ]
       };
       const config = {
         headers: {
@@ -144,7 +152,7 @@ export default {
       };
       try {
         const response = await axios.post('https://api.openai.com/v1/chat/completions', postData, config);
-        const botReply = 'El Falı: ' + response.data.choices[0].message.content;
+        const botReply = t('chat.palmReadingResult', { content: response.data.choices[0].message.content });
         const messageRef = collection(db, 'users', user.value.uid, 'messages');
         await addDoc(messageRef, {
           text: botReply,
@@ -153,11 +161,11 @@ export default {
           title:"El Falı",
           imageUrl:"https://www.efsunasor.com/img/elcizgileri.jpg"
         });
-        messages.value.push({ text: botReply, type: 'bot' });
-      } catch (error) {
+        messages.value.push({ text: t('chat.botReply', { content: response.data.choices[0].message.content }), type: 'bot' });
+        } catch (error) {
         console.error('Error sending message:', error);
-        messages.value.push({ text: 'Kahve Falı Chatbot ile iletişimde bir hata oluştu.', type: 'bot' });
-      } finally {
+        messages.value.push({ text: t('errors.communicationError'), type: 'bot' });
+        } finally {
         loading.value = false; // Set loading back to false after receiving the response
       }
     };
@@ -184,7 +192,7 @@ export default {
       }
     });
 
-    return { messages, sendMessage, handleFileUpload, buttonActive, newUrl, photoUploadedText, loading };
+    return { messages, sendMessage, handleFileUpload, buttonActive, newUrl, photoUploadedText, loading,t };
   },
 };
 </script>

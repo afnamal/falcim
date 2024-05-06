@@ -1,40 +1,43 @@
 <template>
   <div>
     <NavbarOrg />
-  <div class="container mt-5">
-    
-    <div class="row main-container">
-      <div class="col-md-6 upload-container">
-        <img v-if="buttonActive" :src="newUrl" alt="Yüklenen Fotoğraf" class="img-fluid">
-        <div v-if="!buttonActive" class="text-center">
-          <label for="file-upload2" class="btn btn-primary my-2">
-            <img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/site%20photos%2Fdens1.2.png?alt=media&token=a7e44bb5-a603-4888-8fb4-f17bfea31f91" alt="Fincan Fotoğrafı Yükle" class="img-fluid">
-            Fotoğraf Yükle
-          </label>
-          <input id="file-upload2" type="file" @change="handleFileUpload($event)" class="d-none" />
+    <div class="container mt-5">
+      <div class="row main-container">
+        <div class="col-md-6 upload-container">
+          <img v-if="buttonActive" :src="newUrl" alt="$t('altText.uploadedPhoto')" class="img-fluid">
+          <div v-if="!buttonActive" class="text-center">
+            <label for="file-upload2" class="btn btn-primary my-2">
+              <img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/site%20photos%2Fdens1.2.png?alt=media&token=a7e44bb5-a603-4888-8fb4-f17bfea31f91" :alt="$t('altText.uploadCupPhoto')" class="img-fluid">
+              {{ $t('upload.uploadPhoto') }}
+            </label>
+            <input id="file-upload2" type="file" @change="handleFileUpload($event)" class="d-none" />
+          </div>
+          <p class="text-muted">{{ photoUploadedText }}</p>
+          <button @click="sendMessage" :disabled="!buttonActive" class="btn btn-success mt-3" :class="{'disabled': !buttonActive}">
+            {{ $t('upload.checkFortune') }}
+          </button>
         </div>
-        <p class="text-muted">{{ photoUploadedText }}</p>
-        <button @click="sendMessage" :disabled="!buttonActive" class="btn btn-success mt-3" :class="{'disabled': !buttonActive}">Falına Bak</button>
-      </div>
-      <div class="col-md-6 chat-container">
-        <div v-if="loading" class="loading-c d-flex justify-content-center align-items-center">
-          <LoadingSpinner />
-        </div>
-        <div  class="messages">
-          <div v-for="(msg, index) in messages" :key="index" class="p-2">
-            <p class="bg-light p-2 rounded">{{ msg.text }}</p>
+        <div class="col-md-6 chat-container">
+          <div v-if="loading" class="loading-c d-flex justify-content-center align-items-center">
+            <LoadingSpinner />
+          </div>
+          <div class="messages">
+            <div v-for="(msg, index) in messages" :key="index" class="p-2">
+              <p class="bg-light p-2 rounded">{{ msg.text }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
+
 
 
 
 <script>
 import axios from 'axios';
+import { useI18n } from 'vue-i18n';
 import { getAuth,onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc,  addDoc, collection, serverTimestamp,getDoc } from 'firebase/firestore';
 import { ref, onMounted,watch } from 'vue';
@@ -47,6 +50,7 @@ import NavbarOrg from '../components/NavbarOrg.vue'
 export default {
   components: { LoadingSpinner, NavbarOrg},
   setup() {
+    const { t } = useI18n();
     const auth = getAuth();
     const db = getFirestore();
     const user = ref(null);
@@ -92,14 +96,14 @@ export default {
       }
     });
     onMounted(() => {
-      typeMessage({ type: 'bot', content: 'Merhaba, falınıza bakmam için lütfen fotoğraf yükleyin' });
-    });
+      typeMessage({ type: 'bot', content: t('userPrompts.initialPrompt') });
+      });
 
     const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
       newUrl.value = URL.createObjectURL(file);
-      photoUploadedText.value = 'Fotoğraf yükleniyor...';
+      photoUploadedText.value = t('systemMessages.loadingPhoto');
       const imageUrl = URL.createObjectURL(file);
       const imageElement = new Image();
       imageElement.src = imageUrl;
@@ -107,17 +111,17 @@ export default {
         // Check if the model is loaded
         if (!model) {
           console.error('Model is not loaded yet.');
-          photoUploadedText.value = 'Model henüz yüklenmedi. Lütfen tekrar deneyin.';
+          photoUploadedText.value = t('systemMessages.modelNotLoaded');
           return;
         }
 
         const predictions = await model.predict(imageElement);
         const cupProbability = predictions.find(p => p.className === 'fincan').probability;
         if (cupProbability > 0.5) {
-          photoUploadedText.value = 'Falınıza bakabilirsiniz!';
+          photoUploadedText.value = t('systemMessages.fortuneReady');
           buttonActive.value = true;
         } else {
-          photoUploadedText.value = 'Fincan algılanamadı. Lütfen daha net fotoğraf çekin.';
+          photoUploadedText.value = t('systemMessages.cupNotDetected');
           buttonActive.value = false;
         }
       };
@@ -130,10 +134,14 @@ export default {
       const postData = {
         model: 'gpt-3.5-turbo',
         messages: [
-          { role: 'system', content: 'sen falcı ablasın sadece kahve falı bakarsın soru sormazsın.' },
+          { role: 'system', content: t('userPrompts.coffeeReadingRequest') },    
           {
             role: 'user',
-            content: `Adım ${userName.value}, ${userLocation.value} şehrindenim ve doğum tarihim ${userBirthDate.value}. kahve falıma bakmanı istiyorum. önünde bir fincan varmış gibi yorumla. gerçek bir falcı gibi cümleler kur. yaşadığım yere yaşıma göre tahminlerde bulun.`,
+            content: t('userPrompts.coffeeReadingRequest', {
+              name: userName.value,
+              location: userLocation.value,
+              birthdate: userBirthDate.value
+            })
           },
         ],
       };
@@ -145,7 +153,7 @@ export default {
       };
       try {
         const response = await axios.post('https://api.openai.com/v1/chat/completions', postData, config);
-        const botReply = 'Kahve Falı: ' + response.data.choices[0].message.content;
+        const botReply = t('chat.coffeeReadingResult', { content: response.data.choices[0].message.content });
         const messageRef = collection(db, 'users', user.value.uid, 'messages');
         await addDoc(messageRef, {
           text: botReply,
@@ -157,8 +165,8 @@ export default {
         messages.value.push({ text: botReply, type: 'bot' });
       } catch (error) {
         console.error('Error sending message:', error);
-        messages.value.push({ text: 'Kahve Falı Chatbot ile iletişimde bir hata oluştu.', type: 'bot' });
-      } finally {
+        messages.value.push({ text: t('systemMessages.errorSendingMessage'), type: 'bot' });
+        } finally {
         loading.value = false; // Set loading back to false after receiving the response
       }
     };

@@ -17,13 +17,15 @@
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto" style="cursor: pointer;">
-            <a class="nav-link login-link" v-if="!user" @click="pushLogin('/')"><span class="material-icons align-middle">login</span> Giriş Yap</a>
-            <a class="nav-link" v-if="user" @click="pushUser"><span class="material-icons align-middle">person</span> Hesabım</a>
-            <a class="nav-link" @click="pushLogin('/fal')"><span class="material-icons align-middle">local_cafe</span> Fal Bak</a>
-            <a class="nav-link" @click="pushKullanim"><span class="material-icons align-middle">description</span> Kullanım Şartları</a>
-            <a class="nav-link" @click="pushHelp" ><span class="material-icons align-middle">help</span> Yardım</a>
-            <a class="nav-link logout-link" @click="handleLoguot" v-if="user" style=""><span class="material-icons align-middle">logout</span> Çıkış Yap</a>
-
+            <a class="nav-link login-link" v-if="!user" @click="pushLogin('/')"><span class="material-icons align-middle">login</span>{{ $t('navbar.login') }}</a>
+            <a class="nav-link" v-if="user" @click="pushUser"><span class="material-icons align-middle">person</span>{{ $t('navbar.account') }}</a>
+            <a class="nav-link" @click="pushLogin('/fal')"><span class="material-icons align-middle">local_cafe</span>{{ $t('navbar.fortune') }}</a>
+            <a class="nav-link" @click="pushKullanim"><span class="material-icons align-middle">description</span>{{ $t('navbar.terms') }}</a>
+            <a class="nav-link" @click="pushHelp"><span class="material-icons align-middle">help</span>{{ $t('navbar.help') }}</a>
+            <a class="nav-link logout-link" @click="handleLogout" v-if="user"><span class="material-icons align-middle">logout</span>{{ $t('navbar.logout') }}</a>
+            <!-- Language Switch -->
+            <img src="../assets/en-flag.png" @click="changeLanguage('en')" alt="English" class="language-icon">
+            <img src="../assets/tr-flag.png" @click="changeLanguage('tr')" alt="Türkçe" class="language-icon">
           </div>
         </div>
       </div>
@@ -31,20 +33,19 @@
   </div>
 </template>
 
-
-
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { getAuth, onAuthStateChanged,signOut } from 'firebase/auth';
-import { showToast } from '../services/notificationService';  // Doğru ithalat yolu
-
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { showToast } from '../services/notificationService';
+import { useI18n } from 'vue-i18n'; // vue-i18n'den useI18n'ı import edin
 export default {
   setup() {
     const router = useRouter();
     const auth = getAuth();
     const user = ref(null);
     const menuVisible = ref(false);
+    const { locale } = useI18n(); // useI18n hook'undan locale'i alın
 
     onAuthStateChanged(auth, (authUser) => {
       user.value = authUser;
@@ -55,19 +56,17 @@ export default {
     };
 
     const pushLogin = (destination) => {
-      
-      if(!user.value){
+      if (!user.value) {
         window.sessionStorage.setItem('redirectAfterLogin', destination);
-        router.push('/login')}
-      else{
-        router.push('/fal')}
+        router.push('/login');
+      } else {
+        router.push(destination);
+      }
     };
 
-    const pushHelp=()=>{
-      router.push('/help')
-    }
-
-    
+    const pushHelp = () => {
+      router.push('/help');
+    };
 
     const pushKullanim = () => {
       router.push('/terms');
@@ -80,18 +79,22 @@ export default {
     const pushHome = () => {
       router.push('/');
     };
-    const handleLoguot = async () => {
+
+    const handleLogout = async () => {
       await signOut(auth);
       showToast("Çıkış yapıldı", 'success');
       router.push('/');
-      
-
+    };
+    const changeLanguage = (lang) => {
+      locale.value = lang; // locale'i güncelleyin
     };
 
-    return { menuVisible, user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome,handleLoguot,pushHelp };
+
+    return { user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome, handleLogout, pushHelp, changeLanguage };
   }
 };
 </script>
+
 
 
 
@@ -101,6 +104,13 @@ export default {
   max-width: 95px;
   transition: transform 0.3s ease;
 }
+.language-icon {
+  cursor: pointer;
+  margin-left: 10px;
+  width: 24px; /* Adjust size as needed */
+  height: 24px; /* Adjust size as needed */
+}
+
 
 .container {
   max-width: 100%; /* Ensure it's full width */

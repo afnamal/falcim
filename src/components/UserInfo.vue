@@ -1,18 +1,18 @@
 <template>
   <div class="container mt-5">
-    <h2 class="text-center mb-4">Bilgilerinizi Güncelleyin</h2>
+    <h2 class="text-center mb-4">{{ $t('updateInfo.title') }}</h2>
     <form @submit.prevent="handleUpdate" class="needs-validation" novalidate>
       <div class="mb-3">
-        <label for="name" class="form-label">İsim</label>
-        <input type="text" class="form-control" id="name" placeholder="İsim giriniz" required v-model="name">
+        <label for="name" class="form-label">{{ $t('updateInfo.nameLabel') }}</label>
+        <input type="text" class="form-control" id="name" :placeholder="$t('updateInfo.namePlaceholder')" required v-model="name">
       </div>
       <div class="mb-3">
-        <label for="email" class="form-label">Email (Güncellenemez)</label>
-        <input type="email" class="form-control" id="email" placeholder="Email giriniz" required v-model="email" disabled>
+        <label for="email" class="form-label">{{ $t('updateInfo.emailLabel') }}</label>
+        <input type="email" class="form-control" id="email" :placeholder="$t('updateInfo.emailPlaceholder')" required v-model="email" disabled>
       </div>
       <div class="mb-3">
-        <label for="birthDate" class="form-label">Doğum Tarihi</label>
-        <input type="date" class="form-control" id="birthDate" placeholder="Doğum tarihi giriniz" v-model="birthDate">
+        <label for="birthDate" class="form-label">{{ $t('updateInfo.birthDateLabel') }}</label>
+        <input type="date" class="form-control" id="birthDate" :placeholder="$t('updateInfo.birthDatePlaceholder')" v-model="birthDate">
       </div>
       <div class="form-floating mb-3">
     <select class="form-select" id="location" v-model="location" aria-label="Yaşadığınız Yer">
@@ -98,11 +98,11 @@
     <option value="Osmaniye">Osmaniye</option>
     <option value="Düzce">Düzce</option>
     </select>
-    <label for="location">Şehrimi Değiştir</label>
-</div>
+    <label for="location">{{ $t('updateInfo.locationLabel') }}</label>
+      </div>
       <div v-if="error" class="alert alert-danger">{{ error }}</div>
-      <button type="submit" class="btn btn-primary w-100">Güncelle</button>
-      <button type="button" class="btn btn-secondary w-100 mt-2" @click="sendMail">Şifre Sıfırlama E-postası Gönder</button>
+      <button type="submit" class="btn btn-primary w-100">{{ $t('updateInfo.updateButton') }}</button>
+      <button type="button" class="btn btn-secondary w-100 mt-2" @click="sendMail">{{ $t('updateInfo.passwordResetButton') }}</button>
     </form>
   </div>
 </template>
@@ -111,6 +111,7 @@
 
 <script>
 import { ref, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { getAuth, updateProfile, sendPasswordResetEmail } from 'firebase/auth';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { showToast } from '../services/notificationService';  // Doğru ithalat yolu
@@ -125,6 +126,7 @@ export default {
     const birthDate = ref('');
     const location = ref('');
     const error = ref('');
+    const { t } = useI18n(); // Allows access to $t function inside setup
 
     const fetchUserData = async () => {
       const userDoc = doc(db, 'users', user.uid);
@@ -184,7 +186,7 @@ export default {
 
     onMounted(fetchUserData);
 
-    return { name, email, birthDate, location, handleUpdate, error, sendMail };
+    return { name, email, birthDate, location, handleUpdate, error, sendMail,t };
   }
 }
 </script>
