@@ -17,14 +17,13 @@
         <button @click="sendMessage" :disabled="!buttonActive" class="btn btn-success mt-3" :class="{'disabled': !buttonActive}">Falına Bak</button>
       </div>
       <div class="col-md-6 chat-container">
-       
+        <div v-if="loading" class="loading-c d-flex justify-content-center align-items-center">
+          <LoadingSpinner />
+        </div>
         <div  class="messages">
           <div v-for="(msg, index) in messages" :key="index" class="p-2">
             <p class="bg-light p-2 rounded">{{ msg.text }}</p>
           </div>
-        </div>
-        <div v-if="loading" class="loading-c d-flex justify-content-center align-items-center">
-          <LoadingSpinner />
         </div>
       </div>
     </div>
