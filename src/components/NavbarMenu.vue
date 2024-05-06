@@ -37,6 +37,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { getAuth, onAuthStateChanged,signOut } from 'firebase/auth';
+import { showToast } from '../services/notificationService';  // Doğru ithalat yolu
 
 export default {
   setup() {
@@ -81,7 +82,10 @@ export default {
     };
     const handleLoguot = async () => {
       await signOut(auth);
+      showToast("Çıkış yapıldı", 'success');
       router.push('/');
+      
+
     };
 
     return { menuVisible, user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome,handleLoguot,pushHelp };

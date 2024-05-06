@@ -1,12 +1,15 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+// LoginComposable.js
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { ref } from 'vue';
+import { showToast } from '../services/notificationService';  // Doğru ithalat yolu
 
 const error = ref(null);
 
 const login = async (email, password) => {
+    const auth = getAuth();
     try {
-        const auth = getAuth();
         const res = await signInWithEmailAndPassword(auth, email, password);
+        showToast("Başarıyla giriş yaptınız!", 'success');
         return res;
     } catch (err) {
         console.error('Giriş hatası:', err);
@@ -15,6 +18,7 @@ const login = async (email, password) => {
         } else {
             error.value = err.message;
         }
+        showToast("Giriş başarısız: " + error.value, 'error');
     }
 };
 

@@ -1,6 +1,5 @@
 <template>
     <div>
-        <NavbarMenu/>
         <div class="container my-5">
             <div class="section">
                 <button @click="togglePastReadings" class="btn btn-link text-left mb-2">Geçmiş Fallarım</button>
@@ -18,19 +17,17 @@
 
 <script>
 import PastReadingVue from '../components/PastReading.vue'
-import NavbarMenu from '@/components/NavbarMenu.vue';
 import UserInfoVue from '../components/UserInfo.vue';
 import { ref } from 'vue';
 
 export default {
     components: {
         PastReadingVue,
-        NavbarMenu,
         UserInfoVue
     },
     setup() {
         const showPastReadings = ref(false);
-        const showUserInfo = ref(false);
+        const showUserInfo = ref(true);
 
         const togglePastReadings = () => {
             showPastReadings.value = !showPastReadings.value;

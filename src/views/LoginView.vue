@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbarMenu/>
     <div class="container mt-5 welcome text-center">  <!-- Adjusted for centering and margin -->
       <div v-if="!Login">
         <SignupComp />
@@ -18,12 +17,11 @@
   <script>
   import SignupComp from '../components/SingupComp.vue';
   import LoginComp from '../components/LoginComp.vue';
-  import navbarMenu from '../components/NavbarMenu.vue'
   import { ref } from 'vue';
   
   export default {
     name: 'LoginView',
-    components: { SignupComp, LoginComp , navbarMenu},
+    components: { SignupComp, LoginComp , },
     setup() {
       const Login = ref(true);
       const toggleLogin = () => {

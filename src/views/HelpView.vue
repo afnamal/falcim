@@ -1,6 +1,5 @@
 <template>
 <div>
-    <NavbarMenu/>
     <div class="container mt-5 help-page">
       <h1 class="text-center mb-4">Yardım ve Kullanım Kılavuzu</h1>
       <div class="accordion" id="helpAccordion">
@@ -77,10 +76,9 @@
 </div>
   </template>
   <script>
-  import NavbarMenu from '../components/NavbarMenu.vue';
   
   export default {
-    components:{NavbarMenu},
+    components:{},
     setup() {
         
     },

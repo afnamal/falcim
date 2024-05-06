@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <!-- Navbar -->
-   <navbarMenu/>
 
     <!-- Main Header Image -->
     <header>
@@ -29,12 +28,11 @@ kolayca gir</p>
 </template>
 
 <script>
-import navbarMenu from '../components/NavbarMenu.vue'
 import { useRouter } from 'vue-router';
 
 export default {
   name: 'HomeView',
-  components: {navbarMenu},
+  components: {},
   setup() {
     const router = useRouter()
 

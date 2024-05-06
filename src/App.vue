@@ -1,11 +1,15 @@
 <template>
- 
+ <NavbarMenuVue/>
   <router-view/>
+  <FooterCompVue/>
 </template>
 
 
 <script>
+import FooterCompVue from "./components/FooterComp.vue";
+import NavbarMenuVue from './components/NavbarMenu.vue';
 
+export default {components:{FooterCompVue,NavbarMenuVue}}
 </script>
 
 <style>
