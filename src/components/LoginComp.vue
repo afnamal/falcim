@@ -34,7 +34,7 @@
       <div v-if="error" class="alert alert-danger">{{ error }}</div>
       <div v-if="dogrulanmamis" class="alert alert-warning">{{ dogrulanmamis }}</div>
       <div v-if="OnayMaili" class="alert alert-info">{{ OnayMaili }}</div>
-      <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+      <button type="submit" class="btn btn-primary w-100">Şifremi Sıfırla</button>
     </form>
   </div>
   </div>
@@ -49,6 +49,7 @@ import { useRouter } from 'vue-router';
 import { getAuth, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import LoginComposable from '../composables/LoginComposable';
 import SignupComposable from '../composables/SignupComposable';
+import { showToast } from '../services/notificationService';  // Doğru ithalat yolu
 
 export default {
   setup() {
@@ -67,7 +68,7 @@ export default {
     const ForgotPassword = async () => {
       try {
         await sendPasswordResetEmail(auth, email.value);
-        alert("Şifre sıfırlama linki mail adresinize gönderilmiştir!");
+        showToast("Şifre sıfırlama linki mail adresinize gönderilmiştir!", 'success');
       } catch (error) {
         console.error("Error sending password reset email:", error);
         alert("Failed to send password reset email: " + error.message);

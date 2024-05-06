@@ -113,6 +113,7 @@
 import { ref, onMounted } from 'vue';
 import { getAuth, updateProfile, sendPasswordResetEmail } from 'firebase/auth';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { showToast } from '../services/notificationService';  // Doğru ithalat yolu
 
 export default {
   setup() {
@@ -158,7 +159,7 @@ export default {
           displayName: name.value
         });
 
-        alert('Bilgileriniz başarıyla güncellendi!');
+        showToast("Bilgileriniz Başarıyla Güncellendi!", 'success');
       } catch (err) {
         console.error('Güncelleme sırasında bir hata oluştu:', err);
         error.value = 'Güncelleme sırasında bir hata oluştu: ' + err.message;
