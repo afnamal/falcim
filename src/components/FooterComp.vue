@@ -49,17 +49,10 @@
   --footer-background-color: #343a40;
   --link-color: aliceblue;
 }
-
-.footer {
-  background-color: var(--footer-background-color);
-  color: var(--link-color);
-  padding: 20px 0;
-}
-
 .footer-content {
   display: flex;
   justify-content: space-around;
-  align-items: flex-start; /* Align items to the top for a cleaner look */
+  align-items: flex-start !important; /* Force alignment */
   flex-wrap: wrap;
   padding: 0 30px;
 }
@@ -67,8 +60,36 @@
 .footer-column {
   flex: 1 1 200px;
   padding: 10px;
-  text-align: left;
+  text-align: left !important; /* Force text alignment */
 }
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start !important; /* Ensure alignment on mobile */
+  }
+
+  .footer-column {
+    text-align: left !important; /* Ensure text is left-aligned on small screens */
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .footer-content {
+    margin-left: 200px; /* Apply margin-left only on screens larger than 992px */
+  }
+}
+
+.footer {
+  background-color: var(--footer-background-color);
+  color: var(--link-color);
+  padding: 20px 0;
+}
+
+
+
+
 
 .link-light, .badge-primary, .badge, .social-badge {
   color: var(--link-color);
@@ -84,22 +105,5 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    align-items: flex-start; /* Align content to the left on small screens */
-  }
 
-  .footer-column {
-    margin-bottom: 10px;
-    text-align: left; /* Ensure text is left-aligned on small screens */
-    width: 100%; /* Full width for better control and to prevent wrapping */
-  }
-}
-
-@media (min-width: 992px) {
-  .footer-content {
-    margin-left: 200px; /* Apply margin-left only on screens larger than 992px */
-  }
-}
 </style>
