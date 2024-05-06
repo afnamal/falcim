@@ -20,7 +20,7 @@
         <div v-if="loading" class="loading-c d-flex justify-content-center align-items-center">
           <LoadingSpinner />
         </div>
-        <div v-if="messages.length > 0" class="messages">
+        <div  class="messages">
           <div v-for="(msg, index) in messages" :key="index" class="p-2">
             <p class="bg-light p-2 rounded">{{ msg.text }}</p>
           </div>
