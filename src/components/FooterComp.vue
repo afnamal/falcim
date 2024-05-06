@@ -5,7 +5,7 @@
         <div class="footer-content">
           <!-- Section 1: Navigation Links -->
           <div class="footer-column">
-            <h5>Kaave</h5>
+            <h5>Falcım</h5>
             <ul class="list-unstyled">
               <li><a href="#" class="link-light">iPhone ile fal baktır</a></li>
               <li><a href="#" class="link-light">Android ile fal baktır</a></li>
@@ -17,7 +17,7 @@
 
           <!-- Section 2: Language Selection and Info -->
           <div class="footer-column">
-            <h5>Dünyada Kaave</h5>
+            <h5>Dünyada Falcım</h5>
             <div class="column">
               <a href="#" class="badge badge-secondary">Türkçe</a><br>
               <a href="#" class="badge badge-secondary">English</a><br>
