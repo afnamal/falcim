@@ -17,12 +17,12 @@
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <div class="navbar-nav ms-auto">
-            <a class="nav-link" v-if="!user" @click="pushLogin('/')"><span class="material-icons align-middle">login</span>{{ $t('navbar.login') }}</a>
+            <a class="nav-link login-link" v-if="!user" @click="pushLogin('/')"><span class="material-icons align-middle">login</span>{{ $t('navbar.login') }}</a>
             <a class="nav-link" v-if="user" @click="pushUser"><span class="material-icons align-middle">person</span>{{ $t('navbar.account') }}</a>
             <a class="nav-link" @click="pushLogin('/fal')"><span class="material-icons align-middle">local_cafe</span>{{ $t('navbar.fortune') }}</a>
             <a class="nav-link" @click="pushKullanim"><span class="material-icons align-middle">description</span>{{ $t('navbar.terms') }}</a>
             <a class="nav-link" @click="pushHelp"><span class="material-icons align-middle">help</span>{{ $t('navbar.help') }}</a>
-            <a class="nav-link" @click="handleLogout" v-if="user"><span class="material-icons align-middle">logout</span>{{ $t('navbar.logout') }}</a>
+            <a class="nav-link logout-link" @click="handleLogout" v-if="user"><span class="material-icons align-middle">logout</span>{{ $t('navbar.logout') }}</a>
             <!-- Language Switch as Dropdown -->
             <div class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -115,9 +115,12 @@ export default {
 <style scoped>
 .logo {
   max-width: 95px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease-in-out;
 }
-
+.navbar {
+  background-color: #ffffff; /* Beyaz arka plan */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+}
 .language-icon {
   cursor: pointer;
   margin-left: 10px;
@@ -150,15 +153,17 @@ export default {
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><path stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
 }
+.navbar-toggler {
+  border: none;
+}
 
 .nav-link {
-  color: #495057;
-  transition: color 0.3s ease-in-out;
+  color: #4a4a4a; /* Daha koyu gri metin rengi */
+    transition: color 0.3s ease-in-out;
 }
 
 .nav-link:hover, .dropdown-item:hover {
-  color: #0056b3; /* Dynamic hover color */
-  background-color: #f8f9fa; /* Light background on hover for dropdown items */
+  color: #1e90ff; /* Canlı mavi hover rengi */
 }
 
 /* Subtle animations for a modern look */
@@ -190,7 +195,10 @@ export default {
 }
 
 .nav-link.logout-link {
-  color: red; /* Red color for logout */
+  color:  #f71212; /* Parlak kırmızı renk */
+}
+.nav-link.logout-link:hover {
+  color: #ce351a;/* Hover'da daha koyu kırmızı */
 }
 
 .nav-link.login-link:hover, .nav-link.logout-link:hover {
@@ -199,9 +207,9 @@ export default {
 
 /* Dropdown styles */
 .dropdown-menu {
+  border-radius: 4px;
   border: none;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-  right: 0; /* Align dropdown to right */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .dropdown-item {
@@ -220,6 +228,9 @@ export default {
 
   .nav-item.dropdown {
     position: relative; /* Ensures the dropdown menu is positioned relative to this item */
+  }
+  .navbar-nav {
+    background-color: #ffffff;
   }
 }
 a{cursor: pointer;}
