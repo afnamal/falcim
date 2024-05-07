@@ -1,27 +1,26 @@
 <template>
   <div class="container mt-5">
-    <h2 class="text-center mb-4">Üye Ol</h2>
+    <h2 class="text-center mb-4">{{ $t('signup.title') }}</h2>
     <form @submit.prevent="handleSubmit" class="needs-validation" novalidate>
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="name" placeholder="İsim giriniz" required v-model="name">
-        <label for="name">İsim</label>
+        <input type="text" class="form-control" id="name" :placeholder="$t('signup.namePlaceholder')" required v-model="name">
+        <label for="name">{{ $t('signup.nameLabel') }}</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="email" placeholder="Email giriniz" required v-model="email">
-        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" :placeholder="$t('signup.emailPlaceholder')" required v-model="email">
+        <label for="email">{{ $t('signup.emailLabel') }}</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="password" placeholder="Şifre giriniz" required v-model="password">
-        <label for="password">Şifre</label>
+        <input type="password" class="form-control" id="password" :placeholder="$t('signup.passwordPlaceholder')" required v-model="password">
+        <label for="password">{{ $t('signup.passwordLabel') }}</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="date" class="form-control" id="birthDate" placeholder="Doğum tarihi giriniz" v-model="birthDate">
-        <label for="birthDate">Doğum Tarihi</label>
+        <input type="date" class="form-control" id="birthDate" :placeholder="$t('signup.birthDatePlaceholder')" v-model="birthDate">
+        <label for="birthDate">{{ $t('signup.birthDateLabel') }}</label>
       </div>
       <div class="form-floating mb-3">
     <select class="form-select" id="location" v-model="location" aria-label="Yaşadığınız Yer">
-        <option selected disabled value="">Lütfen bir şehir seçiniz</option>
-    <option value="Adana">Adana</option>
+      <option selected disabled value="">{{ $t('signup.locationPlaceholder') }}</option>    <option value="Adana">Adana</option>
     <option value="Adıyaman">Adıyaman</option>
     <option value="Afyonkarahisar">Afyonkarahisar</option>
     <option value="Ağrı">Ağrı</option>
@@ -103,13 +102,12 @@
     <option value="Osmaniye">Osmaniye</option>
     <option value="Düzce">Düzce</option>
     </select>
-
 </div>
 
 
 
-      <div v-if="error" class="alert alert-danger">{{ error }}</div>
-      <button type="submit" class="btn btn-primary w-100">Üye Ol</button>
+<div v-if="error" class="alert alert-danger">{{ error }}</div>
+      <button type="submit" class="btn btn-primary w-100">{{ $t('signup.submit') }}</button>
     </form>
   </div>
 </template>
@@ -119,6 +117,7 @@
 import SignupComposable from '../composables/SignupComposable';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 export default {
   setup() {
@@ -129,6 +128,7 @@ export default {
     const password = ref('');
     const birthDate = ref('');
     const location = ref('');
+    const { t } = useI18n();
 
     const handleSubmit = async () => {
       await user(email.value, password.value, name.value, birthDate.value, location.value);
@@ -137,7 +137,7 @@ export default {
       }
     };
 
-    return { name, email, password, birthDate, location, handleSubmit, error };
+    return { name, email, password, birthDate, location, handleSubmit, error,t };
   }
 }
 </script>

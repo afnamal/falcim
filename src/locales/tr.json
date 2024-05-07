@@ -129,6 +129,71 @@
         "passwordResetButton": "Şifre Sıfırlama E-postası Gönder",
         "userInfoNotFound": "Kullanıcı bilgisi bulunamadı.",
         "sessionNotFound": "Kullanıcı oturumu bulunamadı. Lütfen oturum açın."
+      },
+      "forgotPassword": {
+        "title": "Şifremi Unuttum",
+        "emailLabel": "Email Adresi",
+        "emailPlaceholder": "Email giriniz",
+        "emailRequired": "Lütfen email adresinizi giriniz.",
+        "submit": "Gönder",
+        "resetLinkSent": "Şifre sıfırlama linki mail adresinize gönderilmiştir!",
+        "resetFail": "Şifre sıfırlama maili gönderilirken hata oluştu: {error}"
+      },
+      "login": {
+        "title": "Giriş Yap",
+        "emailAddress": "Email Adresi",
+        "enterEmail": "Email giriniz",
+        "password": "Şifre",
+        "enterPassword": "Şifre giriniz",
+        "forgotPassword": "Şifremi Unuttum",
+        "logInButton": "Giriş Yap",
+        "resetPasswordButton": "Şifremi Sıfırla",
+        "emailRequired": "Lütfen email adresinizi giriniz.",
+        "passwordRequired": "Lütfen şifrenizi giriniz.",
+        "success": "Başarıyla giriş yaptınız!",
+        "invalidEmail": "Geçersiz email adresi.",
+        "failed": "Giriş başarısız: ",
+        "alreadyHaveAccount": "Zaten hesabınız var mı?",
+        "login": "Giriş Yap",
+        "noAccount": "Hesabınız yok mu?",
+        "signup": "Üye Ol"
+      },
+      "alerts": {
+        "error": "Hata oluştu",
+        "unverified": "Hesabınızın doğrulanması gerekiyor",
+        "verificationEmailSent": "Doğrulama e-postası gönderildi."
+      },
+      "navigation": {
+        "coffeeFortune": "Kahve Falı",
+        "palmReading": "El Falı"
+      },
+      "pastReadings": {
+        "title": "Geçmiş Fallarınız",
+        "noReadings": "Henüz fal kaydınız bulunmamaktadır.",
+        "hideDetails": "Detayları Gizle",
+        "viewDetails": "Detayları Gör",
+        "cardImageAlt": "Fal Resmi"
+      },
+      "signup": {
+        "title": "Üye Ol",
+        "namePlaceholder": "İsim giriniz",
+        "emailPlaceholder": "Email giriniz",
+        "passwordPlaceholder": "Şifre giriniz",
+        "birthDatePlaceholder": "Doğum tarihi giriniz",
+        "locationPlaceholder": "Bir şehir seçiniz",
+        "submit": "Üye Ol",
+        "nameLabel": "İsim",
+        "emailLabel": "Email",
+        "passwordLabel": "Şifre",
+        "birthDateLabel": "Doğum Tarihi",
+        "locationLabel": "Yaşadığınız Yer"
+      },
+      "dashboard": {
+        "pastReadings": "Geçmiş Fallarım",
+        "membershipInfo": "Üyelik Bilgilerim"
+      },
+      "logout":{
+        "success":"Başarıyla çıkış yaptınız!"
       }
   }
   

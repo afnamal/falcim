@@ -1,21 +1,21 @@
 <template>
   <div class="past-readings container">
-      <h2 class="mb-3 text-center">Geçmiş Fallarınız</h2>
+      <h2 class="mb-3 text-center">{{ $t('pastReadings.title') }}</h2>
       <div v-if="loading" class="text-center">
           <span class="spinner-border text-primary" role="status"></span>
       </div>
       <div v-if="!loading && readings.length === 0" class="alert alert-info">
-          Henüz fal kaydınız bulunmamaktadır.
+          {{ $t('pastReadings.noReadings') }}
       </div>
       <div v-else class="row">
           <div class="col-md-4 mb-4" v-for="reading in readings" :key="reading.id">
               <div class="card h-100 shadow-sm">
-                  <img :src="reading.imageUrl ? reading.imageUrl : defaultImage" class="card-img-top" alt="Fal Resmi">
+                  <img :src="reading.imageUrl ? reading.imageUrl : defaultImage" class="card-img-top" :alt="$t('pastReadings.cardImageAlt')">
                   <div class="card-body d-flex flex-column">
                       <h5 class="card-title">{{ reading.title }}</h5>
                       <p class="card-text" v-if="reading.showDetails">{{ reading.text }}</p>
                       <button @click="toggleDetails(reading)" class="btn btn-primary mt-auto">
-                          {{ reading.showDetails ? 'Detayları Gizle' : 'Detayları Gör' }}
+                          {{ reading.showDetails ? $t('pastReadings.hideDetails') : $t('pastReadings.viewDetails') }}
                       </button>
                   </div>
                   <div class="card-footer text-muted">
@@ -27,12 +27,13 @@
   </div>
 </template>
 
+
   
   <script>
 import { ref, watchEffect } from 'vue';
 import { getFirestore, collection, query, getDocs } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
+import { useI18n } from 'vue-i18n';
 export default {
   setup() {
     const auth = getAuth();
@@ -41,7 +42,7 @@ export default {
     const loading = ref(true);
     const defaultImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIuVnpYNMW66gZmUtnQrt3sY8f8q5QMlnUVQZ2T3Km7EOIOft-PSBWlopCUHYNVgoj658&usqp=CAU';
     const db = getFirestore();
-
+    const { t } = useI18n();
     onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
         user.value = authUser;
@@ -81,7 +82,7 @@ export default {
       }
     });
 
-    return { readings, loading, defaultImage, toggleDetails, formatDate };
+    return { readings, loading, defaultImage, toggleDetails, formatDate ,t};
   }
 };
 </script>

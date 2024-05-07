@@ -1,17 +1,17 @@
 <template>
   <div v-if="forgotpass">
-    <h5 class="text-center mb-4">Şifremi Unuttum</h5>
+    <h5 class="text-center mb-4">{{ $t('forgotPassword.title') }}</h5>
     <form @submit.prevent="ForgotPassword" class="MainForm" novalidate>
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="email" v-model="email" placeholder="Email giriniz" required :class="{'is-invalid': submitted && !email.value}">
-        <label for="email">Email Adresi</label>
-        <div class="invalid-feedback" v-if="noemail && submitted">Lütfen email adresinizi giriniz.</div>
+        <input type="email" class="form-control" id="email" v-model="email" :placeholder="$t('forgotPassword.emailPlaceholder')" required :class="{'is-invalid': submitted && !email.value}">
+        <label for="email">{{ $t('forgotPassword.emailLabel') }}</label>
+        <div class="invalid-feedback" v-if="noemail && submitted">{{ $t('forgotPassword.emailRequired') }}</div>
       </div>
       
       <div v-if="error" class="alert alert-danger">{{ error }}</div>
       <div v-if="dogrulanmamis" class="alert alert-warning">{{ dogrulanmamis }}</div>
       <div v-if="OnayMaili" class="alert alert-info">{{ OnayMaili }}</div>
-      <button type="submit" class="btn btn-primary w-100">Gönder</button>
+      <button type="submit" class="btn btn-primary w-100">{{ $t('forgotPassword.submit') }}</button>
     </form>
   </div>
 </template>

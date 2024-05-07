@@ -46,7 +46,7 @@ export default {
     const user = ref(null);
     const menuVisible = ref(false);
     const { locale } = useI18n(); // useI18n hook'undan locale'i alın
-
+    const { t } = useI18n();
     onAuthStateChanged(auth, (authUser) => {
       user.value = authUser;
     });
@@ -82,7 +82,7 @@ export default {
 
     const handleLogout = async () => {
       await signOut(auth);
-      showToast("Çıkış yapıldı", 'success');
+      showToast(t('logout.success'), 'success');
       router.push('/');
     };
     const changeLanguage = (lang) => {

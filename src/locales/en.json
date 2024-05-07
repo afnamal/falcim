@@ -129,7 +129,75 @@
         "passwordResetButton": "Send Password Reset Email",
         "userInfoNotFound": "User information not found.",
         "sessionNotFound": "No user session found. Please log in."
+      },
+      "forgotPassword": {
+        "title": "Forgot My Password",
+        "emailLabel": "Email Address",
+        "emailPlaceholder": "Enter your email",
+        "emailRequired": "Please enter your email address.",
+        "submit": "Send",
+        "resetLinkSent": "A password reset link has been sent to your email address!",
+        "resetFail": "Failed to send password reset email: {error}"
+      },
+      "login": {
+        "title": "Log In",
+        "emailAddress": "Email Address",
+        "enterEmail": "Enter your email",
+        "password": "Password",
+        "enterPassword": "Enter your password",
+        "forgotPassword": "Forgot My Password",
+        "logInButton": "Log In",
+        "resetPasswordButton": "Reset My Password",
+        "emailRequired": "Please enter your email address.",
+        "passwordRequired": "Please enter your password.",
+        "success": "Successfully logged in!",
+        "invalidEmail": "Invalid email address.",
+        "failed": "Login failed: ",
+        "alreadyHaveAccount": "Already have an account?",
+        "login": "Log In",
+        "noAccount": "Don't have an account?",
+        "signup": "Sign Up"
+        
+        
+      },
+      "alerts": {
+        "error": "Error occurred",
+        "unverified": "Your account needs verification",
+        "verificationEmailSent": "Verification email has been sent."
+      },
+      "navigation": {
+        "coffeeFortune": "Coffee Fortune",
+        "palmReading": "Palm Reading"
+      },
+      "pastReadings": {
+        "title": "Your Past Readings",
+        "noReadings": "You have no readings recorded yet.",
+        "hideDetails": "Hide Details",
+        "viewDetails": "View Details",
+        "cardImageAlt": "Reading Image"
+      },
+      "signup": {
+        "title": "Sign Up",
+        "namePlaceholder": "Enter your name",
+        "emailPlaceholder": "Enter your email",
+        "passwordPlaceholder": "Enter your password",
+        "birthDatePlaceholder": "Select your birth date",
+        "locationPlaceholder": "Select a city",
+        "submit": "Sign Up",
+        "nameLabel": "Name",
+        "emailLabel": "Email",
+        "passwordLabel": "Password",
+        "birthDateLabel": "Birth Date",
+        "locationLabel": "Location"
+      },
+      "dashboard": {
+        "pastReadings": "My Past Readings",
+        "membershipInfo": "Membership Information"
+      },
+      "logout":{
+        "success":"Successfully logged out!"
       }
+  
       
   }
   

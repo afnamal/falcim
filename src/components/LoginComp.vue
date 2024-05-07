@@ -1,51 +1,50 @@
 <template>
   <div class="container mt-5">
     <div v-if="!forgotpass">
-    <h2 class="text-center mb-4">Giriş Yap</h2>
-    <form @submit.prevent="handleSubmit" class="MainForm" novalidate>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="email" v-model="email" placeholder="Email giriniz" required :class="{'is-invalid': submitted && !email.value}">
-        <label for="email">Email Adresi</label>
-        <div class="invalid-feedback" v-if="noemail && submitted">Lütfen email adresinizi giriniz.</div>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="password" v-model="password" placeholder="Şifre giriniz" :class="{'is-invalid': submitted && !password.value}">
-        <label for="password">Şifre</label>
-        <div class="invalid-feedback" v-if="nopassword && submitted">Lütfen şifrenizi giriniz.</div>
-      </div>
-      <div class="d-flex justify-content-end mb-3">
-        <label for="forgotpasslabel" class="form-label" @click.prevent="Forgot" id="forgotPassLabel" style="text-decoration: underline; cursor: pointer;">Şifremi Unuttum</label>
-      </div>
-      <div v-if="error" class="alert alert-danger">{{ error }}</div>
-      <div v-if="dogrulanmamis" class="alert alert-warning">{{ dogrulanmamis }}</div>
-      <div v-if="OnayMaili" class="alert alert-info">{{ OnayMaili }}</div>
-      <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
-    </form>
+      <h2 class="text-center mb-4">{{ $t('login.title') }}</h2>
+      <form @submit.prevent="handleSubmit" class="MainForm" novalidate>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="email" v-model="email" :placeholder="$t('login.enterEmail')" required :class="{'is-invalid': submitted && !email.value}">
+          <label for="email">{{ $t('login.emailAddress') }}</label>
+          <div class="invalid-feedback" v-if="noemail && submitted">{{ $t('login.emailRequired') }}</div>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="password" v-model="password" :placeholder="$t('login.enterPassword')" :class="{'is-invalid': submitted && !password.value}">
+          <label for="password">{{ $t('login.password') }}</label>
+          <div class="invalid-feedback" v-if="nopassword && submitted">{{ $t('login.passwordRequired') }}</div>
+        </div>
+        <div class="d-flex justify-content-end mb-3">
+          <label for="forgotpasslabel" class="form-label" @click.prevent="Forgot" id="forgotPassLabel" style="text-decoration: underline; cursor: pointer;">{{ $t('login.forgotPassword') }}</label>
+        </div>
+        <div v-if="error" class="alert alert-danger">{{ $t('alerts.error') }}</div>
+        <div v-if="dogrulanmamis" class="alert alert-warning">{{ $t('alerts.unverified') }}</div>
+        <div v-if="OnayMaili" class="alert alert-info">{{ $t('alerts.verificationEmailSent') }}</div>
+        <button type="submit" class="btn btn-primary w-100">{{ $t('login.logInButton') }}</button>
+      </form>
+    </div>
+    <div v-if="forgotpass">
+      <h2 class="text-center mb-4">{{ $t('login.forgotPassword') }}</h2>
+      <form @submit.prevent="ForgotPassword" class="MainForm" novalidate>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="email" v-model="email" :placeholder="$t('login.enterEmail')" required :class="{'is-invalid': submitted && !email.value}">
+          <label for="email">{{ $t('login.emailAddress') }}</label>
+          <div class="invalid-feedback" v-if="noemail && submitted">{{ $t('login.emailRequired') }}</div>
+        </div>
+        <div v-if="error" class="alert alert-danger">{{ $t('alerts.error') }}</div>
+        <div v-if="dogrulanmamis" class="alert alert-warning">{{ $t('alerts.unverified') }}</div>
+        <div v-if="OnayMaili" class="alert alert-info">{{ $t('alerts.verificationEmailSent') }}</div>
+        <button type="submit" class="btn btn-primary w-100">{{ $t('login.resetPasswordButton') }}</button>
+      </form>
+    </div>
   </div>
-  <div v-if="forgotpass">
-    <h2 class="text-center mb-4">Şifremi Unuttum</h2>
-    <form @submit.prevent="ForgotPassword" class="MainForm" novalidate>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="email" v-model="email" placeholder="Email giriniz" required :class="{'is-invalid': submitted && !email.value}">
-        <label for="email">Email Adresi</label>
-        <div class="invalid-feedback" v-if="noemail && submitted">Lütfen email adresinizi giriniz.</div>
-      </div>
-      
-      <div v-if="error" class="alert alert-danger">{{ error }}</div>
-      <div v-if="dogrulanmamis" class="alert alert-warning">{{ dogrulanmamis }}</div>
-      <div v-if="OnayMaili" class="alert alert-info">{{ OnayMaili }}</div>
-      <button type="submit" class="btn btn-primary w-100">Şifremi Sıfırla</button>
-    </form>
-  </div>
-  </div>
-  
-  
 </template>
+
 
 
 <script>
 import { ref } from "vue";
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { getAuth, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import LoginComposable from '../composables/LoginComposable';
 import SignupComposable from '../composables/SignupComposable';
@@ -64,14 +63,15 @@ export default {
     const submitted = ref(false);
     const auth = getAuth();
     const forgotpass = ref(false);
+    const { t } = useI18n();
 
     const ForgotPassword = async () => {
       try {
         await sendPasswordResetEmail(auth, email.value);
-        showToast("Şifre sıfırlama linki mail adresinize gönderilmiştir!", 'success');
-      } catch (error) {
-        console.error("Error sending password reset email:", error);
-        alert("Failed to send password reset email: " + error.message);
+        showToast(t('alerts.resetLinkSent'), 'success');
+      } catch (err) {
+        console.error(t('alerts.errorSendingResetEmail'), err);
+        error.value = t('alerts.resetFail', { error: err.message });
       }
     }
 
@@ -87,23 +87,25 @@ export default {
 
         const user = auth.currentUser;
         if (user && !user.emailVerified) {
-          dogrulanmamis.value = 'Lütfen hesabınızı doğrulayınız';
+          dogrulanmamis.value = t('alerts.unverified');
           await sendEmailVerification(user);
         }
 
         if (!error.value && user.emailVerified) {
+          showToast(t('login.success'), 'success');
           const redirectRoute = window.sessionStorage.getItem('redirectAfterLogin') || '/';
         router.push(redirectRoute);
         window.sessionStorage.removeItem('redirectAfterLogin');
         }
         if (!email.value) noemail.value = true;
         if (!password.value) nopassword.value = true;
-      } catch (e) {
-        console.error('Giriş hatası:', e.message);
-      }
+      } catch (err) {
+        console.error('Login error:', err);
+        error.value = t('alerts.loginError', { error: err.message });
+        }
     };
 
-    return { email, password, handleSubmit, error, dogrulanmamis, OnayMaili, submitted, noemail, nopassword, ForgotPassword, Forgot, forgotpass };
+    return { email, password, handleSubmit, error, dogrulanmamis, OnayMaili, submitted, noemail, nopassword, ForgotPassword, Forgot, forgotpass,t };
   }
 }
 </script>

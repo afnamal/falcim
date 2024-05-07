@@ -1,34 +1,35 @@
 <template>
   <div>
-    <div class="container mt-5 welcome text-center">  <!-- Adjusted for centering and margin -->
+    <div class="container mt-5 welcome text-center">
       <div v-if="!Login">
         <SignupComp />
-        <p class="mt-4">Zaten Hesabım var <span @click="toggleLogin" class="gec link-primary" style="cursor: pointer;">Giriş Yap</span></p>
+        <p class="mt-4">{{ $t('login.alreadyHaveAccount') }} <span @click="toggleLogin" class="gec link-primary" style="cursor: pointer;">{{ $t('login.login') }}</span></p>
       </div>
       <div v-else>
         <LoginComp />
-        <p class="mt-4">Hesabım Yok <span @click="toggleLogin" class="gec link-primary" style="cursor: pointer;">Üye Ol</span></p>
+        <p class="mt-4">{{ $t('login.noAccount') }} <span @click="toggleLogin" class="gec link-primary" style="cursor: pointer;">{{ $t('login.signup') }}</span></p>
       </div>
     </div>
   </div>
 </template>
 
-  
   <script>
   import SignupComp from '../components/SingupComp.vue';
   import LoginComp from '../components/LoginComp.vue';
   import { ref } from 'vue';
-  
+  import { useI18n } from 'vue-i18n';
+
   export default {
     name: 'LoginView',
     components: { SignupComp, LoginComp , },
     setup() {
+      const { t } = useI18n();
       const Login = ref(true);
       const toggleLogin = () => {
         Login.value = !Login.value;
       };
   
-      return { Login, toggleLogin };
+      return { Login, toggleLogin,t };
     }
   }
   </script>

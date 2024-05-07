@@ -2,11 +2,11 @@
     <div>
         <div class="container my-5">
             <div class="section">
-                <button @click="togglePastReadings" class="btn btn-link text-left mb-2">Geçmiş Fallarım</button>
+                <button @click="togglePastReadings" class="btn btn-link text-left mb-2">{{ $t('dashboard.pastReadings') }}</button>
                 <PastReadingVue v-if="showPastReadings"/>
             </div>
             <div class="section mt-4">
-                <button @click="toggleUserInfo" class="btn btn-link text-left mb-2">Üyelik Bilgilerim</button>
+                <button @click="toggleUserInfo" class="btn btn-link text-left mb-2">{{ $t('dashboard.membershipInfo') }}</button>
                 <UserInfoVue v-if="showUserInfo"/>
             </div>
         </div>
@@ -19,6 +19,8 @@
 import PastReadingVue from '../components/PastReading.vue'
 import UserInfoVue from '../components/UserInfo.vue';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 
 export default {
     components: {
@@ -26,6 +28,7 @@ export default {
         UserInfoVue
     },
     setup() {
+        const { t } = useI18n();
         const showPastReadings = ref(false);
         const showUserInfo = ref(true);
 
@@ -37,7 +40,7 @@ export default {
             showUserInfo.value = !showUserInfo.value;
         };
 
-        return { showPastReadings, showUserInfo, togglePastReadings, toggleUserInfo };
+        return { showPastReadings, showUserInfo, togglePastReadings, toggleUserInfo ,t};
     }
 }
 </script>

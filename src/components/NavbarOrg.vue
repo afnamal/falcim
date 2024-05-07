@@ -1,8 +1,8 @@
 <template>
   <div>
   <nav class="main-nav">
-    <router-link :to="{ name: 'FalView' }">Kahve Falı</router-link>
-    <router-link :to="{ name: 'eltest' }">El Falı</router-link>
+    <router-link :to="{ name: 'FalView' }">{{ $t('navigation.coffeeFortune') }}</router-link>
+    <router-link :to="{ name: 'eltest' }">{{ $t('navigation.palmReading') }}</router-link>
   </nav>
 </div>
 </template>
