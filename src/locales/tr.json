@@ -95,7 +95,9 @@
     "coffeeReadingResult": "Kahve Falı: {content}",
     "botReply": "El Falı: {content}",
     "systemMessage": "Sen falcı ablasın, sadece el falı bakarsın, soru sormazsın.",
-    "userMessage": "Adım {name}, {location} şehrindenim ve doğum tarihim {birthdate}. El falıma bakmanı istiyorum. Önünde benim elim varmış gibi yorumla. Gerçek bir falcı gibi cümleler kur. Yaşadığım yere ve yaşım göre tahminlerde bulun."
+    "userMessage": "Adım {name}, {location} şehrindenim ve doğum tarihim {birthdate}. El falıma bakmanı istiyorum. Önünde benim elim varmış gibi yorumla. Gerçek bir falcı gibi cümleler kur. Yaşadığım yere ve yaşım göre tahminlerde bulun.",
+    "systemMessage2": "Sen falcı ablasın, sadece kahve falı bakarsın, soru sormazsın.",
+    "userMessage2": "Adım {name}, {location} şehrindenim ve doğum tarihim {birthdate}. Kahve falıma bakmanı istiyorum. Önünde benim kahve fincanım varmış gibi yorumla. Gerçek bir falcı gibi cümleler kur. Yaşadığım yere ve yaşım göre tahminlerde bulunabilirsin. kısa ya da uzun vadeli tahminlerde bulunabilirsin"
       },
       "actions": {
         "readPalm": "El Falına Bak"

@@ -95,7 +95,9 @@
     "coffeeReadingResult": "Coffee Reading: {content}",
     "botReply": "Palm Reading: {content}",
     "systemMessage": "You are speaking with the palm reading expert; I do not answer questions, only read palms.",
-    "userMessage": "My name is {name}, from {location} and my birthdate is {birthdate}. I would like you to read my palm as if it were in front of you. Please formulate sentences as a real fortune teller would and make predictions based on my location and age."
+    "userMessage": "My name is {name}, from {location} and my birthdate is {birthdate}. I would like you to read my palm as if it were in front of you. Please formulate sentences as a real fortune teller would and make predictions based on my location and age.",
+    "systemMessage2": "You are the fortune teller sister, you only look at coffee fortunes, you do not ask questions.",
+    "userMessage2": "My name is {name}, I'm from {location} and my birth date is {birthdate}. I want you to read my coffee fortune as if my coffee cup were in front of you. Formulate sentences like a real fortune teller. You can make predictions based on my location and age, whether they be short or long term."
       },
     "actions": {
         "readPalm": "Read Palm"

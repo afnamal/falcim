@@ -134,10 +134,10 @@ export default {
       const postData = {
         model: 'gpt-3.5-turbo',
         messages: [
-          { role: 'system', content: t('userPrompts.coffeeReadingRequest') },    
+          { role: 'system', content: t('chat.systemMessage2') },    
           {
             role: 'user',
-            content: t('userPrompts.coffeeReadingRequest', {
+            content: t('chat.userMessage2', {
               name: userName.value,
               location: userLocation.value,
               birthdate: userBirthDate.value
