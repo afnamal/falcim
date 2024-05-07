@@ -9,29 +9,39 @@
 
         <!-- Toggler -->
         <button class="navbar-toggler" type="button" @click="toggleMenu"
-                data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- Navbar links -->
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav ms-auto" style="cursor: pointer;">
-            <a class="nav-link login-link" v-if="!user" @click="pushLogin('/')"><span class="material-icons align-middle">login</span>{{ $t('navbar.login') }}</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link" v-if="!user" @click="pushLogin('/')"><span class="material-icons align-middle">login</span>{{ $t('navbar.login') }}</a>
             <a class="nav-link" v-if="user" @click="pushUser"><span class="material-icons align-middle">person</span>{{ $t('navbar.account') }}</a>
             <a class="nav-link" @click="pushLogin('/fal')"><span class="material-icons align-middle">local_cafe</span>{{ $t('navbar.fortune') }}</a>
             <a class="nav-link" @click="pushKullanim"><span class="material-icons align-middle">description</span>{{ $t('navbar.terms') }}</a>
             <a class="nav-link" @click="pushHelp"><span class="material-icons align-middle">help</span>{{ $t('navbar.help') }}</a>
-            <a class="nav-link logout-link" @click="handleLogout" v-if="user"><span class="material-icons align-middle">logout</span>{{ $t('navbar.logout') }}</a>
-            <!-- Language Switch -->
-            <img src="../assets/en-flag.png" @click="changeLanguage('en')" alt="English" class="language-icon">
-            <img src="../assets/tr-flag.png" @click="changeLanguage('tr')" alt="Türkçe" class="language-icon">
+            <a class="nav-link" @click="handleLogout" v-if="user"><span class="material-icons align-middle">logout</span>{{ $t('navbar.logout') }}</a>
+            <!-- Language Switch as Dropdown -->
+            <div class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../assets/tr-flag.png" alt="Current Language" class="language-icon" v-if="langImgtr">
+                <img src="../assets/en-flag.png" alt="Current Language" class="language-icon" v-else>
+
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" @click="changeLanguage('en')"><img src="../assets/en-flag.png" alt="English" class="language-icon-sm"> English</a></li>
+                <li><a class="dropdown-item" @click="changeLanguage('tr')"><img src="../assets/tr-flag.png" alt="Türkçe" class="language-icon-sm"> Türkçe</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </nav>
   </div>
 </template>
+
 
 <script>
 import { ref } from 'vue';
@@ -47,6 +57,7 @@ export default {
     const menuVisible = ref(false);
     const { locale } = useI18n(); // useI18n hook'undan locale'i alın
     const { t } = useI18n();
+    const langImgtr=ref(true)
     onAuthStateChanged(auth, (authUser) => {
       user.value = authUser;
     });
@@ -87,10 +98,12 @@ export default {
     };
     const changeLanguage = (lang) => {
       locale.value = lang; // locale'i güncelleyin
+      if(lang==='tr') langImgtr.value=true
+      else langImgtr.value=false
     };
 
 
-    return { user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome, handleLogout, pushHelp, changeLanguage };
+    return { user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome, handleLogout, pushHelp, changeLanguage,langImgtr };
   }
 };
 </script>
@@ -104,6 +117,7 @@ export default {
   max-width: 95px;
   transition: transform 0.3s ease;
 }
+
 .language-icon {
   cursor: pointer;
   margin-left: 10px;
@@ -111,6 +125,10 @@ export default {
   height: 24px; /* Adjust size as needed */
 }
 
+.language-icon-sm {
+  width: 16px;
+  height: 16px;
+}
 
 .container {
   max-width: 100%; /* Ensure it's full width */
@@ -138,8 +156,9 @@ export default {
   transition: color 0.3s ease-in-out;
 }
 
-.nav-link:hover {
+.nav-link:hover, .dropdown-item:hover {
   color: #0056b3; /* Dynamic hover color */
+  background-color: #f8f9fa; /* Light background on hover for dropdown items */
 }
 
 /* Subtle animations for a modern look */
@@ -177,4 +196,31 @@ export default {
 .nav-link.login-link:hover, .nav-link.logout-link:hover {
   opacity: 0.8; /* Slight transparency on hover for better UX */
 }
+
+/* Dropdown styles */
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  right: 0; /* Align dropdown to right */
+}
+
+.dropdown-item {
+  transition: background-color 0.3s ease;
+}
+@media (min-width: 992px) {
+  .dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    right: 0; /* Keeps dropdown aligned to the right side within its parent */
+    top: 100%; /* Ensures dropdown opens downwards */
+    left: auto; /* Resets any left alignment */
+    transform: translateX(-50%); /* Adjusts horizontal position to prevent overflow */
+  }
+
+  .nav-item.dropdown {
+    position: relative; /* Ensures the dropdown menu is positioned relative to this item */
+  }
+}
 </style>
+
