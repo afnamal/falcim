@@ -31,8 +31,8 @@
 
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" @click="changeLanguage('en')"><img src="../assets/en-flag.png" alt="English" class="language-icon-sm"> English</a></li>
                 <li><a class="dropdown-item" @click="changeLanguage('tr')"><img src="../assets/tr-flag.png" alt="Türkçe" class="language-icon-sm"> Türkçe</a></li>
+                <li><a class="dropdown-item" @click="changeLanguage('en')"><img src="../assets/en-flag.png" alt="English" class="language-icon-sm"> English</a></li>
               </ul>
             </div>
           </div>
