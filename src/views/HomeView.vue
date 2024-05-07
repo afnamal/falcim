@@ -49,11 +49,11 @@ export default {
 /* Your styles here */
 
 header img {
-  width: 101%;
+  width: 100%;
   height: 300px;
   object-fit: cover;
   display: block;
-  margin-left: -8px
+  margin-left: -0px
 }
 
 .features {

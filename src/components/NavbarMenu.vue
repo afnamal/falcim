@@ -222,5 +222,6 @@ export default {
     position: relative; /* Ensures the dropdown menu is positioned relative to this item */
   }
 }
+a{cursor: pointer;}
 </style>
 
