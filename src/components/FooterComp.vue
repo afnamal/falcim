@@ -64,25 +64,31 @@ export default {
       if (!user.value) {
         window.sessionStorage.setItem('redirectAfterLogin', destination);
         router.push('/login');
+        window.scrollTo(0, 0);
       } else {
         router.push(destination);
+        window.scrollTo(0, 0);
       }
     };
 
     const pushHelp = () => {
       router.push('/help');
+      window.scrollTo(0, 0);
     };
 
     const pushKullanim = () => {
       router.push('/terms');
+      window.scrollTo(0, 0);
     };
 
     const pushUser = () => {
       router.push('/user');
+      window.scrollTo(0, 0);
     };
 
     const pushHome = () => {
       router.push('/');
+      window.scrollTo(0, 0);
     };
     const changeLanguage = (lang) => {
       locale.value = lang; // locale'i güncelleyin
