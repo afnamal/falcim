@@ -6,12 +6,12 @@
           <!-- Section 1: Navigation Links -->
           <div class="footer-column">
             <h5>{{ $t('footer.brand') }}</h5>
-            <ul class="list-unstyled">
-              <li><a href="#" class="link-light">{{ $t('footer.links.iphone') }}</a></li>
-              <li><a href="#" class="link-light">{{ $t('footer.links.android') }}</a></li>
-              <li><a href="#" class="link-light">{{ $t('footer.links.huawei') }}</a></li>
-              <li><a href="#" class="link-light">{{ $t('footer.links.help') }}</a></li>
-              <li><a href="#" class="link-light">{{ $t('footer.links.terms') }}</a></li>
+            <ul class="list-unstyled" >
+              <li @click="pushHome"><a  class="link-light">{{ $t('footer.links.home') }}</a></li>
+              <li @click="pushLogin('/fal')"><a  class="link-light">{{ $t('footer.links.fortune') }}</a></li>
+              <li @click="pushLogin('/')"><a class="link-light">{{ $t('footer.links.login') }}</a></li>
+              <li @click="pushHelp"><a  class="link-light">{{ $t('footer.links.help') }}</a></li>
+              <li @click="pushKullanim"><a   class="link-light">{{ $t('footer.links.terms') }}</a></li>
             </ul>
           </div>
 
@@ -19,10 +19,10 @@
           <div class="footer-column">
             <h5>{{ $t('footer.globalPresence') }}</h5>
             <div class="column">
-              <a href="#" class="badge badge-secondary">{{ $t('languages.turkish') }}</a><br>
-              <a href="#" class="badge badge-secondary">{{ $t('languages.english') }}</a><br>
-              <a href="#" class="badge badge-secondary">{{ $t('languages.arabic') }}</a><br>
-              <a href="#" class="badge badge-secondary">{{ $t('languages.greek') }}</a><br>
+              <a @click="changeLanguage('tr')"  class="badge badge-secondary">{{ $t('languages.turkish') }}</a><br>
+              <a @click="changeLanguage('en')" class="badge badge-secondary">{{ $t('languages.english') }}</a><br>
+              <a @click="changeLanguage('ar')" class="badge badge-secondary">{{ $t('languages.arabic') }}</a><br>
+              <a @click="changeLanguage('gr')" class="badge badge-secondary">{{ $t('languages.greek') }}</a><br>
             </div>
           </div>
 
@@ -44,8 +44,55 @@
   </div>
 </template>
 
+<script>
+import { useRouter } from 'vue-router';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useI18n } from 'vue-i18n'; // vue-i18n'den useI18n'ı import edin
+import { ref } from 'vue';
 
-<style>
+export default {
+  setup() {
+    const router = useRouter();
+    const auth = getAuth();
+    const user = ref(null);
+    const { locale } = useI18n(); // useI18n hook'undan locale'i alın
+
+    onAuthStateChanged(auth, (authUser) => {
+      user.value = authUser;
+    });
+    const pushLogin = (destination) => {
+      if (!user.value) {
+        window.sessionStorage.setItem('redirectAfterLogin', destination);
+        router.push('/login');
+      } else {
+        router.push(destination);
+      }
+    };
+
+    const pushHelp = () => {
+      router.push('/help');
+    };
+
+    const pushKullanim = () => {
+      router.push('/terms');
+    };
+
+    const pushUser = () => {
+      router.push('/user');
+    };
+
+    const pushHome = () => {
+      router.push('/');
+    };
+    const changeLanguage = (lang) => {
+      locale.value = lang; // locale'i güncelleyin
+      
+    };
+    return{changeLanguage,pushHome,pushUser ,pushKullanim,pushHelp,pushLogin}
+  },
+}</script>
+
+<style scoped>
 :root {
   --footer-background-color: #343a40;
   --link-color: aliceblue;
@@ -56,6 +103,9 @@
   align-items: flex-start !important; /* Force alignment */
   flex-wrap: wrap;
   padding: 0 30px;
+}
+a{
+  cursor: pointer;
 }
 
 .footer-column {

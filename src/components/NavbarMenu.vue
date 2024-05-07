@@ -25,16 +25,21 @@
             <a class="nav-link logout-link" @click="handleLogout" v-if="user"><span class="material-icons align-middle">logout</span>{{ $t('navbar.logout') }}</a>
             <!-- Language Switch as Dropdown -->
             <div class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../assets/tr-flag.png" alt="Current Language" class="language-icon" v-if="langImgtr">
-                <img src="../assets/en-flag.png" alt="Current Language" class="language-icon" v-else>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../assets/tr-flag.png" alt="Current Language" class="language-icon" v-if="language=='tr'">
+            <img src="../assets/en-flag.png" alt="Current Language" class="language-icon" v-if="language=='en'">
+            <img src="../assets/ar-flag.png" alt="Current Language" class="language-icon" v-if="language=='ar'">
+            <img src="../assets/gr-flag.png" alt="Current Language" class="language-icon" v-if="language=='gr'">
 
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" @click="changeLanguage('tr')"><img src="../assets/tr-flag.png" alt="Türkçe" class="language-icon-sm"> Türkçe</a></li>
-                <li><a class="dropdown-item" @click="changeLanguage('en')"><img src="../assets/en-flag.png" alt="English" class="language-icon-sm"> English</a></li>
-              </ul>
-            </div>
+
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" @click="changeLanguage('tr')"><img src="../assets/tr-flag.png" alt="Türkçe" class="language-icon-sm"> Türkçe</a></li>
+            <li><a class="dropdown-item" @click="changeLanguage('en')"><img src="../assets/en-flag.png" alt="English" class="language-icon-sm"> English</a></li>
+            <li><a class="dropdown-item" @click="changeLanguage('ar')"><img src="../assets/ar-flag.png" alt="العربية" class="language-icon-sm"> العربية</a></li>
+            <li><a class="dropdown-item" @click="changeLanguage('gr')"><img src="../assets/gr-flag.png" alt="Ελληνικά" class="language-icon-sm"> Ελληνικά</a></li>
+          </ul>
+        </div>
           </div>
         </div>
       </div>
@@ -57,7 +62,7 @@ export default {
     const menuVisible = ref(false);
     const { locale } = useI18n(); // useI18n hook'undan locale'i alın
     const { t } = useI18n();
-    const langImgtr=ref(true)
+    const language=ref('tr')
     onAuthStateChanged(auth, (authUser) => {
       user.value = authUser;
     });
@@ -97,13 +102,12 @@ export default {
       router.push('/');
     };
     const changeLanguage = (lang) => {
-      locale.value = lang; // locale'i güncelleyin
-      if(lang==='tr') langImgtr.value=true
-      else langImgtr.value=false
+      locale.value = lang;
+      language.value=lang
     };
 
 
-    return { user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome, handleLogout, pushHelp, changeLanguage,langImgtr };
+    return { user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome, handleLogout, pushHelp, changeLanguage,language };
   }
 };
 </script>
