@@ -158,7 +158,7 @@ export default {
           text: botReply,
           timestamp: serverTimestamp(),
           tipi:"elfali",
-          title:"El Falı",
+          title:t('fortuneTypes.palm'),
           imageUrl:"https://www.efsunasor.com/img/elcizgileri.jpg"
         });
         messages.value.push({ text: t('chat.botReply', { content: response.data.choices[0].message.content }), type: 'bot' });

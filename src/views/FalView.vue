@@ -159,7 +159,7 @@ export default {
           text: botReply,
           timestamp: serverTimestamp(),
           tipi:"kahvefali",
-          title:"Kahve Falı",
+          title:t('fortuneTypes.coffee'),
           imageUrl:"https://image.cnnturk.com/i/cnnturk/75/740x416/644e0770ae0a8f1610c2a267.jpg"
         });
         messages.value.push({ text: botReply, type: 'bot' });

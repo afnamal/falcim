@@ -67,7 +67,7 @@
             </h2>
             <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#helpAccordion">
               <div class="accordion-body">
-                <p>{{ $t('help.contact.description') }}</p>
+                <p>{{ $t('help.contact.description') }} <a href="mailto:afnamal@hotmail.com">afnamal@hotmail.com</a></p>
               </div>
             </div>
           </div>

@@ -145,7 +145,7 @@ export default {
     const handleUpdate = async () => {
       if (!auth.currentUser) {
         console.error('Güncelleme işlemi başlatılamadı: Kullanıcı oturumu bulunamadı.');
-        error.value = 'Kullanıcı oturumu bulunamadı. Lütfen oturum açın.';
+        error.value = t('updateInfo.sessionNotFound');
         return;
       }
 
@@ -161,26 +161,26 @@ export default {
           displayName: name.value
         });
 
-        showToast("Bilgileriniz Başarıyla Güncellendi!", 'success');
+        showToast(t('updateInfo.updateSuccess'), 'success');
       } catch (err) {
         console.error('Güncelleme sırasında bir hata oluştu:', err);
-        error.value = 'Güncelleme sırasında bir hata oluştu: ' + err.message;
+        error.value = t('updateInfo.updateFailure') + err.message;
       }
     };
 
     const sendMail = async () => {
       if (!auth.currentUser) {
         console.error('E-posta gönderimi başlatılamadı: Kullanıcı oturumu bulunamadı.');
-        error.value = 'Kullanıcı oturumu bulunamadı. Lütfen oturum açın.';
+        error.value = t('updateInfo.sessionNotFound');
         return;
       }
 
       try {
         await sendPasswordResetEmail(auth, auth.currentUser.email);
-        alert('Şifre sıfırlama e-postası gönderildi. Lütfen e-postanızı kontrol edin.');
+        showToast(t('updateInfo.resetMailSuccess'), 'success');
       } catch (err) {
         console.error('Şifre sıfırlama e-postası gönderilirken bir hata oluştu:', err);
-        error.value = 'E-posta gönderilirken bir hata oluştu: ' + err.message;
+        error.value = t('updateInfo.resetMailFailure') + err.message;
       }
     };
 

@@ -55,7 +55,7 @@
         },
         "contact": {
           "title": "İletişim Bilgileri",
-          "description": "Sorularınız veya daha fazla bilgi için lütfen bize e-posta yoluyla ulaşın: afnamal@hotmail.com"
+          "description": "Sorularınız veya daha fazla bilgi için lütfen bize e-posta yoluyla ulaşın:"
         }
       },
       "terms": {
@@ -128,7 +128,11 @@
         "updateButton": "Güncelle",
         "passwordResetButton": "Şifre Sıfırlama E-postası Gönder",
         "userInfoNotFound": "Kullanıcı bilgisi bulunamadı.",
-        "sessionNotFound": "Kullanıcı oturumu bulunamadı. Lütfen oturum açın."
+        "sessionNotFound": "Kullanıcı oturumu bulunamadı. Lütfen oturum açın.",
+        "updateSuccess":"Bilgileriniz başarıyla güncellendi",
+        "updateFailure":"Güncelleme sırasında bir hata oluştu",
+        "resetMailSuccess":"Şifre sıfırlama maili gönderildi",
+        "resetMailFailure":"Şifre sıfırlama maili gönderilirken bir hata oluştu"
       },
       "forgotPassword": {
         "title": "Şifremi Unuttum",
@@ -161,7 +165,9 @@
       "alerts": {
         "error": "Hata oluştu",
         "unverified": "Hesabınızın doğrulanması gerekiyor",
-        "verificationEmailSent": "Doğrulama e-postası gönderildi."
+        "verificationEmailSent": "Doğrulama e-postası gönderildi.",
+        "resetLinkSent":"Şifre sıfırlama maili gönderilmiştir."
+
       },
       "navigation": {
         "coffeeFortune": "Kahve Falı",
@@ -194,6 +200,10 @@
       },
       "logout":{
         "success":"Başarıyla çıkış yaptınız!"
+      },
+      "fortuneTypes": {
+        "coffee": "Kahve Falı",
+        "palm": "El Falı"
       }
   }
   

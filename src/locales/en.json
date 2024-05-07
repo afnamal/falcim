@@ -55,7 +55,7 @@
         },
         "contact": {
           "title": "Contact Information",
-          "description": "For questions or more information, please contact us via email: afnamal@hotmail.com"
+          "description": "For questions or more information, please contact us via email: "
         }
       },
       "terms": {
@@ -128,7 +128,11 @@
         "updateButton": "Update",
         "passwordResetButton": "Send Password Reset Email",
         "userInfoNotFound": "User information not found.",
-        "sessionNotFound": "No user session found. Please log in."
+        "sessionNotFound": "No user session found. Please log in.",
+        "updateSuccess": "Your information has been updated successfully",
+        "updateFailure": "An error occurred during the update",
+        "resetMailSuccess": "Password reset email has been sent",
+        "resetMailFailure": "An error occurred while sending the password reset email"
       },
       "forgotPassword": {
         "title": "Forgot My Password",
@@ -163,7 +167,8 @@
       "alerts": {
         "error": "Error occurred",
         "unverified": "Your account needs verification",
-        "verificationEmailSent": "Verification email has been sent."
+        "verificationEmailSent": "Verification email has been sent.",
+        "resetLinkSent":"Reset email has been sent."
       },
       "navigation": {
         "coffeeFortune": "Coffee Fortune",
@@ -196,6 +201,10 @@
       },
       "logout":{
         "success":"Successfully logged out!"
+      },
+      "fortuneTypes": {
+        "coffee": "Coffee Fortune",
+        "palm": "Palm Reading"
       }
   
       

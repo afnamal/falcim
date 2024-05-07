@@ -67,14 +67,17 @@
 @media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
-    align-items: flex-start !important; /* Ensure alignment on mobile */
+    align-items: flex-start !important;
   }
 
   .footer-column {
-    text-align: left !important; /* Ensure text is left-aligned on small screens */
+    text-align: left !important;
     width: 100%;
+    padding-left: 0; /* Sol tarafa boşluk bırakmadan metni hizala */
+    margin-left: -20px; /* Sol kenar boşluğunu kaldır */
   }
 }
+
 
 @media (min-width: 992px) {
   .footer-content {
