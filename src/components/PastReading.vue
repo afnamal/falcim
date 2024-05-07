@@ -34,6 +34,7 @@ import { ref, watchEffect } from 'vue';
 import { getFirestore, collection, query, getDocs } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useI18n } from 'vue-i18n';
+import { orderBy } from 'firebase/firestore';
 export default {
   setup() {
     const auth = getAuth();
@@ -51,18 +52,19 @@ export default {
     });
 
     const fetchReadings = async () => {
-      if (!user.value) return;
-      const readingsRef = collection(db, 'users', user.value.uid, 'messages');
-      const q = query(readingsRef);
-      const querySnapshot = await getDocs(q);
-      readings.value = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-        timestamp: doc.data().timestamp,
-        showDetails: false  // İlk durumda detaylar gizli
-      }));
-      loading.value = false;
-    };
+  if (!user.value) return;
+  const readingsRef = collection(db, 'users', user.value.uid, 'messages');
+  // Sorguyu tarih alanına göre ters sıralama yapacak şekilde düzenleyin
+  const q = query(readingsRef, orderBy("timestamp", "desc"));
+  const querySnapshot = await getDocs(q);
+  readings.value = querySnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+    timestamp: doc.data().timestamp,
+    showDetails: false  // İlk durumda detaylar gizli
+  }));
+  loading.value = false;
+};
 
     function formatDate(date) {
       // Format the date to local string with options
