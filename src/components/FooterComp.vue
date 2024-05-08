@@ -35,6 +35,9 @@
             <a href="#" class="badge badge-primary mb-2"><i class="fas fa-blog"></i> Blog</a><br>
           </div>
         </div>
+        <button @click="scrollToTop" class="back-to-top" v-if="isVisible">
+          <i class="fas fa-arrow-up"></i>
+        </button>
         <div class="copyright">
           <hr style="width: 70%; margin: 0 auto;">
           <p class="text-center mt-3">{{ $t('footer.rights') }}</p>
@@ -48,13 +51,14 @@
 import { useRouter } from 'vue-router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useI18n } from 'vue-i18n'; // vue-i18n'den useI18n'ı import edin
-import { ref } from 'vue';
+import { ref ,onMounted,onUnmounted} from 'vue';
 
 export default {
   setup() {
     const router = useRouter();
     const auth = getAuth();
     const user = ref(null);
+    const isVisible = ref(false);
     const { locale } = useI18n(); // useI18n hook'undan locale'i alın
 
     onAuthStateChanged(auth, (authUser) => {
@@ -94,7 +98,21 @@ export default {
       locale.value = lang; // locale'i güncelleyin
       
     };
-    return{changeLanguage,pushHome,pushUser ,pushKullanim,pushHelp,pushLogin}
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    const checkScrollPosition = () => {
+      isVisible.value = window.pageYOffset > 200;
+    };
+
+    onMounted(() => {
+      window.addEventListener('scroll', checkScrollPosition);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', checkScrollPosition);
+    });
+    return{changeLanguage,pushHome,pushUser ,pushKullanim,pushHelp,pushLogin,scrollToTop,isVisible}
   },
 }</script>
 
@@ -165,5 +183,37 @@ a{
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.back-to-top {
+  position: fixed;
+  bottom: 50px;
+  right: 30px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  transform: rotate(0deg);
+}
 
+.back-to-top:hover {
+  opacity: 1;
+  transform: rotate(360deg);
+}
+
+.back-to-top i {
+  font-size: 1.8rem;
+}
+
+.back-to-top:focus {
+  outline: none;
+}
 </style>

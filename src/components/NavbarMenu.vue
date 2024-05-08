@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <div class="navbar-nav ms-auto">
             <a class="nav-link login-link" v-if="!user" @click="pushLogin('/')"><span class="material-icons align-middle">login</span>{{ $t('navbar.login') }}</a>
-            <a class="nav-link" v-if="user" @click="pushUser"><span class="material-icons align-middle">person</span>{{ $t('navbar.account') }}</a>
+            <a class="nav-link" v-if="user" @click="pushUser"><span class="material-icons align-middle">person</span>{{ userName}}</a>
             <a class="nav-link" @click="pushLogin('/fal')"><span class="material-icons align-middle">local_cafe</span>{{ $t('navbar.fortune') }}</a>
             <a class="nav-link" @click="pushKullanim"><span class="material-icons align-middle">description</span>{{ $t('navbar.terms') }}</a>
             <a class="nav-link" @click="pushHelp"><span class="material-icons align-middle">help</span>{{ $t('navbar.help') }}</a>
@@ -63,8 +63,12 @@ export default {
     const { locale } = useI18n(); // useI18n hook'undan locale'i alın
     const { t } = useI18n();
     const language=ref('tr')
+    const userName=ref(null)
+
+
     onAuthStateChanged(auth, (authUser) => {
       user.value = authUser;
+      userName.value=authUser.displayName
     });
 
     const toggleMenu = () => {
@@ -107,7 +111,7 @@ export default {
     };
 
 
-    return { user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome, handleLogout, pushHelp, changeLanguage,language };
+    return { user, toggleMenu, pushLogin, pushKullanim, pushUser, pushHome, handleLogout, pushHelp, changeLanguage,language,userName };
   }
 };
 </script>
