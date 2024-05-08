@@ -9,15 +9,15 @@
 
     <!-- Features Section -->
     <section class="features">
-      <div class="feature-item" @click="pushLogin">
+      <div class="feature-item" @click="pushLogin('/fal')">
         <img src="https://www.kaavefali.com/bs/img/step_01.png" alt="Feature 1" />
         <p>{{ $t('features.takePhoto') }}</p>
       </div>
-      <div class="feature-item" @click="pushLogin">
+      <div class="feature-item" @click="pushLogin('/fal')">
         <img src="https://www.kaavefali.com/bs/img/step_02.png" alt="Feature 2" />
         <p>{{ $t('features.enterInfo') }}</p>
       </div>
-      <div class="feature-item" @click="pushLogin">
+      <div class="feature-item" @click="pushLogin('/fal')">
         <img src="https://www.kaavefali.com/bs/img/step_03.png" alt="Feature 3" />
         <p>{{ $t('features.getReading') }}</p>
       </div>
@@ -28,16 +28,29 @@
 <script>
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-
+import { getAuth } from 'firebase/auth';
+import { ref } from 'vue';
+import { onAuthStateChanged } from 'firebase/auth';
 export default {
   name: 'HomeView',
   components: {},
   setup() {
     const router = useRouter()
     const { t } = useI18n();  // Destructuring the translation function `t` from useI18n
+    const auth = getAuth();
+    const user = ref(null);
 
-    const pushLogin = () => {
-      router.push('/login');
+    onAuthStateChanged(auth, (authUser) => {
+      user.value = authUser;
+      
+    });
+    const pushLogin = (destination) => {
+      if (!user.value) {
+        window.sessionStorage.setItem('redirectAfterLogin', destination);
+        router.push('/login');
+      } else {
+        router.push(destination);
+      }
     };
 
     return { pushLogin,t};
