@@ -7,7 +7,7 @@
           <img v-if="buttonActive" :src="newUrl" alt="Uploaded Hand Image" class="img-fluid">
           <div v-if="!buttonActive" class="text-center">
             <label for="file-upload2" class="btn btn-primary my-2">
-              <img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/site%20photos%2Fels1.1.png?alt=media&token=dcf41e80-4e4a-403f-993e-fb9863b077c6" alt="Hand Image Upload" class="img-fluid">
+              <img src="../assets/takeHand.webp" alt="Hand Image Upload" class="img-fluid">
               {{ $t('upload.handPhoto') }}
             </label>
             <input id="file-upload2" type="file" @change="handleFileUpload($event)" class="d-none" />

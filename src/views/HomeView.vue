@@ -31,7 +31,7 @@
           <p>{{ $t('features.enterInfo') }}</p>
         </swiper-slide>
         <swiper-slide class="feature-item">
-          <img src="../assets/step3.png" alt="Feature 3" @click="pushLogin('/fal')" style="border-radius: 30%;" />
+          <img src="../assets/falcilar21.jpg" alt="Feature 3" @click="pushLogin('/fal')" style="border-radius: 30%;" />
           <p>{{ $t('features.getReading') }}</p>
         </swiper-slide>
       </swiper>
@@ -42,7 +42,7 @@
       <div class="container">
         <h2 class="mb-4 section-title">{{ t('section.mainTitle') }}</h2>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 pushBlog" @click="pushBlog">
             <div class="card mb-4 shadow-sm hover-zoom">
               <img src="../assets/coffeeBG.jpg" class="card-img-top" alt="coffee">
               <div class="card-body">
@@ -51,7 +51,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 pushBlog" @click="pushBlog2">
             <div class="card mb-4 shadow-sm hover-zoom">
               <img src="../assets/coffeeBG2.jpg" class="card-img-top" alt="coffee">
               <div class="card-body">
@@ -119,8 +119,8 @@ export default {
     const documentId = 'S4ikHT99Y5ag3RuygY9k'; // Belgenizin ID'sini burada belirtin
 
     const incrementCounts = async () => {
-      const incrementDailyUsers = Math.floor(Math.random() * 5) + 1;
-      const incrementTotalReadings = Math.floor(Math.random() * 10) + 1;
+      const incrementDailyUsers = Math.floor(Math.random() * 2) + 1;
+      const incrementTotalReadings = Math.floor(Math.random() * 4) + 1;
 
       dailyUsersCount.value += incrementDailyUsers;
       totalReadingsCount.value += incrementTotalReadings;
@@ -160,6 +160,12 @@ export default {
         router.push(destination);
       }
     };
+    const pushBlog=()=>{
+      router.push('/blog')
+    }
+    const pushBlog2=()=>{
+      router.push('/blog2')
+    }
 
     const swiperBreakpoints = {
       768: {
@@ -179,6 +185,8 @@ export default {
       Navigation,
       dailyUsersCount,
       totalReadingsCount,
+      pushBlog,
+      pushBlog2
     };
   },
 };
@@ -303,17 +311,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .swiper-button-next,
-	swiper-button-prev {
+.swiper-button-prev {
   color: #000;
   z-index: 10;
 }
 
 .swiper-button-next::after,
-	swiper-button-prev::after {
+.swiper-button-prev::after {
   font-size: 20px;
 }
 
 /* Section Cards */
+.pushBlog{
+  cursor: pointer;
+}
 .section-cards {
   background-color: #f7f7f7;
   padding: 60px 0;
