@@ -222,6 +222,13 @@
         "p1":"Take a break and enjoy a cup of coffee.",
         "title2":"Relaxing Time",
         "p2":"Sit back, relax, and savor the moment with a delicious coffee."
+      },
+      "stats": {
+        "sectionTitle": "Falcım Statistics",
+        "dailyUsers": "Every day, 100,000 people use Falcım",
+        "dailyUsersDesc": "Enjoy the fun of fortune-telling!",
+        "totalReadings": "Falcım has read 3,423,456 fortunes so far",
+        "totalReadingsDesc": "We specialize in coffee fortune-telling!"
       }
   
       

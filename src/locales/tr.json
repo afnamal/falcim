@@ -221,6 +221,13 @@
         "p1":"Bir mola verin ve bir fincan kahvenin tadını çıkarın.",
         "title2":"Rahatlama Zamanı",
         "p2":"Geriye yaslanın, dinlenin ve lezzetli bir kahve ile anın tadını çıkarın."
+      },
+      "stats": {
+        "sectionTitle": "Falcım İstatistikleri",
+        "dailyUsers": "kişi Falcım'ı kullanıyor",
+        "dailyUsersDesc": "Kahve falının eğlencesini yaşayın!",
+        "totalReadings": "fal okundu",
+        "totalReadingsDesc": "Kahve falında uzmanız!"
       }
   }
   

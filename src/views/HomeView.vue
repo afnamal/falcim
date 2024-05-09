@@ -40,10 +40,10 @@
     <!-- Bootstrap styled section -->
     <section class="section-cards text-center">
       <div class="container">
-        <h2 class="mb-4">{{ t('section.mainTitle') }}</h2>
+        <h2 class="mb-4 section-title">{{ t('section.mainTitle') }}</h2>
         <div class="row">
           <div class="col-md-6">
-            <div class="card mb-4 shadow-sm">
+            <div class="card mb-4 shadow-sm hover-zoom">
               <img src="../assets/coffeeBG.jpg" class="card-img-top" alt="coffee">
               <div class="card-body">
                 <h5 class="card-title">{{ t('section.title1') }}</h5>
@@ -52,11 +52,36 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="card mb-4 shadow-sm">
+            <div class="card mb-4 shadow-sm hover-zoom">
               <img src="../assets/coffeeBG2.jpg" class="card-img-top" alt="coffee">
               <div class="card-body">
                 <h5 class="card-title">{{ t('section.title2') }}</h5>
                 <p class="card-text">{{ t('section.p2') }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Section with Stats -->
+    <section class="section-stats text-center">
+      <div class="container">
+        <h2 class="mb-4 section-title">{{ t('stats.sectionTitle') }}</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-4 shadow-sm stat-card hover-zoom">
+              <div class="card-body">
+                <h5 class="card-title">{{ dailyUsersCount +' ' + t('stats.dailyUsers') }}</h5>
+                <p class="card-text">{{ $t('stats.dailyUsersDesc') }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4 shadow-sm stat-card hover-zoom">
+              <div class="card-body">
+                <h5 class="card-title">{{ totalReadingsCount + ' ' +t('stats.totalReadings') }}</h5>
+                <p class="card-text">{{ $t('stats.totalReadingsDesc') }}</p>
               </div>
             </div>
           </div>
@@ -70,7 +95,7 @@
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { getAuth } from 'firebase/auth';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
@@ -85,6 +110,17 @@ export default {
     const { t } = useI18n();
     const auth = getAuth();
     const user = ref(null);
+    const dailyUsersCount = ref(100000);
+    const totalReadingsCount = ref(3423456);
+
+    const incrementCounts = () => {
+      dailyUsersCount.value += Math.floor(Math.random() * 5) + 1;
+      totalReadingsCount.value += Math.floor(Math.random() * 10) + 1;
+    };
+
+    onMounted(() => {
+      setInterval(incrementCounts, 30000); // 30 saniyede bir güncellenir
+    });
 
     onAuthStateChanged(auth, (authUser) => {
       user.value = authUser;
@@ -110,10 +146,18 @@ export default {
       },
     };
 
-    return { pushLogin, t, swiperBreakpoints, Navigation };
+    return {
+      pushLogin,
+      t,
+      swiperBreakpoints,
+      Navigation,
+      dailyUsersCount,
+      totalReadingsCount,
+    };
   },
 };
 </script>
+
 <style>
 /* General Typography and Reset */
 * {
@@ -257,15 +301,17 @@ h1, h2, h3, h4, h5, h6 {
 .section-cards .card {
   border: none;
   overflow: hidden;
-  transition: transform 0.3s;
+  border-radius: 15px;
+  transition: all 0.4s ease;
 }
 
-.section-cards .card:hover {
-  transform: translateY(-10px);
+.section-cards .hover-zoom:hover {
+  transform: translateY(-10px) scale(1.05);
 }
 
 .section-cards .card img {
   object-fit: cover;
+  transition: all 0.4s ease;
 }
 
 .section-cards .card-title {
@@ -275,6 +321,45 @@ h1, h2, h3, h4, h5, h6 {
 
 .section-cards .card-text {
   color: #666;
+}
+
+/* Section Stats */
+.section-stats {
+  background-color: #fff;
+  padding: 60px 0;
+}
+
+.section-stats .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-stats .stat-card {
+  background-color: #f7f7f7;
+  border-radius: 15px;
+  transition: all 0.4s ease;
+}
+
+.section-stats .hover-zoom:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+
+.section-stats .card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.section-stats .card-text {
+  color: #666;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.section-title {
+  font-size: 28px;
+  color: #444;
+  font-weight: bold;
+  margin-bottom: 40px;
 }
 
 /* Media Queries */
@@ -303,4 +388,3 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 </style>
-
