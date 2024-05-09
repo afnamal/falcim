@@ -146,7 +146,7 @@ export default {
 
 <style scoped>
 .logo {
-  max-width: 95px;
+  max-width: 110px;
   transition: transform 0.3s ease-in-out;
 }
 .navbar {
@@ -155,14 +155,14 @@ export default {
 }
 .language-icon {
   cursor: pointer;
-  margin-left: 10px;
-  width: 24px; /* Adjust size as needed */
-  height: 24px; /* Adjust size as needed */
+  margin-left: 12px;
+  width: 32px; /* Adjust size as needed */
+  height: 32px; /* Adjust size as needed */
 }
 
 .language-icon-sm {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 .container {
@@ -179,7 +179,7 @@ export default {
 }
 
 .logo:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
 }
 
 .navbar-toggler-icon {
@@ -190,8 +190,15 @@ export default {
 }
 
 .nav-link {
+  font-size: 18px; /* Increase font size */
   color: #4a4a4a; /* Darker gray text color */
   transition: color 0.3s ease-in-out;
+  padding-left: 0px;
+  margin-right: 7px; /* Increase spacing between links */
+}
+
+.icon {
+  font-size: 22px; /* Increase icon size */
 }
 
 .nav-link:hover, .dropdown-item:hover {
@@ -246,8 +253,10 @@ export default {
 }
 
 .dropdown-item {
+  font-size: 16px;
   transition: background-color 0.3s ease;
 }
+
 @media (min-width: 992px) {
   .dropdown-menu {
     border: none;
