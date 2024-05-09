@@ -26,31 +26,27 @@
               <p class="bg-light p-2 rounded">{{ msg.text }}</p>
             </div>
           </div>
+          <span @click="readAloud" :disabled="messages.length === 0" class="material-icons" v-if="isReadAloudVisible" style="cursor: pointer;">volume_up</span>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-
-
-
 <script>
 import axios from 'axios';
 import { useI18n } from 'vue-i18n';
-import { getAuth,onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc,  addDoc, collection, serverTimestamp,getDoc } from 'firebase/firestore';
-import { ref, onMounted,watch } from 'vue';
-import LoadingSpinner from '@/components/LoadingSpinner.vue'; // Import the loading spinner component
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, doc, addDoc, collection, serverTimestamp, getDoc } from 'firebase/firestore';
+import { ref, onMounted, watch } from 'vue';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import * as tmImage from '@teachablemachine/image';
-import NavbarOrg from '../components/NavbarOrg.vue'
-
-
+import NavbarOrg from '../components/NavbarOrg.vue';
 
 export default {
-  components: { LoadingSpinner, NavbarOrg},
+  components: { LoadingSpinner, NavbarOrg },
   setup() {
-    const { t } = useI18n();
+    const { t, locale } = useI18n();
     const auth = getAuth();
     const db = getFirestore();
     const user = ref(null);
@@ -61,9 +57,11 @@ export default {
     const buttonActive = ref(false);
     const newUrl = ref(null);
     const photoUploadedText = ref('');
-    const loading = ref(false); // Add a new data property for loading state
+    const loading = ref(false);
     const modelUrl = ref("https://teachablemachine.withgoogle.com/models/9F8M8zkGa/");
     let model;
+    const supportedLanguages = ['tr', 'en'];
+    const isReadAloudVisible = ref(supportedLanguages.includes(locale.value));
 
     onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
@@ -71,12 +69,17 @@ export default {
       }
     });
 
+    watch(locale, (newLocale) => {
+      isReadAloudVisible.value = supportedLanguages.includes(newLocale);
+    });
+
     async function loadModel() {
-    model = await tmImage.load(modelUrl.value + "model.json", modelUrl.value + "metadata.json");
-    console.log("Model yüklendi!", model);
-  }
-  function typeMessage(newMessage) {
-    if (!buttonActive.value) {  // Sadece buton aktif değilse mesajı yazdır
+      model = await tmImage.load(modelUrl.value + "model.json", modelUrl.value + "metadata.json");
+      console.log("Model yüklendi!", model);
+    }
+
+    function typeMessage(newMessage) {
+      if (!buttonActive.value) {
         let fullText = newMessage.content;
         let currentChar = 0;
         messages.value.push({ text: '', type: newMessage.type });
@@ -89,52 +92,66 @@ export default {
         }, 50);
       }
     }
+
+    const readAloud = () => {
+      const supportedLocales = {
+        'en': 'en-US',
+        'tr': 'tr-TR'
+      };
+
+      if (supportedLanguages.includes(locale.value)) {
+        const speech = new SpeechSynthesisUtterance();
+        speech.lang = supportedLocales[locale.value] || 'tr-TR';
+        speech.text = messages.value.map(msg => msg.text).join('\n');
+        window.speechSynthesis.speak(speech);
+      }
+    };
+
     watch(buttonActive, (newVal) => {
       if (newVal) {
-        // Buton aktif olduğunda, başlangıç mesajını kaldır
         messages.value = messages.value.filter(msg => msg.type !== 'bot');
       }
     });
+
     onMounted(() => {
       typeMessage({ type: 'bot', content: t('userPrompts.initialPrompt') });
-      });
+    });
 
     const handleFileUpload = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      newUrl.value = URL.createObjectURL(file);
-      photoUploadedText.value = t('systemMessages.loadingPhoto');
-      const imageUrl = URL.createObjectURL(file);
-      const imageElement = new Image();
-      imageElement.src = imageUrl;
-      imageElement.onload = async () => {
-        // Check if the model is loaded
-        if (!model) {
-          console.error('Model is not loaded yet.');
-          photoUploadedText.value = t('systemMessages.modelNotLoaded');
-          return;
-        }
+      const file = event.target.files[0];
+      if (file) {
+        newUrl.value = URL.createObjectURL(file);
+        photoUploadedText.value = t('systemMessages.loadingPhoto');
+        const imageUrl = URL.createObjectURL(file);
+        const imageElement = new Image();
+        imageElement.src = imageUrl;
+        imageElement.onload = async () => {
+          if (!model) {
+            console.error('Model is not loaded yet.');
+            photoUploadedText.value = t('systemMessages.modelNotLoaded');
+            return;
+          }
 
-        const predictions = await model.predict(imageElement);
-        const cupProbability = predictions.find(p => p.className === 'fincan').probability;
-        if (cupProbability > 0.5) {
-          photoUploadedText.value = t('systemMessages.fortuneReady');
-          buttonActive.value = true;
-        } else {
-          photoUploadedText.value = t('systemMessages.cupNotDetected');
-          buttonActive.value = false;
-        }
-      };
-    }
-  };
+          const predictions = await model.predict(imageElement);
+          const cupProbability = predictions.find(p => p.className === 'fincan').probability;
+          if (cupProbability > 0.5) {
+            photoUploadedText.value = t('systemMessages.fortuneReady');
+            buttonActive.value = true;
+          } else {
+            photoUploadedText.value = t('systemMessages.cupNotDetected');
+            buttonActive.value = false;
+          }
+        };
+      }
+    };
 
     const sendMessage = async () => {
-      loading.value = true; // Set loading to true before making the API call
+      loading.value = true;
 
       const postData = {
         model: 'gpt-3.5-turbo',
         messages: [
-          { role: 'system', content: t('chat.systemMessage2') },    
+          { role: 'system', content: t('chat.systemMessage2') },
           {
             role: 'user',
             content: t('chat.userMessage2', {
@@ -158,22 +175,23 @@ export default {
         await addDoc(messageRef, {
           text: botReply,
           timestamp: serverTimestamp(),
-          tipi:"kahvefali",
-          title:t('fortuneTypes.coffee'),
-          imageUrl:"https://image.cnnturk.com/i/cnnturk/75/740x416/644e0770ae0a8f1610c2a267.jpg"
+          tipi: "kahvefali",
+          title: t('fortuneTypes.coffee'),
+          imageUrl: "https://image.cnnturk.com/i/cnnturk/75/740x416/644e0770ae0a8f1610c2a267.jpg"
         });
         messages.value.push({ text: botReply, type: 'bot' });
       } catch (error) {
         console.error('Error sending message:', error);
         messages.value.push({ text: t('systemMessages.errorSendingMessage'), type: 'bot' });
-        } finally {
-        loading.value = false; // Set loading back to false after receiving the response
+      } finally {
+        loading.value = false;
       }
     };
+
     onMounted(async () => {
-    const model = await loadModel();
-    console.log("Model yüklendi!", model);
-  });
+      await loadModel();
+    });
+
     onMounted(() => {
       const auth = getAuth();
       const db = getFirestore();
@@ -193,16 +211,26 @@ export default {
       }
     });
 
-    return { messages, sendMessage, handleFileUpload, buttonActive, newUrl, photoUploadedText, loading };
+    return {
+      messages,
+      sendMessage,
+      handleFileUpload,
+      buttonActive,
+      newUrl,
+      photoUploadedText,
+      loading,
+      readAloud,
+      isReadAloudVisible
+    };
   },
 };
 </script>
-  
+
 <style scoped>
 .container {
   max-width: 960px;
   margin: auto;
-  background-color: #f8f9fa;  /* Açık gri arkaplan rengi */
+  background-color: #f8f9fa;
 }
 
 .main-container {
@@ -213,13 +241,13 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;  /* Alt elemanlarla arasında boşluk */
+  margin-bottom: 20px;
 }
 
 .img-fluid {
   max-width: 100%;
   height: auto;
-  border-radius: 8px; /* Resim köşelerini yuvarlak yap */
+  border-radius: 8px;
 }
 
 .messages {
@@ -229,17 +257,17 @@ export default {
 }
 
 .bg-light {
-  background-color: #e9ecef; /* Bootstrap bg-light rengi ile uyumlu */
+  background-color: #e9ecef;
 }
 
 .btn-primary, .btn-success {
   width: 100%;
   margin-top: 10px;
-  background-color: #007bff; /* Mavi tema rengi */
+  background-color: #007bff;
 }
 
 .btn-primary:hover, .btn-success:hover {
-  background-color: #0056b3; /* Hover durumunda daha koyu mavi */
+  background-color: #0056b3;
 }
 
 button.disabled {

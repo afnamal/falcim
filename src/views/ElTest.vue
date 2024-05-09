@@ -24,6 +24,7 @@
               <p class="bg-light p-2 rounded">{{ msg.text }}</p>
             </div>
           </div>
+          <span @click="readAloud" :disabled="messages.length === 0" class="material-icons" v-if="isReadAloudVisible" style="cursor: pointer;">volume_up</span>
         </div>
       </div>
     </div>
@@ -59,9 +60,14 @@ export default {
     const loading = ref(false); // Add a new data property for loading state
     const modelUrl = ref("https://teachablemachine.withgoogle.com/models/sZdvGcSjR/");
     let model;
-    const { t } = useI18n();  // Destructuring the translation function `t` from useI18n
+    const { t,locale } = useI18n();  // Destructuring the translation function `t` from useI18n
+    const supportedLanguages = ['tr', 'en'];
+    const isReadAloudVisible = ref(supportedLanguages.includes(locale.value));
 
 
+    watch(locale, (newLocale) => {
+      isReadAloudVisible.value = supportedLanguages.includes(newLocale);
+    });
     onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
         user.value = authUser;
@@ -96,6 +102,21 @@ export default {
       const messageContent = t('messages.uploadPrompt');  // Fetching the localized message
       typeMessage({ type: 'bot', content: messageContent });
       });
+      
+
+      const readAloud = () => {
+      const supportedLocales = {
+        'en': 'en-US',
+        'tr': 'tr-TR'
+      };
+
+      if (supportedLanguages.includes(locale.value)) {
+        const speech = new SpeechSynthesisUtterance();
+        speech.lang = supportedLocales[locale.value] || 'tr-TR';
+        speech.text = messages.value.map(msg => msg.text).join('\n');
+        window.speechSynthesis.speak(speech);
+      }
+    };
 
 
     const handleFileUpload = async (event) => {
@@ -192,7 +213,7 @@ export default {
       }
     });
 
-    return { messages, sendMessage, handleFileUpload, buttonActive, newUrl, photoUploadedText, loading,t };
+    return { messages, sendMessage, handleFileUpload, buttonActive, newUrl, photoUploadedText, loading,t,readAloud,isReadAloudVisible };
   },
 };
 </script>
@@ -201,7 +222,7 @@ export default {
 .container {
   max-width: 960px;
   margin: auto;
-  background-color: #f8f9fa;  /* Açık gri arkaplan rengi */
+  background-color: #f8f9fa;
 }
 
 .main-container {
@@ -212,13 +233,13 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;  /* Alt elemanlarla arasında boşluk */
+  margin-bottom: 20px;
 }
 
 .img-fluid {
   max-width: 100%;
   height: auto;
-  border-radius: 8px; /* Resim köşelerini yuvarlak yap */
+  border-radius: 8px;
 }
 
 .messages {
@@ -228,17 +249,17 @@ export default {
 }
 
 .bg-light {
-  background-color: #e9ecef; /* Bootstrap bg-light rengi ile uyumlu */
+  background-color: #e9ecef;
 }
 
 .btn-primary, .btn-success {
   width: 100%;
   margin-top: 10px;
-  background-color: #007bff; /* Mavi tema rengi */
+  background-color: #007bff;
 }
 
 .btn-primary:hover, .btn-success:hover {
-  background-color: #0056b3; /* Hover durumunda daha koyu mavi */
+  background-color: #0056b3;
 }
 
 button.disabled {
@@ -246,4 +267,3 @@ button.disabled {
   cursor: not-allowed;
 }
 </style>
-
