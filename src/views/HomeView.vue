@@ -160,11 +160,15 @@ export default {
         router.push(destination);
       }
     };
-    const pushBlog=()=>{
-      router.push('/blog')
-    }
+    const pushBlog = () => {
+  router.push('/blog');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
     const pushBlog2=()=>{
       router.push('/blog2')
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
     }
 
     const swiperBreakpoints = {

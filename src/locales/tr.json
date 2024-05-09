@@ -22,7 +22,8 @@
           "terms": "Kullanım Şartları",
           "home":"Anasayfa",
           "fortune":"Fal Bak",
-          "login":"Giriş Yap"
+          "login":"Giriş Yap",
+          "account":"Hesabım"
         },
         "globalPresence": "Dünyada Falcım",
         "socialMedia": "Sosyal Medya",
@@ -128,7 +129,7 @@
         "emailLabel": "Email (Güncellenemez)",
         "emailPlaceholder": "Email giriniz",
         "birthDateLabel": "Doğum Tarihi",
-        "birthDatePlaceholder": "Doğum tarihi giriniz",
+        "birthDatePlaceholder": "Doğum tarrihi giriniz",
         "locationLabel": "Şehrimi Değiştir",
         "updateButton": "Güncelle",
         "passwordResetButton": "Şifre Sıfırlama E-postası Gönder",

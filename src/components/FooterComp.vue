@@ -9,7 +9,8 @@
             <ul class="list-unstyled" >
               <li @click="pushHome"><a  class="link-light">{{ $t('footer.links.home') }}</a></li>
               <li @click="pushLogin('/fal')"><a  class="link-light">{{ $t('footer.links.fortune') }}</a></li>
-              <li @click="pushLogin('/')"><a class="link-light">{{ $t('footer.links.login') }}</a></li>
+              <li v-if="!user" @click="pushLogin('/')"><a class="link-light">{{ $t('footer.links.login') }}</a></li>
+              <li v-else @click="pushUser"><a class="link-light">{{ $t('footer.links.account') }}</a></li>
               <li @click="pushHelp"><a  class="link-light">{{ $t('footer.links.help') }}</a></li>
               <li @click="pushKullanim"><a   class="link-light">{{ $t('footer.links.terms') }}</a></li>
             </ul>
@@ -68,31 +69,31 @@ export default {
       if (!user.value) {
         window.sessionStorage.setItem('redirectAfterLogin', destination);
         router.push('/login');
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         router.push(destination);
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     };
 
     const pushHelp = () => {
       router.push('/help');
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const pushKullanim = () => {
       router.push('/terms');
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const pushUser = () => {
       router.push('/user');
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const pushHome = () => {
       router.push('/');
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
     const changeLanguage = (lang) => {
       locale.value = lang; // locale'i güncelleyin
@@ -112,7 +113,7 @@ export default {
     onUnmounted(() => {
       window.removeEventListener('scroll', checkScrollPosition);
     });
-    return{changeLanguage,pushHome,pushUser ,pushKullanim,pushHelp,pushLogin,scrollToTop,isVisible}
+    return{changeLanguage,pushHome,pushUser ,pushKullanim,pushHelp,pushLogin,scrollToTop,isVisible,user}
   },
 }</script>
 
