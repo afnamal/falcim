@@ -7,35 +7,63 @@
       </div>
       <div class="header-triangle"></div>
       <div class="header-caption">
-        <p>{{ $t('header.title') }}</p>
-        <p class="subtitle">{{ $t('header.subtitle') }}</p>
+        <h5>{{ $t('header.title') }}</h5>
+        <h6 class="subtitle">{{ $t('header.subtitle') }}</h6>
       </div>
     </header>
 
     <!-- Features Section -->
     <section class="features">
-      <swiper
-        :slides-per-view="1"
-        :space-between="20"
-        :breakpoints="swiperBreakpoints"
-        class="mySwiper"
-        navigation
-        :modules="[Navigation]"
-      >
-        <swiper-slide class="feature-item">
-          <img src="https://www.kaavefali.com/bs/img/step_01.png" alt="Feature 1" @click="pushLogin('/fal')" />
-          <p>{{ $t('features.takePhoto') }}</p>
-        </swiper-slide>
-        <swiper-slide class="feature-item">
-          <img src="https://www.kaavefali.com/bs/img/step_02.png" alt="Feature 2" @click="pushLogin('/fal')" />
-          <p>{{ $t('features.enterInfo') }}</p>
-        </swiper-slide>
-        <swiper-slide class="feature-item">
-          <img src="../assets/step3.png" alt="Feature 3" @click="pushLogin('/fal')"  style="border-radius: 30%;"/>
-          <p>{{ $t('features.getReading') }}</p>
-        </swiper-slide>
-      </swiper>
-    </section>
+  <swiper
+    :slides-per-view="1"
+    :space-between="20"
+    :breakpoints="swiperBreakpoints"
+    class="mySwiper"
+    navigation
+    :modules="[Navigation]"
+  >
+    <swiper-slide class="feature-item">
+      <img src="https://www.kaavefali.com/bs/img/step_01.png" alt="Feature 1" @click="pushLogin('/fal')" />
+      <p>{{ $t('features.takePhoto') }}</p>
+    </swiper-slide>
+    <swiper-slide class="feature-item">
+      <img src="https://www.kaavefali.com/bs/img/step_02.png" alt="Feature 2" @click="pushLogin('/fal')" />
+      <p>{{ $t('features.enterInfo') }}</p>
+    </swiper-slide>
+    <swiper-slide class="feature-item">
+      <img src="../assets/step3.png" alt="Feature 3" @click="pushLogin('/fal')"  style="border-radius: 30%;"/>
+      <p>{{ $t('features.getReading') }}</p>
+    </swiper-slide>
+  </swiper>
+</section>
+
+<!-- Bootstrap styled section -->
+<section class="py-5 text-center">
+  <div class="container">
+    <h2 class="mb-4">{{t('section.mainTitle')}}</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <img src="../assets/coffeeBG.jpg" class="card-img-top" alt="coffee">
+          <div class="card-body">
+            <h5 class="card-title">{{ t('section.title1') }}</h5>
+            <p class="card-text">{{ t('section.p1') }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <img src="../assets/coffeeBG2.jpg" class="card-img-top" alt="coffee">
+          <div class="card-body">
+            <h5 class="card-title">{{ t('section.title2') }}</h5>
+            <p class="card-text">{{ t('section.p2') }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
   </div>
 </template>
 
@@ -134,7 +162,7 @@ export default {
 
 .header-caption p {
   margin: 0;
-  font-size: 18px;
+  font-size: 21px;
 }
 
 .header-caption .subtitle {
@@ -156,7 +184,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: larger;
+  font-size: large;
 }
 
 .feature-item img {

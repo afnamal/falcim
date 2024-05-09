@@ -215,6 +215,13 @@
       "header": {
         "title": "Upload your photo for a quick reading",
         "subtitle": "Double your coffee pleasure"
+      },
+      "section":{
+        "mainTitle":"Coffee Time!",
+        "title1":"Coffee Break",
+        "p1":"Take a break and enjoy a cup of coffee.",
+        "title2":"Relaxing Time",
+        "p2":"Sit back, relax, and savor the moment with a delicious coffee."
       }
   
       
