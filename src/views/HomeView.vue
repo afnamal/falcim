@@ -156,11 +156,12 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: larger;
 }
 
 .feature-item img {
   width: 100%;
-  max-width: 150px;
+  max-width: 220px;
   margin-bottom: 10px;
 }
 
