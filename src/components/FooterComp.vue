@@ -131,6 +131,9 @@ export default {
 a{
   cursor: pointer;
 }
+h5{
+  color:rgb(102, 107, 110) ;
+}
 
 .footer-column {
   flex: 1 1 200px;

@@ -72,7 +72,7 @@
           <div class="col-md-6">
             <div class="card mb-4 shadow-sm stat-card hover-zoom">
               <div class="card-body">
-                <h5 class="card-title">{{ dailyUsersCount +' ' + t('stats.dailyUsers') }}</h5>
+                <h5 class="card-title">{{ dailyUsersCount + ' ' + t('stats.dailyUsers') }}</h5>
                 <p class="card-text">{{ $t('stats.dailyUsersDesc') }}</p>
               </div>
             </div>
@@ -80,7 +80,7 @@
           <div class="col-md-6">
             <div class="card mb-4 shadow-sm stat-card hover-zoom">
               <div class="card-body">
-                <h5 class="card-title">{{ totalReadingsCount + ' ' +t('stats.totalReadings') }}</h5>
+                <h5 class="card-title">{{ totalReadingsCount + ' ' + t('stats.totalReadings') }}</h5>
                 <p class="card-text">{{ $t('stats.totalReadingsDesc') }}</p>
               </div>
             </div>
@@ -101,6 +101,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
+import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 export default {
   name: 'HomeView',
@@ -110,15 +112,39 @@ export default {
     const { t } = useI18n();
     const auth = getAuth();
     const user = ref(null);
-    const dailyUsersCount = ref(100000);
-    const totalReadingsCount = ref(3423456);
+    const dailyUsersCount = ref(0); // Başlangıç değeri
+    const totalReadingsCount = ref(0); // Başlangıç değeri
+    const db= getFirestore()
 
-    const incrementCounts = () => {
-      dailyUsersCount.value += Math.floor(Math.random() * 5) + 1;
-      totalReadingsCount.value += Math.floor(Math.random() * 10) + 1;
+    const documentId = 'S4ikHT99Y5ag3RuygY9k'; // Belgenizin ID'sini burada belirtin
+
+    const incrementCounts = async () => {
+      const incrementDailyUsers = Math.floor(Math.random() * 5) + 1;
+      const incrementTotalReadings = Math.floor(Math.random() * 10) + 1;
+
+      dailyUsersCount.value += incrementDailyUsers;
+      totalReadingsCount.value += incrementTotalReadings;
+
+      const countsRef = doc(db, 'counts', documentId);
+      await updateDoc(countsRef, {
+        dailyUsers: dailyUsersCount.value,
+        totalReadings: totalReadingsCount.value
+      });
+    };
+
+    const subscribeToCounts = () => {
+      const countsRef = doc(db, 'counts', documentId);
+      onSnapshot(countsRef, (doc) => {
+        if (doc.exists()) {
+          const data = doc.data();
+          dailyUsersCount.value = data.dailyUsers;
+          totalReadingsCount.value = data.totalReadings;
+        }
+      });
     };
 
     onMounted(() => {
+      subscribeToCounts();
       setInterval(incrementCounts, 30000); // 30 saniyede bir güncellenir
     });
 
@@ -277,13 +303,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .swiper-button-next,
-.swiper-button-prev {
+	swiper-button-prev {
   color: #000;
   z-index: 10;
 }
 
 .swiper-button-next::after,
-.swiper-button-prev::after {
+	swiper-button-prev::after {
   font-size: 20px;
 }
 
@@ -365,7 +391,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Media Queries */
 @media screen and (max-width: 768px) {
   .swiper-button-next,
-  .swiper-button-prev {
+	swiper-button-prev {
     display: block;
   }
 }
