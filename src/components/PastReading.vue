@@ -8,22 +8,24 @@
       {{ $t('pastReadings.noReadings') }}
     </div>
     <div v-else class="row">
-      <div class="col-md-4 mb-4" v-for="reading in readings" :key="reading.id">
-        <div class="card h-100 shadow-sm position-relative">
-          <img :src="reading.imageUrl ? reading.imageUrl : defaultImage" class="card-img-top" :alt="$t('pastReadings.cardImageAlt')">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">{{ reading.title }}</h5>
-            <p class="card-text" v-if="reading.showDetails">{{ reading.text }}</p>
-            <button @click="toggleDetails(reading)" class="btn btn-primary mt-auto">
-              {{ reading.showDetails ? $t('pastReadings.hideDetails') : $t('pastReadings.viewDetails') }}
-            </button>
+      <transition-group name="list" tag="div" class="row">
+        <div class="col-md-4 mb-4" v-for="reading in readings" :key="reading.id">
+          <div class="card h-100 shadow-sm position-relative">
+            <img :src="reading.imageUrl ? reading.imageUrl : defaultImage" class="card-img-top" :alt="$t('pastReadings.cardImageAlt')">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ reading.title }}</h5>
+              <p class="card-text" v-if="reading.showDetails">{{ reading.text }}</p>
+              <button @click="toggleDetails(reading)" class="btn btn-primary mt-auto">
+                {{ reading.showDetails ? $t('pastReadings.hideDetails') : $t('pastReadings.viewDetails') }}
+              </button>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <span>{{ formatDate(reading.timestamp.toDate()) }}</span>
+              <span class="material-icons delete-icon" @click="deleteReading(reading.id)">delete</span>
+            </div>
           </div>
-          <div class="card-footer text-muted">
-            {{ formatDate(reading.timestamp.toDate()) }}
-          </div>
-          <span class="material-icons delete-icon" @click="deleteReading(reading.id)">delete</span>
         </div>
-      </div>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -135,6 +137,12 @@ export default {
   margin-bottom: 20px;
 }
 
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .btn-primary {
   background-color: #0056b3;
   border-color: #0056b3;
@@ -157,9 +165,6 @@ export default {
 }
 
 .delete-icon {
-  position: absolute;
-  top: 310px;
-  right: 10px;
   cursor: pointer;
   font-size: 24px;
   color: #dc3545;
@@ -168,5 +173,14 @@ export default {
 
 .delete-icon:hover {
   color: #a71d2a;
+}
+
+.list-enter-active, .list-leave-active {
+  transition: all 0.4s ease;
+}
+
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
 }
 </style>

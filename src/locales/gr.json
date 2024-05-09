@@ -170,7 +170,8 @@
         "error": "Προέκυψε σφάλμα",
         "unverified": "Ο λογαριασμός σας χρειάζεται επαλήθευση",
         "verificationEmailSent": "Το email επαλήθευσης έχει αποσταλεί.",
-        "resetLinkSent": "Το email επαναφοράς έχει σταλεί."
+        "resetLinkSent": "Το email επαναφοράς έχει σταλεί.",
+        "loginError": "Μη έγκυρο όνομα χρήστη ή κωδικός πρόσβασης"
       },
       "navigation": {
         "coffeeFortune": "Μαντεία Καφέ",

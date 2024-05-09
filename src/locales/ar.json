@@ -170,7 +170,8 @@
         "error": "حدث خطأ",
         "unverified": "حسابك يحتاج إلى التحقق",
         "verificationEmailSent": "تم إرسال بريد التحقق.",
-        "resetLinkSent": "تم إرسال بريد إعادة التعيين."
+        "resetLinkSent": "تم إرسال بريد إعادة التعيين.",
+        "loginError": "اسم المستخدم أو كلمة المرور غير صحيح"
       },
       "navigation": {
         "coffeeFortune": "توقعات القهوة",

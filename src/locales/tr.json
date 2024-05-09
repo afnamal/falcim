@@ -171,7 +171,8 @@
         "error": "Hata oluştu",
         "unverified": "Hesabınızın doğrulanması gerekiyor",
         "verificationEmailSent": "Doğrulama e-postası gönderildi.",
-        "resetLinkSent":"Şifre sıfırlama maili gönderilmiştir."
+        "resetLinkSent":"Şifre sıfırlama maili gönderilmiştir.",
+        "loginError":"Kullanıcı adı ya da şifre hatalı"
 
       },
       "navigation": {

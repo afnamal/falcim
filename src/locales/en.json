@@ -173,7 +173,8 @@
         "error": "Error occurred",
         "unverified": "Your account needs verification",
         "verificationEmailSent": "Verification email has been sent.",
-        "resetLinkSent":"Reset email has been sent."
+        "resetLinkSent":"Reset email has been sent.",
+        "loginError": "Invalid username or password"
       },
       "navigation": {
         "coffeeFortune": "Coffee Fortune",
