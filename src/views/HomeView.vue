@@ -1,10 +1,15 @@
 <template>
   <div id="app">
-    <!-- Navbar -->
-
-    <!-- Main Header Image -->
-    <header>
-      <img src="../assets/headerPhoto2.jpg" alt="Header Image">
+    <!-- Main Header Image with Caption -->
+    <header class="header">
+      <div class="header-image">
+        <img src="../assets/headerPhoto2.jpg" alt="Header Image">
+      </div>
+      <div class="header-triangle"></div>
+      <div class="header-caption">
+        <p>{{ $t('header.title') }}</p>
+        <p class="subtitle">{{ $t('header.subtitle') }}</p>
+      </div>
     </header>
 
     <!-- Features Section -->
@@ -26,7 +31,7 @@
           <p>{{ $t('features.enterInfo') }}</p>
         </swiper-slide>
         <swiper-slide class="feature-item">
-          <img src="https://www.kaavefali.com/bs/img/step_03.png" alt="Feature 3" @click="pushLogin('/fal')" />
+          <img src="../assets/step3.png" alt="Feature 3" @click="pushLogin('/fal')"  style="border-radius: 30%;"/>
           <p>{{ $t('features.getReading') }}</p>
         </swiper-slide>
       </swiper>
@@ -50,7 +55,7 @@ export default {
   components: { Swiper, SwiperSlide },
   setup() {
     const router = useRouter();
-    const { t } = useI18n(); // Destructuring the translation function `t` from useI18n
+    const { t } = useI18n();
     const auth = getAuth();
     const user = ref(null);
 
@@ -78,19 +83,67 @@ export default {
       }
     };
 
-    return { pushLogin, t, swiperBreakpoints,Navigation };
+    return { pushLogin, t, swiperBreakpoints, Navigation };
   }
 };
 </script>
 
 <style>
-header img {
+/* Header Styles */
+.header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header-image {
+  position: relative;
+}
+
+.header-image img {
   width: 100%;
-  height: 300px;
+  height: 400px;
   object-fit: cover;
   display: block;
 }
 
+.header-triangle {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 30px;
+  background-color: white;
+}
+
+.header-triangle::after {
+  content: "";
+  position: absolute;
+  top: -0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px; /* Adjusted size */
+  height: 60px; /* Adjusted size */
+  background: url('../assets/desen.webp') no-repeat center center;
+  background-size: cover;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+.header-caption {
+  margin-top: 30px;
+}
+
+.header-caption p {
+  margin: 0;
+  font-size: 18px;
+}
+
+.header-caption .subtitle {
+  color: #a00;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* Features Section */
 .features {
   max-width: 1200px;
   margin: 0 auto;
@@ -131,9 +184,8 @@ header img {
 /* Navigation Arrow Styles */
 .swiper-button-next,
 .swiper-button-prev {
-  color: #000; /* Customize color of arrows */
+  color: #000;
   z-index: 10;
-  display: none;
 }
 
 .swiper-button-next::after,
@@ -141,19 +193,12 @@ header img {
   font-size: 20px;
 }
 
+/* Media Queries */
 @media screen and (max-width: 768px) {
   .swiper-button-next,
   .swiper-button-prev {
     display: block;
   }
-}
-
-/* Parallax effect for background */
-header {
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 /* Typography settings */

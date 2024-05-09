@@ -211,6 +211,10 @@
       "fortuneTypes": {
         "coffee": "Coffee Fortune",
         "palm": "Palm Reading"
+      },
+      "header": {
+        "title": "Upload your photo for a quick reading",
+        "subtitle": "Double your coffee pleasure"
       }
   
       

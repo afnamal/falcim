@@ -210,6 +210,10 @@
       "fortuneTypes": {
         "coffee": "Kahve Falı",
         "palm": "El Falı"
+      },
+      "header":{
+        "title":"Fotoğrafınızı yükleyin falınıza hızlıca bakılsın",
+        "subtitle":"Kahve keyfinizi katlayın"
       }
   }
   
