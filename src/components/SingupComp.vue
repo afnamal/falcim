@@ -115,14 +115,13 @@
 
 <script>
 import SignupComposable from '../composables/SignupComposable';
-import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { showToast } from '../services/notificationService';
 
 export default {
   setup() {
     const { error, user } = SignupComposable();
-    const router = useRouter();
     const name = ref('');
     const email = ref('');
     const password = ref('');
@@ -132,9 +131,8 @@ export default {
 
     const handleSubmit = async () => {
       await user(email.value, password.value, name.value, birthDate.value, location.value);
-      if (!error.value || error.value === '') {  
-        router.push('/fal');
-      }
+      showToast(t('alerts.verificationEmailSent'), 'success');
+      
     };
 
     return { name, email, password, birthDate, location, handleSubmit, error,t };
