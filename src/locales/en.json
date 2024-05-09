@@ -225,9 +225,9 @@
       },
       "stats": {
         "sectionTitle": "Falcım Statistics",
-        "dailyUsers": "Every day, 100,000 people use Falcım",
+        "dailyUsers": "people are using Falcım",
         "dailyUsersDesc": "Enjoy the fun of fortune-telling!",
-        "totalReadings": "Falcım has read 3,423,456 fortunes so far",
+        "totalReadings": "readings have been done",
         "totalReadingsDesc": "We specialize in coffee fortune-telling!"
       }
   
