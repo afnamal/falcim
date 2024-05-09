@@ -14,56 +14,55 @@
 
     <!-- Features Section -->
     <section class="features">
-  <swiper
-    :slides-per-view="1"
-    :space-between="20"
-    :breakpoints="swiperBreakpoints"
-    class="mySwiper"
-    navigation
-    :modules="[Navigation]"
-  >
-    <swiper-slide class="feature-item">
-      <img src="https://www.kaavefali.com/bs/img/step_01.png" alt="Feature 1" @click="pushLogin('/fal')" />
-      <p>{{ $t('features.takePhoto') }}</p>
-    </swiper-slide>
-    <swiper-slide class="feature-item">
-      <img src="https://www.kaavefali.com/bs/img/step_02.png" alt="Feature 2" @click="pushLogin('/fal')" />
-      <p>{{ $t('features.enterInfo') }}</p>
-    </swiper-slide>
-    <swiper-slide class="feature-item">
-      <img src="../assets/step3.png" alt="Feature 3" @click="pushLogin('/fal')"  style="border-radius: 30%;"/>
-      <p>{{ $t('features.getReading') }}</p>
-    </swiper-slide>
-  </swiper>
-</section>
+      <swiper
+        :slides-per-view="1"
+        :space-between="20"
+        :breakpoints="swiperBreakpoints"
+        class="mySwiper"
+        navigation
+        :modules="[Navigation]"
+      >
+        <swiper-slide class="feature-item">
+          <img src="https://www.kaavefali.com/bs/img/step_01.png" alt="Feature 1" @click="pushLogin('/fal')" />
+          <p>{{ $t('features.takePhoto') }}</p>
+        </swiper-slide>
+        <swiper-slide class="feature-item">
+          <img src="https://www.kaavefali.com/bs/img/step_02.png" alt="Feature 2" @click="pushLogin('/fal')" />
+          <p>{{ $t('features.enterInfo') }}</p>
+        </swiper-slide>
+        <swiper-slide class="feature-item">
+          <img src="../assets/step3.png" alt="Feature 3" @click="pushLogin('/fal')" style="border-radius: 30%;" />
+          <p>{{ $t('features.getReading') }}</p>
+        </swiper-slide>
+      </swiper>
+    </section>
 
-<!-- Bootstrap styled section -->
-<section class="py-5 text-center">
-  <div class="container">
-    <h2 class="mb-4">{{t('section.mainTitle')}}</h2>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card mb-4">
-          <img src="../assets/coffeeBG.jpg" class="card-img-top" alt="coffee">
-          <div class="card-body">
-            <h5 class="card-title">{{ t('section.title1') }}</h5>
-            <p class="card-text">{{ t('section.p1') }}</p>
+    <!-- Bootstrap styled section -->
+    <section class="section-cards text-center">
+      <div class="container">
+        <h2 class="mb-4">{{ t('section.mainTitle') }}</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+              <img src="../assets/coffeeBG.jpg" class="card-img-top" alt="coffee">
+              <div class="card-body">
+                <h5 class="card-title">{{ t('section.title1') }}</h5>
+                <p class="card-text">{{ t('section.p1') }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+              <img src="../assets/coffeeBG2.jpg" class="card-img-top" alt="coffee">
+              <div class="card-body">
+                <h5 class="card-title">{{ t('section.title2') }}</h5>
+                <p class="card-text">{{ t('section.p2') }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="card mb-4">
-          <img src="../assets/coffeeBG2.jpg" class="card-img-top" alt="coffee">
-          <div class="card-body">
-            <h5 class="card-title">{{ t('section.title2') }}</h5>
-            <p class="card-text">{{ t('section.p2') }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+    </section>
   </div>
 </template>
 
@@ -103,29 +102,41 @@ export default {
     const swiperBreakpoints = {
       768: {
         slidesPerView: 2,
-        spaceBetween: 20
+        spaceBetween: 20,
       },
       1024: {
         slidesPerView: 3,
-        spaceBetween: 30
-      }
+        spaceBetween: 30,
+      },
     };
 
     return { pushLogin, t, swiperBreakpoints, Navigation };
-  }
+  },
 };
 </script>
-
 <style>
+/* General Typography and Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
 /* Header Styles */
 .header {
   position: relative;
   text-align: center;
   margin-bottom: 40px;
-}
-
-.header-image {
-  position: relative;
 }
 
 .header-image img {
@@ -149,8 +160,8 @@ export default {
   top: -0px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px; /* Adjusted size */
-  height: 60px; /* Adjusted size */
+  width: 60px;
+  height: 60px;
   background: url('../assets/desen.webp') no-repeat center center;
   background-size: cover;
   clip-path: polygon(50% 100%, 0 0, 100% 0);
@@ -158,14 +169,20 @@ export default {
 
 .header-caption {
   margin-top: 30px;
+  color: rgb(29, 27, 27);
 }
 
-.header-caption p {
+.header-caption h5, .header-caption h6 {
   margin: 0;
-  font-size: 21px;
 }
 
-.header-caption .subtitle {
+.header-caption h5 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.header-caption h6.subtitle {
+  font-size: 18px;
   color: #a00;
   font-weight: bold;
   margin-top: 5px;
@@ -175,7 +192,7 @@ export default {
 .features {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px 20px;
 }
 
 .feature-item {
@@ -185,6 +202,8 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: large;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .feature-item img {
@@ -193,10 +212,13 @@ export default {
   margin-bottom: 10px;
 }
 
-/* Hover effect for better interaction */
+.feature-item p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .feature-item:hover {
   transform: scale(1.1);
-  transition: transform 0.3s ease-in-out;
 }
 
 /* Swiper Styles */
@@ -210,7 +232,6 @@ export default {
   align-items: center;
 }
 
-/* Navigation Arrow Styles */
 .swiper-button-next,
 .swiper-button-prev {
   color: #000;
@@ -222,6 +243,40 @@ export default {
   font-size: 20px;
 }
 
+/* Section Cards */
+.section-cards {
+  background-color: #f7f7f7;
+  padding: 60px 0;
+}
+
+.section-cards .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-cards .card {
+  border: none;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.section-cards .card:hover {
+  transform: translateY(-10px);
+}
+
+.section-cards .card img {
+  object-fit: cover;
+}
+
+.section-cards .card-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.section-cards .card-text {
+  color: #666;
+}
+
 /* Media Queries */
 @media screen and (max-width: 768px) {
   .swiper-button-next,
@@ -230,8 +285,22 @@ export default {
   }
 }
 
-/* Typography settings */
-body {
-  font-family: 'Arial', sans-serif;
+@media screen and (max-width: 480px) {
+  .header-image img {
+    height: 300px;
+  }
+
+  .header-caption h5 {
+    font-size: 24px;
+  }
+
+  .header-caption h6 {
+    font-size: 16px;
+  }
+
+  .features {
+    padding: 20px;
+  }
 }
 </style>
+

@@ -1,7 +1,7 @@
 <template>
  <NavbarMenuVue/>
   <router-view/>
-  <FooterCompVue style="margin-top: 220px;"/>
+  <FooterCompVue />
 </template>
 
 

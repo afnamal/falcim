@@ -102,7 +102,7 @@ export default {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
     const checkScrollPosition = () => {
-      isVisible.value = window.pageYOffset > 200;
+      isVisible.value = window.pageYOffset > 400 ;
     };
 
     onMounted(() => {
