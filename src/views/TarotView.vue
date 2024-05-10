@@ -1,21 +1,23 @@
 <template>
+    <NavbarOrg/>
     <div class="container tarot-container">
       <h1 class="my-4 text-center">{{ $t('tarot.title') }}</h1>
       <p class="text-center mb-4">{{ $t('tarot.subtitle') }}</p>
       <div class="row justify-content-center mb-4">
         <div
-          v-for="(card, index) in tarotCards"
-          :key="index"
-          class="col-6 col-md-4 col-lg-2 mb-3"
-        >
-          <div
-            class="tarot-card img-fluid d-flex align-items-center justify-content-center"
-            :class="{ selected: allSelectedCards.includes(card) }"
-            @click="toggleCardSelection(card)"
-          >
-            <img src="@/assets/iskambil.webp" alt="Card Back" class="card-back img-fluid">
-          </div>
-        </div>
+  v-for="(card, index) in tarotCards"
+  :key="index"
+  class="col-6 col-md-4 col-lg-2 mb-3"
+>
+  <div
+    class="tarot-card img-fluid d-flex align-items-center justify-content-center"
+    :class="{ selected: allSelectedCards.includes(card) }"
+    @click="toggleCardSelection(card)"
+  >
+    <img src="../assets/tarotArkasi.webp" alt="Card Back" class="card-back img-fluid">
+  </div>
+</div>
+
       </div>
       <div v-if="step === 1">
         <button
@@ -56,9 +58,10 @@ import axios from 'axios';
 import { ref } from 'vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import { useI18n } from 'vue-i18n';
+import NavbarOrg from '../components/NavbarOrg.vue';
 
 export default {
-  components: { LoadingSpinner },
+  components: { LoadingSpinner,NavbarOrg },
   setup() {
     const { t } = useI18n();
     const tarotCards = ref([
@@ -102,11 +105,17 @@ export default {
     const userAnswer = ref('');
 
     const toggleCardSelection = (card) => {
-  if ((step.value === 1 && selectedCards.value.length < 3) || (step.value === 2 && selectedCards.value.length < 4)) {
-    const index = selectedCards.value.indexOf(card);
-    if (index > -1) {
-      selectedCards.value.splice(index, 1); // Remove the card correctly
-    } else {
+  // Check if the card is already selected
+  const selectedIndex = allSelectedCards.value.indexOf(card);
+
+  if (selectedIndex !== -1) {
+    // Card is already selected, remove it from both selectedCards and allSelectedCards
+    allSelectedCards.value.splice(selectedIndex, 1);
+    selectedCards.value.splice(selectedIndex, 1);
+  } else {
+    // Card is not selected, add it if within the allowed limits
+    if ((step.value === 1 && selectedCards.value.length < 3) || (step.value === 2 && selectedCards.value.length < 4)) {
+      allSelectedCards.value.push(card);
       selectedCards.value.push(card);
     }
   }
@@ -160,7 +169,7 @@ export default {
           {
             role: 'system',
             content:
-              'Sen tarot falı bakarsın. Önce kullanıcı 3 kart seçer, daha sonra sen kullanıcıya daha iyi fal bakabilmek için bir soru sorarsın. Kullanıcı sorduğun soruya yanıt verir ve 4 kart daha seçer. Sen de tüm seçilen kartlara ve kullanıcının cevabına göre yorum yaparsın.',
+              'Sen tarot falı bakarsın. Önce kullanıcı 3 kart seçer, daha sonra sen kullanıcıya daha iyi fal bakabilmek için bir soru sorarsın. Kullanıcı sorduğun soruya yanıt verir ve 4 kart daha seçer.Sorunu sorduktan sonra kullanıya Sen de tüm seçilen kartlara ve kullanıcının cevabına göre yorum yaparsın.',
           },
           {
             role: 'user',
@@ -225,7 +234,8 @@ export default {
   cursor: pointer;
   border: 2px solid transparent;
   border-radius: 8px;
-  height: 100px;
+  height: 110px; /* Increased height for a slimmer look */
+  width: 80px; /* Narrower width */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -240,8 +250,11 @@ export default {
 }
 
 .selected {
-border: 5px solid green;  transform: scale(1.1);
+  border-color: #28a745; /* Green border for selected cards */
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5); /* Optional: add a shadow for better visibility */
 }
+
 
 .card-back {
   max-width: 100%;

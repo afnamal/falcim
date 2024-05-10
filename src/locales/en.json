@@ -178,7 +178,8 @@
       },
       "navigation": {
         "coffeeFortune": "Coffee Fortune",
-        "palmReading": "Palm Reading"
+        "palmReading": "Palm Reading",
+        "tarot": "Tarot Reading"
       },
       "pastReadings": {
         "title": "Your Past Readings",
@@ -229,6 +230,13 @@
         "dailyUsersDesc": "Enjoy the fun of fortune-telling!",
         "totalReadings": "readings have been done",
         "totalReadingsDesc": "We specialize in coffee fortune-telling!"
+      },
+      "tarot": {
+        "title": "Tarot Reading",
+        "subtitle": "Select 3 cards to begin",
+        "submitInitialCards": "Start",
+        "getFinalReading": "Submit",
+        "predictionTitle":"Your Tarot Reading"
       }
   
       

@@ -178,7 +178,8 @@
       },
       "navigation": {
         "coffeeFortune": "Kahve Falı",
-        "palmReading": "El Falı"
+        "palmReading": "El Falı",
+        "tarot":"Tarot Falı"
       },
       "pastReadings": {
         "title": "Geçmiş Fallarınız",
@@ -229,6 +230,13 @@
         "dailyUsersDesc": "Kahve falının eğlencesini yaşayın!",
         "totalReadings": "fal okundu",
         "totalReadingsDesc": "Kahve falında uzmanız!"
+      },
+      "tarot":{
+        "title":"Tarot Falı",
+        "subtitle":"Başlamak için 3 kart seçin",
+        "submitInitialCards":"Başla",
+        "getFinalReading":"Gönder",
+        "predictionTitle":"Tarot Falınız"
       }
   }
   

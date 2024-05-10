@@ -176,7 +176,8 @@
       },
       "navigation": {
         "coffeeFortune": "Μαντεία Καφέ",
-        "palmReading": "Ανάγνωση Παλάμης"
+        "palmReading": "Ανάγνωση Παλάμης",
+        "tarot": "Διάβασμα Ταρώ"
       },
       "pastReadings": {
         "title": "Οι Προηγούμενες Αναγνώσεις Σας",
@@ -228,6 +229,13 @@
     "dailyUsersDesc": "Απολαύστε τη διασκέδαση της καφεμαντείας!",
     "totalReadings": "αναγνώσεις έχουν γίνει",
     "totalReadingsDesc": "Ειδικευόμαστε στην καφεμαντεία!"
+  },
+  "tarot": {
+    "title": "Διάβασμα Ταρώ",
+    "subtitle": "Επιλέξτε 3 κάρτες για να ξεκινήσετε",
+    "submitInitialCards": "Έναρξη",
+    "getFinalReading": "Υποβολή",
+    "predictionTitle": "Η Ταρώ Ανάγνωσή σας"
   }
   }
   

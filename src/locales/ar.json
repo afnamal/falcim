@@ -176,7 +176,8 @@
       },
       "navigation": {
         "coffeeFortune": "توقعات القهوة",
-        "palmReading": "قراءة الكف"
+        "palmReading": "قراءة الكف",
+        "tarot": "قراءة الطاروت"
       },
       "pastReadings": {
         "title": "توقعاتك السابقة",
@@ -227,6 +228,13 @@
         "dailyUsersDesc": "استمتع بمتعة قراءة الطالع!",
         "totalReadings": "قراءة تمت",
         "totalReadingsDesc": "نحن متخصصون في قراءة فنجان القهوة!"
+      },
+      "tarot": {
+        "title": "قراءة الطاروت",
+        "subtitle": "اختر 3 بطاقات للبدء",
+        "submitInitialCards": "ابدأ",
+        "getFinalReading": "إرسال",
+        "predictionTitle": "قراءة الطاروت الخاصة بك"
       }
       
       
