@@ -3,6 +3,7 @@
   <nav class="main-nav">
     <router-link :to="{ name: 'FalView' }">{{ $t('navigation.coffeeFortune') }}</router-link>
     <router-link :to="{ name: 'eltest' }">{{ $t('navigation.palmReading') }}</router-link>
+    <router-link :to="{ name: 'Tarot' }">{{ $t('navigation.tarot') }}</router-link>
   </nav>
 </div>
 </template>
