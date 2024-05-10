@@ -26,7 +26,23 @@
               <p class="bg-light p-2 rounded">{{ msg.text }}</p>
             </div>
           </div>
-          <span @click="readAloud" :disabled="messages.length === 0" class="material-icons" v-if="isReadAloudVisible" style="cursor: pointer;">volume_up</span>
+          <!-- Reading and Sharing Section -->
+          <div class="mt-4 p-3 border-top">
+            <div class="d-flex justify-content-center align-items-center position-relative">
+              <span @click="readAloud" :disabled="messages.length === 0" class="bi bi-volume-up-fill mx-1"
+                v-if="isReadAloudVisible" style="cursor: pointer; font-size: 1.5rem;"></span>
+              <button @click="toggleShareOptions" class="btn btn-warning mx-1"><i class="bi bi-share-fill"></i></button>
+              <!-- Sharing Options -->
+              <transition name="fade">
+                <div v-if="showShareOptions" class="share-dropdown position-absolute">
+                  <button @click="shareTo('whatsapp')" class="btn btn"><i class="bi bi-whatsapp"></i></button>
+                  <button @click="shareTo('facebook')" class="btn btn"><i class="bi bi-facebook"></i></button>
+                  <button @click="shareTo('twitter')" class="btn btn"><i class="bi bi-twitter"></i></button>
+                  <button @click="shareTo('instagram')" class="btn btn"><i class="bi bi-instagram"></i></button>
+                </div>
+              </transition>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -62,6 +78,7 @@ export default {
     let model;
     const supportedLanguages = ['tr', 'en'];
     const isReadAloudVisible = ref(supportedLanguages.includes(locale.value));
+    const showShareOptions = ref(false);
 
     onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
@@ -105,6 +122,10 @@ export default {
         speech.text = messages.value.map(msg => msg.text).join('\n');
         window.speechSynthesis.speak(speech);
       }
+    };
+
+    const toggleShareOptions = () => {
+      showShareOptions.value = !showShareOptions.value;
     };
 
     watch(buttonActive, (newVal) => {
@@ -175,7 +196,7 @@ export default {
         await addDoc(messageRef, {
           text: botReply,
           timestamp: serverTimestamp(),
-          tipi: "kahvefali",
+          type: 'kahvefali',
           title: t('fortuneTypes.coffee'),
           imageUrl: "https://image.cnnturk.com/i/cnnturk/75/740x416/644e0770ae0a8f1610c2a267.jpg"
         });
@@ -185,6 +206,31 @@ export default {
         messages.value.push({ text: t('systemMessages.errorSendingMessage'), type: 'bot' });
       } finally {
         loading.value = false;
+      }
+    };
+
+    const shareTo = (platform) => {
+      const messageContent = messages.value.map(msg => msg.text).join('\n');
+      const encodedMessage = encodeURIComponent(messageContent);
+      let shareUrl;
+
+      switch (platform) {
+        case 'whatsapp':
+          shareUrl = `https://api.whatsapp.com/send?text=${encodedMessage}`;
+          break;
+        case 'facebook':
+          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedMessage}`;
+          break;
+        case 'twitter':
+          shareUrl = `https://twitter.com/intent/tweet?text=${encodedMessage}`;
+          break;
+        case 'instagram':
+          shareUrl = `https://www.instagram.com/?text=${encodedMessage}`;
+          break;
+      }
+
+      if (shareUrl) {
+        window.open(shareUrl, '_blank');
       }
     };
 
@@ -220,12 +266,14 @@ export default {
       photoUploadedText,
       loading,
       readAloud,
-      isReadAloudVisible
+      isReadAloudVisible,
+      showShareOptions,
+      toggleShareOptions,
+      shareTo
     };
   },
 };
 </script>
-
 <style scoped>
 .container {
   max-width: 960px;
@@ -273,5 +321,79 @@ export default {
 button.disabled {
   opacity: 0.65;
   cursor: not-allowed;
+}
+
+.share-buttons .btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: white;
+  margin: 5px;
+  transition: all 0.3s;
+}
+
+.share-buttons .btn-success {
+  background-color: #25D366; /* WhatsApp color */
+}
+
+.share-buttons .btn-primary {
+  background-color: #1877F2; /* Facebook color */
+}
+
+.share-buttons .btn-info {
+  background-color: #1DA1F2; /* Twitter color */
+}
+
+.share-buttons .btn-danger {
+  background-color: #E1306C; /* Instagram color */
+}
+
+.share-buttons .btn:hover {
+  transform: scale(1.1);
+}
+
+.btn-warning {
+  background-color: #FFC107; /* Share button color */
+}
+
+.btn-warning:hover {
+  background-color: #E0A800;
+}
+
+.bi-volume-up-fill {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.chat-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: white;
+}
+
+.share-dropdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

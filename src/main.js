@@ -8,6 +8,8 @@ import { createI18n } from 'vue-i18n';
 import VueToast from 'vue-toast-notification'; // Doğru import ifadesi
 import 'vue-toast-notification/dist/theme-sugar.css'; // Stil dosyası
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 const app = createApp(App);
 
