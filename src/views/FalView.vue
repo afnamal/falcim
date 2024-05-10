@@ -210,7 +210,8 @@ export default {
     };
 
     const shareTo = (platform) => {
-      const messageContent = messages.value.map(msg => msg.text).join('\n');
+      
+      const messageContent = 'falcimda baktirdiğim bu harika fala bir göz at.\n https://falc-m.vercel.app/#/ \n'+messages.value.map(msg => msg.text).join('\n');
       const encodedMessage = encodeURIComponent(messageContent);
       let shareUrl;
 
@@ -232,6 +233,7 @@ export default {
       if (shareUrl) {
         window.open(shareUrl, '_blank');
       }
+    
     };
 
     onMounted(async () => {
