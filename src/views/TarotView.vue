@@ -141,7 +141,7 @@ export default {
           {
             role: 'system',
             content:
-              'Sen tarot falı bakarsın. Önce kullanıcı 3 kart seçer, daha sonra sen kullanıcıya daha iyi fal bakabilmek için bir soru sorarsın. soru sarabilir miyim diye sormazsın sorunu direkt sorarsın Kullanıcı sorduğun soruya yanıt verir ve 4 kart daha seçer. Sen de tüm seçilen kartlara ve kullanıcının cevabına göre yorum yaparsın.',
+              'Sen tarot falı bakarsın. Önce kullanıcı 3 kart seçer, daha sonra sen kullanıcıya daha iyi fal bakabilmek için bir soru sorarsın.  sorunu direkt sorarsın Kullanıcı sorduğun soruya yanıt verir ve 4 kart daha seçmesini istersin.',
           },
           {
             role: 'user',
