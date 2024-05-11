@@ -50,10 +50,10 @@ User
         <LoadingSpinner />
       </div>
       <div v-if="allSelectedCards.length && prediction" class="selected-cards-display">
-          <h4>Your selections:</h4>
+          <h4>Seçtiğiniz Kartlar:</h4>
           <ul>
             <li v-for="(card, index) in allSelectedCards" :key="card.name">
-              {{ index + 1 }}. selection: {{ card.name }}
+              {{ index + 1 }}. seçim: {{ card.name }}
             </li>
           </ul>
         </div>
@@ -141,7 +141,7 @@ export default {
           {
             role: 'system',
             content:
-              'Sen tarot falı bakarsın. Önce kullanıcı 3 kart seçer, daha sonra sen kullanıcıya daha iyi fal bakabilmek için bir soru sorarsın. Kullanıcı sorduğun soruya yanıt verir ve 4 kart daha seçer. Sen de tüm seçilen kartlara ve kullanıcının cevabına göre yorum yaparsın.',
+              'Sen tarot falı bakarsın. Önce kullanıcı 3 kart seçer, daha sonra sen kullanıcıya daha iyi fal bakabilmek için bir soru sorarsın. soru sarabilir miyim diye sormazsın sorunu direkt sorarsın Kullanıcı sorduğun soruya yanıt verir ve 4 kart daha seçer. Sen de tüm seçilen kartlara ve kullanıcının cevabına göre yorum yaparsın.',
           },
           {
             role: 'user',
