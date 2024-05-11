@@ -4,48 +4,55 @@ User
     <div class="container tarot-container">
       <h1 class="my-4 text-center">{{ $t('tarot.title') }}</h1>
       <p class="text-center mb-4">{{ $t('tarot.subtitle') }}</p>
+      <button class="btn btn-secondary a-block mx-auto my-4" @click="shuffleCards">
+        Kartları Karıştır
+      </button>
+
       <div class="row justify-content-center mb-3">
         <div
-          v-for="(card, index) in tarotCards"
-          :key="index"
-          class="col-4 col-sm-3 col-md-2 mb-2"
-        >
-          <div
-            class="tarot-card img-fluid d-flex align-items-center justify-content-center position-relative"
-            :class="{ selected: allSelectedCards.includes(card) }"
-            @click="toggleCardSelection(card)"
-          >
-            <img src="../assets/tarotArkasi.webp" alt="Card Back" class="card-back img-fluid">
-            <i v-if="allSelectedCards.includes(card)" class="fas fa-check position-absolute checkmark"></i>
-          </div>
+  v-for="(card, index) in tarotCards"
+  :key="index"
+  class="col-4 col-sm-3 col-md-2 mb-2"
+  :style="card.style"
+>
+  <div
+    class="tarot-card img-fluid d-flex align-items-center justify-content-center position-relative"
+    :class="{ selected: allSelectedCards.includes(card) }"
+    @click="toggleCardSelection(card)"
+  >
+    <img src="../assets/tarotArkasi.webp" alt="Card Back" class="card-back img-fluid">
+    <i v-if="allSelectedCards.includes(card)" class="fas fa-check position-absolute checkmark"></i>
+  </div>
 </div>
+
 
       </div>
       <div v-if="step === 1">
-        <button
-          class="btn btn-primary d-block mx-auto mb-4"
-          :disabled="selectedCards.length !== 3"
-          @click="submitInitialCards"
-        >
-          {{ $t('tarot.submitInitialCards') }}
-        </button>
-      </div>
-      <div v-if="step === 2">
-        <h4>{{ chatQuestion }}</h4>
-        <input
-          type="text"
-          v-model="userAnswer"
-          placeholder="Cevabınızı buraya yazın"
-          class="form-control mb-3"
-        />
-        <button
-          class="btn btn-primary d-block mx-auto mb-4"
-          :disabled="selectedCards.length !== 4 || userAnswer === ''"
-          @click="submitFinalCards"
-        >
-          {{ $t('tarot.getFinalReading') }}
-        </button>
-      </div>
+  <button
+    class="btn btn-primary d-block mx-auto mb-4"
+    :disabled="selectedCards.length !== 3"
+    @click="submitInitialCards"
+  >
+    {{ $t('tarot.submitInitialCards') }}
+  </button>
+</div>
+<div v-if="step === 2">
+  <h4>{{ chatQuestion }}</h4>
+  <input
+    type="text"
+    v-model="userAnswer"
+    placeholder="Cevabınızı buraya yazın"
+    class="form-control mb-3"
+  />
+  <button
+    class="btn btn-primary d-block mx-auto mb-4"
+    :disabled="selectedCards.length !== 4 || userAnswer === ''"
+    @click="submitFinalCards"
+  >
+    {{ $t('tarot.getFinalReading') }}
+  </button>
+</div>
+
       <div v-if="loading" class="d-flex justify-content-center mb-4">
         <LoadingSpinner />
       </div>
@@ -115,6 +122,36 @@ export default {
     const chatQuestion = ref('');
     const userAnswer = ref('');
 
+    const shuffleCards = () => {
+  tarotCards.value.forEach(card => {
+    // Rastgele bir açı ve mesafe belirleyin
+    const angle = Math.random() * 360;  // Dönme açısı
+    const distance = Math.random() * 300;  // Mesafe
+    const x = distance * Math.cos(angle * Math.PI / 180);  // X koordinatı
+    const y = distance * Math.sin(angle * Math.PI / 180);  // Y koordinatı
+
+    // Kartın animasyon stilini ayarlayın
+    card.style = `transform: translate(${x}px, ${y}px) rotate(${angle}deg); transition-duration: 0.5s;`;
+  });
+
+  // Animasyonun bitmesini bekleyin
+  setTimeout(() => {
+    // Gerçek karıştırma işlemi
+    let currentIndex = tarotCards.value.length, randomIndex;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [tarotCards.value[currentIndex], tarotCards.value[randomIndex]] = [
+        tarotCards.value[randomIndex], tarotCards.value[currentIndex]];
+    }
+
+    // Kartların stilini sıfırlayın
+    tarotCards.value.forEach(card => {
+      card.style = '';  // Stilleri sıfırla, kartları orijinal konumlarına geri getir
+    });
+  }, 500); // Animasyon süresi
+};
+
     const toggleCardSelection = (card) => {
   // Check if the card is already selected
   const selectedIndex = allSelectedCards.value.indexOf(card);
@@ -133,42 +170,42 @@ export default {
 };
 
 
-    const submitInitialCards = async () => {
-      loading.value = true;
-      const [selected1, selected2, selected3] = selectedCards.value.map((card) => card.name);
-      const postData = {
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content:
-              'Sen tarot falı bakarsın. Önce kullanıcı 3 kart seçer, daha sonra sen kullanıcıya daha iyi fal bakabilmek için bir soru sorarsın.  sorunu direkt sorarsın Kullanıcı sorduğun soruya yanıt verir ve 4 kart daha seçmesini istersin.',
-          },
-          {
-            role: 'user',
-            content: `Seçtiğim kartlar: ${selected1}, ${selected2}, ${selected3}.`,
-          },
-        ],
-      };
-      const config = {
-        headers: {
-          Authorization: `Bearer ${process.env.VUE_APP_OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      };
-      try {
-        const response = await axios.post('https://api.openai.com/v1/chat/completions', postData, config);
-        chatQuestion.value = response.data.choices[0].message.content;
-        allSelectedCards.value = [...selectedCards.value];
-        selectedCards.value = [];
-        step.value = 2;
-      } catch (error) {
-        console.error('Error submitting initial cards:', error);
-        chatQuestion.value = 'Bir hata oluştu. Lütfen tekrar deneyin.';
-      } finally {
-        loading.value = false;
-      }
-    };
+const submitInitialCards = async () => {
+  loading.value = true;
+  const [selected1, selected2, selected3] = selectedCards.value.map((card) => card.name);
+  const postData = {
+    model: 'gpt-3.5-turbo',
+    messages: [
+      {
+        role: 'system',
+        content:
+          'Sen tarot falı bakarsın. Önce kullanıcı 3 kart seçer, daha sonra sen kullanıcıya daha iyi fal bakabilmek için bir soru sorarsın. Kullanıcı sorduğun soruya yanıt verir ve 4 kart daha seçmesini istersin.',
+      },
+      {
+        role: 'user',
+        content: `Seçtiğim kartlar: ${selected1}, ${selected2}, ${selected3}.`,
+      },
+    ],
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${process.env.VUE_APP_OPENAI_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const response = await axios.post('https://api.openai.com/v1/chat/completions', postData, config);
+    chatQuestion.value = response.data.choices[0].message.content + " Lütfen bu soruyu cevaplayın ve 4 kart daha seçin.";
+    step.value = 2;
+    allSelectedCards.value = [...selectedCards.value];
+    selectedCards.value = [];
+  } catch (error) {
+    console.error('Error submitting initial cards:', error);
+    chatQuestion.value = 'Bir hata oluştu. Lütfen tekrar deneyin.';
+  } finally {
+    loading.value = false;
+  }
+};
 
     const submitFinalCards = async () => {
       loading.value = true;
@@ -179,7 +216,7 @@ export default {
           {
             role: 'system',
             content:
-              'Sen tarot falı bakarsın. Önce kullanıcı 3 kart seçer, daha sonra sen kullanıcıya daha iyi fal bakabilmek için bir soru sorarsın. Kullanıcı sorduğun soruya yanıt verir ve 4 kart daha seçer.Sorunu sorduktan sonra kullanıya Sen de tüm seçilen kartlara ve kullanıcının cevabına göre yorum yaparsın.',
+              'Sen tarot falı bakarsın. Önce kullanıcı 3 kart seçer, daha sonra sen kullanıcıya daha iyi fal bakabilmek için bir soru sorarsın. Kullanıcı sorduğun soruya yanıt verir ve 4 kart daha seçer.Sen de tüm seçilen kartlara ve kullanıcının cevabına göre yorum yaparsın.',
           },
           {
             role: 'user',
@@ -228,6 +265,7 @@ export default {
       toggleCardSelection,
       submitInitialCards,
       submitFinalCards,
+      shuffleCards,
       t,
     };
   },
@@ -304,4 +342,13 @@ button:disabled {
 li{
   margin: 7px;
 }
+.tarot-card {
+  transition: transform 0.5s ease-in-out;
+  transform-origin: center;
+}
+
+.is-shuffling {
+  transform: rotate(360deg);
+}
+
 </style>
