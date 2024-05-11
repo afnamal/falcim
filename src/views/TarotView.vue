@@ -1,21 +1,23 @@
+User
 <template>
     <NavbarOrg/>
     <div class="container tarot-container">
       <h1 class="my-4 text-center">{{ $t('tarot.title') }}</h1>
       <p class="text-center mb-4">{{ $t('tarot.subtitle') }}</p>
-      <div class="row justify-content-center mb-4">
+      <div class="row justify-content-center mb-3">
         <div
-  v-for="(card, index) in tarotCards"
-  :key="index"
-  class="col-6 col-md-4 col-lg-2 mb-3"
->
-  <div
-    class="tarot-card img-fluid d-flex align-items-center justify-content-center"
-    :class="{ selected: allSelectedCards.includes(card) }"
-    @click="toggleCardSelection(card)"
-  >
-    <img src="../assets/tarotArkasi.webp" alt="Card Back" class="card-back img-fluid">
-  </div>
+          v-for="(card, index) in tarotCards"
+          :key="index"
+          class="col-4 col-sm-3 col-md-2 mb-2"
+        >
+          <div
+            class="tarot-card img-fluid d-flex align-items-center justify-content-center position-relative"
+            :class="{ selected: allSelectedCards.includes(card) }"
+            @click="toggleCardSelection(card)"
+          >
+            <img src="../assets/tarotArkasi.webp" alt="Card Back" class="card-back img-fluid">
+            <i v-if="allSelectedCards.includes(card)" class="fas fa-check position-absolute checkmark"></i>
+          </div>
 </div>
 
       </div>
@@ -47,6 +49,14 @@
       <div v-if="loading" class="d-flex justify-content-center mb-4">
         <LoadingSpinner />
       </div>
+      <div v-if="allSelectedCards.length && prediction" class="selected-cards-display">
+          <h4>Your selections:</h4>
+          <ul>
+            <li v-for="(card, index) in allSelectedCards" :key="card.name">
+              {{ index + 1 }}. selection: {{ card.name }}
+            </li>
+          </ul>
+        </div>
       <div v-if="prediction" class="mb-4">
         <h4>{{ $t('tarot.predictionTitle') }}</h4>
         <p>{{ prediction }}</p>
@@ -161,7 +171,6 @@ export default {
 
     const submitFinalCards = async () => {
       loading.value = true;
-      allSelectedCards.value.push(...selectedCards.value);
       const [selected1, selected2, selected3, ...rest] = allSelectedCards.value.map((card) => card.name);
       const postData = {
         model: 'gpt-3.5-turbo',
@@ -234,14 +243,15 @@ export default {
   cursor: pointer;
   border: 2px solid transparent;
   border-radius: 8px;
-  height: 110px; /* Increased height for a slimmer look */
-  width: 80px; /* Narrower width */
+  height: 110px;
+  width: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: border-color 0.3s, transform 0.3s;
   background-color: #f1f1f1;
   font-weight: bold;
+  margin-bottom: 10px; /* Reduced from previously larger margin */
 }
 
 .tarot-card:hover {
@@ -250,20 +260,39 @@ export default {
 }
 
 .selected {
-  border-color: #28a745; /* Green border for selected cards */
+  border-color: #28a745;
   transform: scale(1.1);
-  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5); /* Optional: add a shadow for better visibility */
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
 }
 
-
 .card-back {
-  max-width: 100%;
-  height: 100px;
+  max-width: auto;
+  height: 100%; /* Ensure the image scales with the card */
   border-radius: 8px;
 }
 
 button:disabled {
   opacity: 0.65;
   cursor: not-allowed;
+}
+.checkmark {
+  font-size: 24px;
+  color: #28a745;
+  top: 5px;
+  right: 5px;
+}
+.selected-cards-display h4 {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.selected-cards-display ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.selected-cards-display li {
+  font-size: 1rem;
+  color: #666;
 }
 </style>
