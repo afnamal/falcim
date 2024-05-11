@@ -53,6 +53,7 @@ User
           <h4>Seçtiğiniz Kartlar:</h4>
           <ul>
             <li v-for="(card, index) in allSelectedCards" :key="card.name">
+              <img :src="card.image" alt="card.name" class="card-image">
               {{ index + 1 }}. seçim: {{ card.name }}
             </li>
           </ul>
@@ -75,35 +76,35 @@ export default {
   setup() {
     const { t } = useI18n();
     const tarotCards = ref([
-      { name: 'The Fool' },
-      { name: 'The Magician' },
-      { name: 'The High Priestess' },
-      { name: 'The Empress' },
-      { name: 'The Emperor' },
-      { name: 'The Hierophant' },
-      { name: 'The Lovers' },
-      { name: 'The Chariot' },
-      { name: 'Strength' },
-      { name: 'The Hermit' },
-      { name: 'Wheel of Fortune' },
-      { name: 'Justice' },
-      { name: 'The Hanged Man' },
-      { name: 'Death' },
-      { name: 'Temperance' },
-      { name: 'The Devil' },
-      { name: 'The Tower' },
-      { name: 'The Star' },
-      { name: 'The Moon' },
-      { name: 'The Sun' },
-      { name: 'Judgement' },
-      { name: 'The World' },
-      { name: 'Ace of Cups' },
-      { name: 'Ace of Pentacles' },
-      { name: 'Ace of Swords' },
-      { name: 'Ace of Wands' },
-      { name: 'Two of Cups' },
-      { name: 'Three of Swords' },
-      { name: 'Four of Wands' },
+      { name: 'The Fool', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/RWS_Tarot_00_Fool.jpg/255px-RWS_Tarot_00_Fool.jpg' },
+      { name: 'The Magician',image:'https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg' },
+      { name: 'The High Priestess',image:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/RWS_Tarot_02_High_Priestess.jpg/640px-RWS_Tarot_02_High_Priestess.jpg' },
+      { name: 'The Empress',image:'https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg' },
+      { name: 'The Emperor',image:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/RWS_Tarot_04_Emperor.jpg/800px-RWS_Tarot_04_Emperor.jpg' },
+      { name: 'The Hierophant',image:'https://upload.wikimedia.org/wikipedia/commons/8/8d/RWS_Tarot_05_Hierophant.jpg' },
+      { name: 'The Lovers' ,image:'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/RWS_Tarot_06_Lovers.jpg/800px-RWS_Tarot_06_Lovers.jpg'},
+      { name: 'The Chariot' ,image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_wU2SuZcdMG3ZYzBz-rEWpordmqmclHPgI7d7MUdofw&s'},
+      { name: 'Strength' ,image:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/RWS_Tarot_08_Strength.jpg/800px-RWS_Tarot_08_Strength.jpg'},
+      { name: 'The Hermit' ,image:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/RWS_Tarot_09_Hermit.jpg/800px-RWS_Tarot_09_Hermit.jpg'},
+      { name: 'Wheel of Fortune' ,image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv88FSykK7BgbE8dlCbary11KfwqBwl0mUUPGzDwgyKQ&s'},
+      { name: 'Justice' ,image:'https://upload.wikimedia.org/wikipedia/commons/e/e0/RWS_Tarot_11_Justice.jpg'},
+      { name: 'The Hanged Man' ,image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrqqcOdY-dZMAp2tYLXUf5vKCAtYX0uCcmKeT4cu002A&s'},
+      { name: 'Death' ,image:'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/RWS_Tarot_13_Death.jpg/640px-RWS_Tarot_13_Death.jpg'},
+      { name: 'Temperance' ,image:'https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg'},
+      { name: 'The Devil' ,image:'https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg'},
+      { name: 'The Tower',image:'https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg' },
+      { name: 'The Star' ,image:'https://ih1.redbubble.net/image.3687510998.4678/fposter,small,wall_texture,product,750x1000.jpg'},
+      { name: 'The Moon',image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYSm0bBgqD-wq1YD0YvySZgCXWOZsxxGdH50UsUml1Sg&s' },
+      { name: 'The Sun' ,image:'https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg'},
+      { name: 'Judgement' ,image:'https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg'},
+      { name: 'The World' ,image:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/RWS_Tarot_21_World.jpg/800px-RWS_Tarot_21_World.jpg'},
+      { name: 'Ace of Cups' ,image:'https://upload.wikimedia.org/wikipedia/commons/3/36/Cups01.jpg'},
+      { name: 'Ace of Pentacles',image:'https://upload.wikimedia.org/wikipedia/commons/f/fd/Pents01.jpg' },
+      { name: 'Ace of Swords' ,image:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Swords01.jpg/150px-Swords01.jpg'},
+      { name: 'Ace of Wands' ,image:'https://upload.wikimedia.org/wikipedia/commons/1/11/Wands01.jpg'},
+      { name: 'Two of Cups' ,image:'https://upload.wikimedia.org/wikipedia/commons/f/f8/Cups02.jpg'},
+      { name: 'Three of Swords' ,image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE7e9tRWOmBXS6xhwuukqBp4snjQ6jEG9_SUnVA7rC&s'},
+      { name: 'Four of Wands' ,image:'https://upload.wikimedia.org/wikipedia/commons/a/a4/Wands04.jpg'},
     ]);
 
     const selectedCards = ref([]);
@@ -281,6 +282,11 @@ button:disabled {
   top: 5px;
   right: 5px;
 }
+.card-image {
+  width: 150px; /* veya ihtiyacınıza uygun başka bir değer */
+  height: auto;
+  margin-left: 10px; /* resim ile kart ismi arasında boşluk sağlar */
+}
 .selected-cards-display h4 {
   font-size: 1.2rem;
   color: #333;
@@ -294,5 +300,8 @@ button:disabled {
 .selected-cards-display li {
   font-size: 1rem;
   color: #666;
+}
+li{
+  margin: 7px;
 }
 </style>
