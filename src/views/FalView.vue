@@ -22,7 +22,7 @@
           </div>
           <div class="messages">
             <div v-for="(msg, index) in messages" :key="index" class="p-2">
-              <p class="bg-light p-2 rounded">{{ msg.text }}</p>
+              <p class="bg-light p-2 rounded" v-html="formatMessage(msg.text)"></p>
             </div>
           </div>
           <!-- Reading and Sharing Section -->
@@ -47,7 +47,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import axios from 'axios';
 import { useI18n } from 'vue-i18n';
@@ -198,13 +197,17 @@ export default {
           title: t('fortuneTypes.coffee'),
           imageUrl: "https://image.cnnturk.com/i/cnnturk/75/740x416/644e0770ae0a8f1610c2a267.jpg"
         });
-        messages.value.push({ text: botReply, type: 'bot' });
+        messages.value.push({ text: formatMessage(botReply), type: 'bot' });
       } catch (error) {
         console.error('Error sending message:', error);
         messages.value.push({ text: t('systemMessages.errorSendingMessage'), type: 'bot' });
       } finally {
         loading.value = false;
       }
+    };
+
+    const formatMessage = (text) => {
+      return text.split('\n').map(paragraph => `<p>${paragraph}</p>`).join('');
     };
 
     const shareTo = (platform) => {
@@ -269,11 +272,13 @@ export default {
       isReadAloudVisible,
       showShareOptions,
       toggleShareOptions,
-      shareTo
+      shareTo,
+      formatMessage
     };
   },
 };
 </script>
+
 <style scoped>
 .container {
   max-width: 960px;

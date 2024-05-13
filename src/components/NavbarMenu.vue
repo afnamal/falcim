@@ -301,7 +301,7 @@ export default {
     right: 0; /* Keeps dropdown aligned to the right side within its parent */
     top: 100%; /* Ensures dropdown opens downwards */
     left: auto; /* Resets any left alignment */
-    transform: translateX(-50%); /* Adjusts horizontal position to prevent overflow */
+    transform: translateX(-15%); /* Adjusts horizontal position to prevent overflow */
   }
 
   .nav-item.dropdown {

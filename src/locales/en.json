@@ -239,7 +239,9 @@
         "subtitle": "Select 3 cards to begin",
         "submitInitialCards": "Start",
         "getFinalReading": "Submit",
-        "predictionTitle":"Your Tarot Reading"
+        "predictionTitle":"Your Tarot Reading",
+        "shuffleCards":"Shuffle Cards"
+
       }
   
       

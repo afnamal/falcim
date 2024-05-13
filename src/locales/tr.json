@@ -239,7 +239,9 @@
         "subtitle":"Başlamak için 3 kart seçin",
         "submitInitialCards":"Başla",
         "getFinalReading":"Gönder",
-        "predictionTitle":"Tarot Falınız"
+        "predictionTitle":"Tarot Falınız",
+        "shuffleCards":"Kartları Karıştır"
+
       }
   }
   
