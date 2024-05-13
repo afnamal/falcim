@@ -214,7 +214,8 @@
       },
       "fortuneTypes": {
         "coffee": "Kahve Falı",
-        "palm": "El Falı"
+        "palm": "El Falı",
+        "taror":"Tarot Falı"
       },
       "header":{
         "title":"Fotoğrafınızı yükleyin falınıza hızlıca bakılsın",
