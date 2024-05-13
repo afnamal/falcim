@@ -302,6 +302,10 @@ export default {
 
 .main-container {
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Make sure the main container takes up the full height of the viewport */
 }
 
 .upload-container, .chat-container {
