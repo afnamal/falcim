@@ -21,9 +21,18 @@ const router = createRouter({
       component: () => import('../views/CoffeeBlog.vue')
     },
     {
-      path: '/tarot',
+      path: '/fal/tarot',
       name: 'Tarot',
-      component: () => import('../views/TarotView.vue')
+      component: () => import('../views/TarotView.vue'),
+      beforeEnter: (to, from, next) => {
+        projectAuth.onAuthStateChanged(user => {
+          if (user) {
+            next();
+          } else {
+            next({ name: 'LoginView' });
+          }
+        });
+      }
     },
     {
       path: '/blog2',
@@ -41,7 +50,7 @@ const router = createRouter({
       component: () => import('../views/LoginView.vue')
     },
     {
-      path: '/fal',
+      path: '/fal/kahve',
       name: 'FalView',
       component: () => import('../views/FalView.vue'),
       beforeEnter: (to, from, next) => {
@@ -69,7 +78,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/eltest',
+      path: '/fal/el',
       name: 'eltest',
       component: () => import('../views/ElTest.vue'),
       beforeEnter: (to, from, next) => {

@@ -3,6 +3,9 @@
       "login": "Login",
       "account": "My Account",
       "fortune": "Fortune Telling",
+      "coffeeFortune": "Coffee Fortune",
+    "palmFortune": "Palm Fortune",
+    "tarotFortune": "Tarot Fortune",
       "terms": "Terms of Use",
       "help": "Help",
       "logout": "Logout"

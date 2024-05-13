@@ -1,6 +1,5 @@
 User
 <template>
-    <NavbarOrg/>
     <div class="container tarot-container">
       <h1 class="my-4 text-center">{{ $t('tarot.title') }}</h1>
       <p class="text-center mb-4">{{ $t('tarot.subtitle') }}</p>
@@ -76,10 +75,9 @@ import axios from 'axios';
 import { ref } from 'vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import { useI18n } from 'vue-i18n';
-import NavbarOrg from '../components/NavbarOrg.vue';
 
 export default {
-  components: { LoadingSpinner,NavbarOrg },
+  components: { LoadingSpinner },
   setup() {
     const { t } = useI18n();
     const tarotCards = ref([

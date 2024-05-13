@@ -3,6 +3,9 @@
       "login": "Giriş Yap",
       "account": "Hesabım",
       "fortune": "Fal Bak",
+      "coffeeFortune": "Kahve Falı",
+      "palmFortune": "El Falı",
+      "tarotFortune": "Tarot Falı",
       "terms": "Kullanım Şartları",
       "help": "Yardım",
       "logout": "Çıkış Yap"

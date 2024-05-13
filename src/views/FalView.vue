@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavbarOrg />
     <div class="container mt-5">
       <div class="row main-container">
         <div class="col-md-6 upload-container">
@@ -57,10 +56,9 @@ import { getFirestore, doc, addDoc, collection, serverTimestamp, getDoc } from '
 import { ref, onMounted, watch } from 'vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import * as tmImage from '@teachablemachine/image';
-import NavbarOrg from '../components/NavbarOrg.vue';
 
 export default {
-  components: { LoadingSpinner, NavbarOrg },
+  components: { LoadingSpinner },
   setup() {
     const { t, locale } = useI18n();
     const auth = getAuth();

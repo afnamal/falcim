@@ -17,12 +17,31 @@
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <div class="navbar-nav ms-auto">
-            <a class="nav-link login-link" v-if="!user" @click="pushLogin('/')"><span class="material-icons align-middle">login</span>{{ $t('navbar.login') }}</a>
-            <a class="nav-link" v-if="user" @click="pushUser"><span class="material-icons align-middle">person</span>{{ userName }}</a>
-            <a class="nav-link" @click="pushLogin('/fal')"><span class="material-icons align-middle">local_cafe</span>{{ $t('navbar.fortune') }}</a>
-            <a class="nav-link" @click="pushKullanim"><span class="material-icons align-middle">description</span>{{ $t('navbar.terms') }}</a>
-            <a class="nav-link" @click="pushHelp"><span class="material-icons align-middle">help</span>{{ $t('navbar.help') }}</a>
-            <a class="nav-link logout-link" @click="handleLogout" v-if="user"><span class="material-icons align-middle">logout</span>{{ $t('navbar.logout') }}</a>
+            <a class="nav-link login-link" v-if="!user" @click="pushLogin('/')">
+              <span class="material-icons align-middle">login</span>{{ $t('navbar.login') }}
+            </a>
+            <a class="nav-link account-link" v-if="user" @click="pushUser">
+              <span class="material-icons align-middle">person</span>{{ userName }}
+            </a>
+            <div class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="fortuneDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="material-icons align-middle">local_cafe</span>{{ $t('navbar.fortune') }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="fortuneDropdown">
+                <li><a class="dropdown-item" @click="pushFortune('/fal/kahve')">{{ $t('navbar.coffeeFortune') }}</a></li>
+                <li><a class="dropdown-item" @click="pushFortune('/fal/el')">{{ $t('navbar.palmFortune') }}</a></li>
+                <li><a class="dropdown-item" @click="pushFortune('/fal/tarot')">{{ $t('navbar.tarotFortune') }}</a></li>
+              </ul>
+            </div>
+            <a class="nav-link terms-link" @click="pushKullanim">
+              <span class="material-icons align-middle">description</span>{{ $t('navbar.terms') }}
+            </a>
+            <a class="nav-link help-link" @click="pushHelp">
+              <span class="material-icons align-middle">help</span>{{ $t('navbar.help') }}
+            </a>
+            <a class="nav-link logout-link" @click="handleLogout" v-if="user">
+              <span class="material-icons align-middle">logout</span>{{ $t('navbar.logout') }}
+            </a>
             <!-- Language Switch as Dropdown -->
             <div class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,6 +63,7 @@
     </nav>
   </div>
 </template>
+
 
 <script>
 import { ref, onMounted } from 'vue';
@@ -107,6 +127,10 @@ export default {
       router.push('/');
     };
 
+    const pushFortune = (destination) => {
+      router.push(destination);
+    };
+
     const changeLanguage = (lang) => {
       locale.value = lang;
       language.value = lang;
@@ -136,6 +160,7 @@ export default {
       pushHome,
       handleLogout,
       pushHelp,
+      pushFortune,
       changeLanguage,
       language,
       userName
@@ -149,10 +174,12 @@ export default {
   max-width: 110px;
   transition: transform 0.3s ease-in-out;
 }
+
 .navbar {
   background-color: #ffffff; /* White background */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow effect */
 }
+
 .language-icon {
   cursor: pointer;
   margin-left: 12px;
@@ -185,6 +212,7 @@ export default {
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><path stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
 }
+
 .navbar-toggler {
   border: none;
 }
@@ -195,6 +223,7 @@ export default {
   transition: color 0.3s ease-in-out;
   padding-left: 0px;
   margin-right: 7px; /* Increase spacing between links */
+  position: relative; /* Required for the underline */
 }
 
 .icon {
@@ -212,19 +241,23 @@ export default {
   transition: all 0.35s ease;
 }
 
-.navbar-light .navbar-nav .nav-link::after {
+.navbar-light .navbar-nav .nav-link.account-link::after,
+.navbar-light .navbar-nav .nav-link.terms-link::after,
+.navbar-light .navbar-nav .nav-link.help-link::after {
   content: '';
   position: absolute;
   bottom: -3px;
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #0056b3;
+  background-color: #000; /* Black underline */
   transform: scaleX(0);
   transition: transform 0.35s ease;
 }
 
-.navbar-light .navbar-nav .nav-link:hover::after {
+.navbar-light .navbar-nav .nav-link.account-link:hover::after,
+.navbar-light .navbar-nav .nav-link.terms-link:hover::after,
+.navbar-light .navbar-nav .nav-link.help-link:hover::after {
   transform: scaleX(1);
 }
 
@@ -250,10 +283,13 @@ export default {
   border-radius: 4px;
   border: none;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  padding: 10px 0; /* Adjust padding for better spacing */
 }
 
 .dropdown-item {
   font-size: 16px;
+  padding: 10px 20px; /* Add padding for better spacing */
+  position: relative; /* Required for the underline */
   transition: background-color 0.3s ease;
 }
 
@@ -271,11 +307,14 @@ export default {
   .nav-item.dropdown {
     position: relative; /* Ensures the dropdown menu is positioned relative to this item */
   }
+
   .navbar-nav {
     background-color: #ffffff;
   }
 }
+
 a {
   cursor: pointer;
 }
 </style>
+
