@@ -215,7 +215,7 @@
       "fortuneTypes": {
         "coffee": "Coffee Fortune",
         "palm": "Palm Reading",
-        "taror":"Tarot Fortune"
+        "tarot":"Tarot Fortune"
 
       },
       "header": {
