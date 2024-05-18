@@ -63,6 +63,10 @@ Screenshots of the project:
 
 This project is licensed under the MIT License. For more information, see the `LICENSE` file.
 
+## Website
+
+You can visit the website at [falc-m.vercel.app](https://falc-m.vercel.app).
+
 ## Contact
 
-For any questions or feedback, you can contact me at [email@example.com](mailto:email@example.com).
+For any questions or feedback, you can contact me at [email@hotmail.com](mailto:afnamal@hotmail.com).
