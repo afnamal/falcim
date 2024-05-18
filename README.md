@@ -48,16 +48,16 @@ To run the project locally, follow these steps:
 Screenshots of the project:
 
 ### Homepage
-![Homepage](../screenshots/homepage.png)
+![Homepage](https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Fhomepage.png?alt=media&token=0e49b2ed-ea81-4770-bff3-9fb38a66d893)
 
 ### Coffee Reading
-![Coffee Reading](../screenshots/coffee_fortune.png)
+![Coffee Reading](https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Fcoffee_fortune.png?alt=media&token=f4a59746-2963-4bbc-b609-2ae50945b841)
 
 ### Palm Reading
-![Palm Reading](../screenshots/palm_fortune.png)
+![Palm Reading](https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Fhand_fortune.png?alt=media&token=2ea234d5-9603-49f2-b414-90bf3d70da06)
 
 ### Tarot Reading
-![Tarot Reading](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3uQ0B_hJlpNzSamtfws5mkcQr9Ttbkgq4wWgvTRzhiQ&s)
+![Tarot Reading](https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Ftarot_fortune.png?alt=media&token=3b5c64c9-9416-47cc-901b-516dceb0658e)
 
 ## License
 
