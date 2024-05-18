@@ -69,4 +69,4 @@ You can visit the website at [falc-m.vercel.app](https://falc-m.vercel.app).
 
 ## Contact
 
-For any questions or feedback, you can contact me at [email@hotmail.com](mailto:afnamal@hotmail.com).
+For any questions or feedback, you can contact me at [afnamal@hotmail.com](mailto:afnamal@hotmail.com).
