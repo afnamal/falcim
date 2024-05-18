@@ -180,7 +180,8 @@ h5 {
 @media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
-    align-items: flex-start !important;
+    align-items: flex-start ;
+    margin-left: -10px;
   }
 
   .footer-column {
@@ -198,7 +199,7 @@ h5 {
     padding-left: 8px; /* Add padding to the left to align better */
   }
   .first h5{
-    padding-left: 4px; /* Add padding to the left to align better */
+    padding-left: 3px; /* Add padding to the left to align better */
   }
 }
 
