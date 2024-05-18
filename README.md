@@ -57,7 +57,7 @@ Screenshots of the project:
 ![Palm Reading](../screenshots/palm_fortune.png)
 
 ### Tarot Reading
-![Tarot Reading](../screenshots/tarot_fortune.png)
+![Tarot Reading](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3uQ0B_hJlpNzSamtfws5mkcQr9Ttbkgq4wWgvTRzhiQ&s)
 
 ## License
 
