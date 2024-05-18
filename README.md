@@ -48,16 +48,16 @@ To run the project locally, follow these steps:
 Screenshots of the project:
 
 ### Homepage
-![Homepage](./screenshots/homepage.png)
+![Homepage](../screenshots/homepage.png)
 
 ### Coffee Reading
-![Coffee Reading](./screenshots/coffee_fortune.png)
+![Coffee Reading](../screenshots/coffee_fortune.png)
 
 ### Palm Reading
-![Palm Reading](./screenshots/palm_fortune.png)
+![Palm Reading](../screenshots/palm_fortune.png)
 
 ### Tarot Reading
-![Tarot Reading](./screenshots/tarot_fortune.png)
+![Tarot Reading](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3uQ0B_hJlpNzSamtfws5mkcQr9Ttbkgq4wWgvTRzhiQ&s)
 
 ## License
 
