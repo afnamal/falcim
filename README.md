@@ -48,16 +48,16 @@ To run the project locally, follow these steps:
 Screenshots of the project:
 
 ### Homepage
-![Homepage](https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Fhomepage.png?alt=media&token=0e49b2ed-ea81-4770-bff3-9fb38a66d893)
+<img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Fhomepage.png?alt=media&token=0e49b2ed-ea81-4770-bff3-9fb38a66d893" width="600">
 
 ### Coffee Reading
-![Coffee Reading](https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Fcoffee_fortune.png?alt=media&token=f4a59746-2963-4bbc-b609-2ae50945b841)
+<img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Fcoffee_fortune.png?alt=media&token=f4a59746-2963-4bbc-b609-2ae50945b841" width="600">
 
 ### Palm Reading
-![Palm Reading](https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Fhand_fortune.png?alt=media&token=2ea234d5-9603-49f2-b414-90bf3d70da06)
+<img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Fhand_fortune.png?alt=media&token=2ea234d5-9603-49f2-b414-90bf3d70da06" width="600">
 
 ### Tarot Reading
-![Tarot Reading](https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Ftarot_fortune.png?alt=media&token=3b5c64c9-9416-47cc-901b-516dceb0658e)
+<img src="https://firebasestorage.googleapis.com/v0/b/chat-api-aa04a.appspot.com/o/Screenshots%2Ftarot_fortune.png?alt=media&token=3b5c64c9-9416-47cc-901b-516dceb0658e" width="600">
 
 ## License
 
