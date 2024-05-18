@@ -198,7 +198,7 @@ h5 {
     padding-left: 8px; /* Add padding to the left to align better */
   }
   .first h5{
-    padding-left: 5px; /* Add padding to the left to align better */
+    padding-left: 4px; /* Add padding to the left to align better */
   }
 }
 
