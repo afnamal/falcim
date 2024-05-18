@@ -4,15 +4,15 @@
       <div class="container">
         <div class="footer-content">
           <!-- Section 1: Navigation Links -->
-          <div class="footer-column">
+          <div class="footer-column first">
             <h5>{{ $t('footer.brand') }}</h5>
-            <ul class="list-unstyled" >
-              <li @click="pushHome"><a  class="link-light">{{ $t('footer.links.home') }}</a></li>
-              <li @click="pushLogin('/fal')"><a  class="link-light">{{ $t('footer.links.fortune') }}</a></li>
+            <ul class="list-unstyled">
+              <li @click="pushHome"><a class="link-light">{{ $t('footer.links.home') }}</a></li>
+              <li @click="pushLogin('/fal')"><a class="link-light">{{ $t('footer.links.fortune') }}</a></li>
               <li v-if="!user" @click="pushLogin('/')"><a class="link-light">{{ $t('footer.links.login') }}</a></li>
               <li v-else @click="pushUser"><a class="link-light">{{ $t('footer.links.account') }}</a></li>
-              <li @click="pushHelp"><a  class="link-light">{{ $t('footer.links.help') }}</a></li>
-              <li @click="pushKullanim"><a   class="link-light">{{ $t('footer.links.terms') }}</a></li>
+              <li @click="pushHelp"><a class="link-light">{{ $t('footer.links.help') }}</a></li>
+              <li @click="pushKullanim"><a class="link-light">{{ $t('footer.links.terms') }}</a></li>
             </ul>
           </div>
 
@@ -20,10 +20,18 @@
           <div class="footer-column">
             <h5>{{ $t('footer.globalPresence') }}</h5>
             <div class="column">
-              <a @click="changeLanguage('tr')"  class="badge badge-secondary">{{ $t('languages.turkish') }}</a><br>
-              <a @click="changeLanguage('en')" class="badge badge-secondary">{{ $t('languages.english') }}</a><br>
-              <a @click="changeLanguage('ar')" class="badge badge-secondary">{{ $t('languages.arabic') }}</a><br>
-              <a @click="changeLanguage('gr')" class="badge badge-secondary">{{ $t('languages.greek') }}</a><br>
+              <a @click="changeLanguage('tr')" class="badge badge-secondary">
+                <img src="../assets/tr-flag.png" class="flag-icon" alt="Turkish Flag"/> {{ $t('languages.turkish') }}
+              </a><br>
+              <a @click="changeLanguage('en')" class="badge badge-secondary">
+                <img src="../assets/en-flag.png" class="flag-icon" alt="English Flag"/> {{ $t('languages.english') }}
+              </a><br>
+              <a @click="changeLanguage('ar')" class="badge badge-secondary">
+                <img src="../assets/ar-flag.png" class="flag-icon" alt="Arabic Flag"/> {{ $t('languages.arabic') }}
+              </a><br>
+              <a @click="changeLanguage('gr')" class="badge badge-secondary">
+                <img src="../assets/gr-flag.png" class="flag-icon" alt="Greek Flag"/> {{ $t('languages.greek') }}
+              </a><br>
             </div>
           </div>
 
@@ -51,8 +59,8 @@
 <script>
 import { useRouter } from 'vue-router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useI18n } from 'vue-i18n'; // vue-i18n'den useI18n'ı import edin
-import { ref ,onMounted,onUnmounted} from 'vue';
+import { useI18n } from 'vue-i18n';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 export default {
   setup() {
@@ -60,11 +68,12 @@ export default {
     const auth = getAuth();
     const user = ref(null);
     const isVisible = ref(false);
-    const { locale } = useI18n(); // useI18n hook'undan locale'i alın
+    const { locale } = useI18n();
 
     onAuthStateChanged(auth, (authUser) => {
       user.value = authUser;
     });
+
     const pushLogin = (destination) => {
       if (!user.value) {
         window.sessionStorage.setItem('redirectAfterLogin', destination);
@@ -95,15 +104,17 @@ export default {
       router.push('/');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
+
     const changeLanguage = (lang) => {
-      locale.value = lang; // locale'i güncelleyin
-      
+      locale.value = lang;
     };
+
     const scrollToTop = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
+
     const checkScrollPosition = () => {
-      isVisible.value = window.pageYOffset > 400 ;
+      isVisible.value = window.pageYOffset > 400;
     };
 
     onMounted(() => {
@@ -113,33 +124,57 @@ export default {
     onUnmounted(() => {
       window.removeEventListener('scroll', checkScrollPosition);
     });
-    return{changeLanguage,pushHome,pushUser ,pushKullanim,pushHelp,pushLogin,scrollToTop,isVisible,user}
+
+    return {
+      changeLanguage,
+      pushHome,
+      pushUser,
+      pushKullanim,
+      pushHelp,
+      pushLogin,
+      scrollToTop,
+      isVisible,
+      user,
+    };
   },
-}</script>
+};
+</script>
 
 <style scoped>
 :root {
   --footer-background-color: #343a40;
   --link-color: aliceblue;
 }
+
 .footer-content {
   display: flex;
   justify-content: space-around;
-  align-items: flex-start !important; /* Force alignment */
+  align-items: flex-start !important;
   flex-wrap: wrap;
   padding: 0 30px;
 }
-a{
+
+a {
   cursor: pointer;
 }
-h5{
-  color:rgb(102, 107, 110) ;
+
+h5 {
+  color: rgb(102, 107, 110);
 }
 
 .footer-column {
   flex: 1 1 200px;
   padding: 10px;
-  text-align: left !important; /* Force text alignment */
+  text-align: left !important;
+}
+
+.footer-column ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.footer-column li {
+  margin-bottom: 10px;
 }
 
 @media (max-width: 768px) {
@@ -151,15 +186,25 @@ h5{
   .footer-column {
     text-align: left !important;
     width: 100%;
-    padding-left: 0; /* Sol tarafa boşluk bırakmadan metni hizala */
-    margin-left: -20px; /* Sol kenar boşluğunu kaldır */
+    padding-left: 0;
+    margin-left: 0;
+  }
+  
+  .footer-column li {
+    margin-bottom: 5px;
+  }
+
+  .footer-column li a {
+    padding-left: 8px; /* Add padding to the left to align better */
+  }
+  .first h5{
+    padding-left: 5px; /* Add padding to the left to align better */
   }
 }
 
-
 @media (min-width: 992px) {
   .footer-content {
-    margin-left: 200px; /* Apply margin-left only on screens larger than 992px */
+    margin-left: 200px;
   }
 }
 
@@ -168,10 +213,6 @@ h5{
   color: var(--link-color);
   padding: 20px 0;
 }
-
-
-
-
 
 .link-light, .badge-primary, .badge, .social-badge {
   color: var(--link-color);
@@ -219,5 +260,11 @@ h5{
 
 .back-to-top:focus {
   outline: none;
+}
+
+.flag-icon {
+  width: 20px;
+  height: auto;
+  margin-right: 8px;
 }
 </style>
