@@ -51,8 +51,8 @@ const router = createRouter({
     },
     {
       path: '/fal/kahve',
-      name: 'FalView',
-      component: () => import('../views/FalView.vue'),
+      name: 'CoffeFortune',
+      component: () => import('../views/CoffeeFortune.vue'),
       beforeEnter: (to, from, next) => {
         projectAuth.onAuthStateChanged(user => {
           if (user) {
@@ -79,8 +79,8 @@ const router = createRouter({
     },
     {
       path: '/fal/el',
-      name: 'eltest',
-      component: () => import('../views/ElTest.vue'),
+      name: 'PalmFortune',
+      component: () => import('../views/PalmFortune.vue'),
       beforeEnter: (to, from, next) => {
         projectAuth.onAuthStateChanged(user => {
           if (user) {
