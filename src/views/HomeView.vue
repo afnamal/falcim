@@ -23,15 +23,15 @@
         :modules="[Navigation]"
       >
         <swiper-slide class="feature-item">
-          <img src="https://www.kaavefali.com/bs/img/step_01.png" alt="Feature 1" @click="pushLogin('/fal')" />
+          <img src="https://www.kaavefali.com/bs/img/step_01.png" alt="Feature 1" @click="pushLogin('/fal/kahve')" />
           <p>{{ $t('features.takePhoto') }}</p>
         </swiper-slide>
         <swiper-slide class="feature-item">
-          <img src="https://www.kaavefali.com/bs/img/step_02.png" alt="Feature 2" @click="pushLogin('/fal')" />
+          <img src="https://www.kaavefali.com/bs/img/step_02.png" alt="Feature 2" @click="pushLogin('/fal/kahve')" />
           <p>{{ $t('features.enterInfo') }}</p>
         </swiper-slide>
         <swiper-slide class="feature-item">
-          <img src="../assets/falcilar22.jpg" alt="Feature 3" @click="pushLogin('/fal')" style="border-radius: 30%;" />
+          <img src="../assets/falcilar22.jpg" alt="Feature 3" @click="pushLogin('/fal/kahve')" style="border-radius: 30%;" />
           <p>{{ $t('features.getReading') }}</p>
         </swiper-slide>
       </swiper>
