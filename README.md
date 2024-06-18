@@ -1,3 +1,7 @@
+# Falcım
+
+An innovative fortune-telling website built with Vue.js, using AI to provide coffee, palm, and tarot readings. Available in multiple languages for a global audience.
+
 # Project Name: Falcım
 
 ## About the Project
