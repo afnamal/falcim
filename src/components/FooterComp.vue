@@ -61,6 +61,7 @@ import { useRouter } from 'vue-router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useI18n } from 'vue-i18n';
 import { ref, onMounted, onUnmounted } from 'vue';
+import cookieService from '../services/cookieService'; // Import the cookie service
 
 export default {
   setup() {
@@ -107,6 +108,8 @@ export default {
 
     const changeLanguage = (lang) => {
       locale.value = lang;
+      cookieService.setCookie('language', lang, { sameSite: 'None', secure: true });
+
     };
 
     const scrollToTop = () => {
