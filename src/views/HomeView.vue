@@ -3,7 +3,7 @@
     <!-- Main Header Image with Caption -->
     <header class="header">
       <div class="header-image">
-        <img src="../assets/headerPhoto2.jpg" alt="Header Image">
+        <img src="../assets/headerPhoto2.jpg" alt="Header Image" />
       </div>
       <div class="header-triangle"></div>
       <div class="header-caption">
@@ -23,15 +23,28 @@
         :modules="[Navigation]"
       >
         <swiper-slide class="feature-item">
-          <img src="https://www.kaavefali.com/bs/img/step_01.png" alt="Feature 1" @click="pushLogin('/fal/kahve')" />
+          <img
+            src="../assets/step_01.png"
+            alt="Feature 1"
+            @click="pushLogin('/fal/kahve')"
+          />
           <p>{{ $t('features.takePhoto') }}</p>
         </swiper-slide>
         <swiper-slide class="feature-item">
-          <img src="https://www.kaavefali.com/bs/img/step_02.png" alt="Feature 2" @click="pushLogin('/fal/kahve')" />
+          <img
+            src="../assets/step_02.png"
+            alt="Feature 2"
+            @click="pushLogin('/fal/kahve')"
+          />
           <p>{{ $t('features.enterInfo') }}</p>
         </swiper-slide>
         <swiper-slide class="feature-item">
-          <img src="../assets/falcilar22.jpg" alt="Feature 3" @click="pushLogin('/fal/kahve')" style="border-radius: 30%;" />
+          <img
+            src="../assets/falcilar22.jpg"
+            alt="Feature 3"
+            @click="pushLogin('/fal/kahve')"
+            style="border-radius: 30%"
+          />
           <p>{{ $t('features.getReading') }}</p>
         </swiper-slide>
       </swiper>
@@ -44,7 +57,11 @@
         <div class="row">
           <div class="col-md-6 pushBlog" @click="pushBlog">
             <div class="card mb-4 shadow-sm hover-zoom">
-              <img src="../assets/coffeeBG.jpg" class="card-img-top" alt="coffee">
+              <img
+                src="../assets/coffeeBG.jpg"
+                class="card-img-top"
+                alt="coffee"
+              />
               <div class="card-body">
                 <h5 class="card-title">{{ t('section.title1') }}</h5>
                 <p class="card-text">{{ t('section.p1') }}</p>
@@ -53,7 +70,11 @@
           </div>
           <div class="col-md-6 pushBlog" @click="pushBlog2">
             <div class="card mb-4 shadow-sm hover-zoom">
-              <img src="../assets/coffeeBG2.jpg" class="card-img-top" alt="coffee">
+              <img
+                src="../assets/coffeeBG2.jpg"
+                class="card-img-top"
+                alt="coffee"
+              />
               <div class="card-body">
                 <h5 class="card-title">{{ t('section.title2') }}</h5>
                 <p class="card-text">{{ t('section.p2') }}</p>
@@ -72,7 +93,9 @@
           <div class="col-md-6">
             <div class="card mb-4 shadow-sm stat-card hover-zoom">
               <div class="card-body">
-                <h5 class="card-title">{{ dailyUsersCount + ' ' + t('stats.dailyUsers') }}</h5>
+                <h5 class="card-title">
+                  {{ dailyUsersCount + ' ' + t('stats.dailyUsers') }}
+                </h5>
                 <p class="card-text">{{ $t('stats.dailyUsersDesc') }}</p>
               </div>
             </div>
@@ -80,7 +103,9 @@
           <div class="col-md-6">
             <div class="card mb-4 shadow-sm stat-card hover-zoom">
               <div class="card-body">
-                <h5 class="card-title">{{ totalReadingsCount + ' ' + t('stats.totalReadings') }}</h5>
+                <h5 class="card-title">
+                  {{ totalReadingsCount + ' ' + t('stats.totalReadings') }}
+                </h5>
                 <p class="card-text">{{ $t('stats.totalReadingsDesc') }}</p>
               </div>
             </div>
@@ -114,7 +139,7 @@ export default {
     const user = ref(null);
     const dailyUsersCount = ref(0); // Başlangıç değeri
     const totalReadingsCount = ref(0); // Başlangıç değeri
-    const db= getFirestore()
+    const db = getFirestore();
 
     const documentId = 'S4ikHT99Y5ag3RuygY9k'; // Belgenizin ID'sini burada belirtin
 
@@ -128,7 +153,7 @@ export default {
       const countsRef = doc(db, 'counts', documentId);
       await updateDoc(countsRef, {
         dailyUsers: dailyUsersCount.value,
-        totalReadings: totalReadingsCount.value
+        totalReadings: totalReadingsCount.value,
       });
     };
 
@@ -161,15 +186,14 @@ export default {
       }
     };
     const pushBlog = () => {
-  router.push('/blog');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-    const pushBlog2=()=>{
-      router.push('/blog2')
+      router.push('/blog');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
-    }
+    const pushBlog2 = () => {
+      router.push('/blog2');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     const swiperBreakpoints = {
       768: {
@@ -190,7 +214,7 @@ export default {
       dailyUsersCount,
       totalReadingsCount,
       pushBlog,
-      pushBlog2
+      pushBlog2,
     };
   },
 };
@@ -209,7 +233,12 @@ body {
   line-height: 1.6;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-bottom: 20px;
   color: #333;
 }
@@ -237,7 +266,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-triangle::after {
-  content: "";
+  content: '';
   position: absolute;
   top: -0px;
   left: 50%;
@@ -254,7 +283,8 @@ h1, h2, h3, h4, h5, h6 {
   color: rgb(29, 27, 27);
 }
 
-.header-caption h5, .header-caption h6 {
+.header-caption h5,
+.header-caption h6 {
   margin: 0;
 }
 
@@ -326,7 +356,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Section Cards */
-.pushBlog{
+.pushBlog {
   cursor: pointer;
 }
 .section-cards {
@@ -406,7 +436,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Media Queries */
 @media screen and (max-width: 768px) {
   .swiper-button-next,
-	swiper-button-prev {
+  swiper-button-prev {
     display: block;
   }
 }
